@@ -18,10 +18,6 @@
 	WindowStyle="None"
 	mc:Ignorable="d">
 
-	<Window.Resources>
-		<ResourceDictionary Source="../Styles.xaml" />
-	</Window.Resources>
-
 	<Grid Margin="10">
 		<Border
 			x:Name="InActiveBorder"
@@ -37,6 +33,20 @@
 			</Border.Effect>
 		</Border>
 
+		<Border
+			x:Name="ActiveBorder"
+			Background="{DynamicResource MaterialDesignPaper}"
+			BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+			BorderThickness="1"
+			CornerRadius="3">
+			<Border.Effect>
+				<DropShadowEffect
+					BlurRadius="10"
+					Opacity="0.5"
+					ShadowDepth="0" />
+			</Border.Effect>
+		</Border>
+
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
@@ -44,6 +54,7 @@
 			</Grid.RowDefinitions>
 
 			<Border
+				x:Name="TitleBar"
 				Grid.ColumnSpan="2"
 				Height="26"
 				Margin="0,0,0,0"
@@ -88,19 +99,6 @@
 				Grid.Row="1"
 				Margin="1" />
 		</Grid>
-
-		<Border
-			x:Name="ActiveBorder"
-			BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-			BorderThickness="1"
-			CornerRadius="3">
-			<Border.Effect>
-				<DropShadowEffect
-					BlurRadius="10"
-					Opacity="0.5"
-					ShadowDepth="0" />
-			</Border.Effect>
-		</Border>
 
 		<Thumb
 			Width="16"

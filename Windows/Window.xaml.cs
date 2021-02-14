@@ -14,20 +14,42 @@ namespace XivToolsWpf.Windows
 	/// </summary>
 	public partial class StyledWindow : Window
 	{
-		public bool UseCustomBorder { get; set; } = true;
+		private bool overlapTitleBar;
 
-		public StyledWindow()
+		private StyledWindow(UserControl content)
 		{
 			this.DataContext = this;
 			this.InitializeComponent();
+
+			content.DataContext = content;
+			this.Content = content;
+			this.ContentArea.Content = content;
+		}
+
+		public new UserControl Content { get; set; }
+
+		public bool UseCustomBorder { get; set; } = true;
+
+		public bool OverlapTitleBar
+		{
+			get
+			{
+				return this.overlapTitleBar;
+			}
+			set
+			{
+				this.overlapTitleBar = value;
+				Thickness margin = this.ContentArea.Margin;
+				margin.Top = -this.TitleBar.Height;
+				this.ContentArea.Margin = margin;
+			}
 		}
 
 		public static StyledWindow Create<T>()
 			where T : UserControl
 		{
-			StyledWindow window = new StyledWindow();
-			window.ContentArea.Content = Activator.CreateInstance<T>();
-			return window;
+			UserControl content = Activator.CreateInstance<T>();
+			return new StyledWindow(content);
 		}
 
 		public static StyledWindow Show<T>()
