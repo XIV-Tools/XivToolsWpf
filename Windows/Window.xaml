@@ -1,0 +1,114 @@
+﻿<Window
+	x:Class="XivToolsWpf.Windows.StyledWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+	xmlns:local="clr-namespace:XivToolsWpf.Windows"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Title="Window"
+	Width="800"
+	Height="450"
+	Activated="OnWindowActivated"
+	AllowsTransparency="True"
+	Background="Transparent"
+	Deactivated="OnWindowDeactivated"
+	TextBlock.FontSize="12"
+	TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+	WindowStyle="None"
+	mc:Ignorable="d">
+
+	<Window.Resources>
+		<ResourceDictionary Source="../Styles.xaml" />
+	</Window.Resources>
+
+	<Grid Margin="10">
+		<Border
+			x:Name="InActiveBorder"
+			Background="{DynamicResource MaterialDesignPaper}"
+			BorderBrush="#50000000"
+			BorderThickness="1"
+			CornerRadius="3">
+			<Border.Effect>
+				<DropShadowEffect
+					BlurRadius="10"
+					Opacity="0.75"
+					ShadowDepth="0" />
+			</Border.Effect>
+		</Border>
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<Border
+				Grid.ColumnSpan="2"
+				Height="26"
+				Margin="0,0,0,0"
+				VerticalAlignment="Top"
+				Background="Transparent"
+				CornerRadius="2, 2, 0, 0"
+				MouseDown="OnTitleBarMouseDown"
+				Visibility="{Binding UseCustomBorder, Converter={StaticResource B2V}}">
+				<Grid>
+					<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+
+						<Button
+							Width="28"
+							Margin="3"
+							BorderThickness="0"
+							Click="OnMinimiseClick"
+							Style="{StaticResource TransparentButton}">
+							<fa:IconBlock
+								FontSize="12"
+								Icon="WindowMinimize"
+								Opacity="0.5" />
+						</Button>
+
+						<Button
+							Width="28"
+							Margin="3"
+							BorderThickness="0"
+							Click="OnCloseClick"
+							Style="{StaticResource TransparentButton}">
+							<fa:IconBlock
+								FontSize="12"
+								Icon="Times"
+								Opacity="0.5" />
+						</Button>
+
+					</StackPanel>
+				</Grid>
+			</Border>
+
+			<ContentPresenter
+				x:Name="ContentArea"
+				Grid.Row="1"
+				Margin="1" />
+		</Grid>
+
+		<Border
+			x:Name="ActiveBorder"
+			BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+			BorderThickness="1"
+			CornerRadius="3">
+			<Border.Effect>
+				<DropShadowEffect
+					BlurRadius="10"
+					Opacity="0.5"
+					ShadowDepth="0" />
+			</Border.Effect>
+		</Border>
+
+		<Thumb
+			Width="16"
+			Height="16"
+			Margin="0,0,-4,-4"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Cursor="SizeNWSE"
+			DragDelta="OnResizeDrag" />
+	</Grid>
+</Window>
