@@ -43,17 +43,17 @@ namespace XivToolsWpf.ModelView
 			set => this.propertyStore.IsPropertyChangedCallbackInvokingEnabled = value;
 		}
 
-		protected object? GetValue([CallerMemberName] string propertyName = null)
+		protected T GetValue<T>([CallerMemberName] string? propertyName = null)
 		{
-			return this.propertyStore.GetValue(propertyName);
+			return this.propertyStore.GetValue<T>(propertyName);
 		}
 
-		protected void ForceSetValue(object value, [CallerMemberName] string propertyName = null)
+		protected void ForceSetValue(object? value, [CallerMemberName] string propertyName = null)
 		{
 			this.propertyStore.ForceSetValue(value, propertyName);
 		}
 
-		protected void SetValue(object value, [CallerMemberName] string propertyName = null)
+		protected void SetValue(object? value, [CallerMemberName] string propertyName = null)
 		{
 			this.propertyStore.SetValue(value, propertyName);
 		}

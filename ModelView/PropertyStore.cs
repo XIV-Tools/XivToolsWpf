@@ -182,9 +182,10 @@ namespace XivToolsWpf.ModelView
 		///         Actual instance does not contain registered property with the specified name.
 		///     </para>
 		/// </exception>
-		public object? GetValue(string? propertyName = null)
+		public T GetValue<T>(string? propertyName)
 		{
-			return this.GetPropertyData(propertyName, nameof(propertyName)).Value;
+			object? obj = this.GetPropertyData(propertyName, nameof(propertyName)).Value;
+			return (T)obj!;
 		}
 
 		/// <summary>
@@ -205,7 +206,7 @@ namespace XivToolsWpf.ModelView
 		///         Actual instance does not contain registered property with the specified name.
 		///     </para>
 		/// </exception>
-		public void ForceSetValue(object value, [CallerMemberName] string propertyName = null)
+		public void ForceSetValue(object? value, [CallerMemberName] string propertyName = null)
 		{
 			this.SetValue(value, propertyName, true);
 		}
@@ -228,7 +229,7 @@ namespace XivToolsWpf.ModelView
 		///         Actual instance does not contain registered property with the specified name.
 		///     </para>
 		/// </exception>
-		public void SetValue(object value, [CallerMemberName] string propertyName = null)
+		public void SetValue(object? value, [CallerMemberName] string propertyName = null)
 		{
 			this.SetValue(value, propertyName, false);
 		}
@@ -260,7 +261,7 @@ namespace XivToolsWpf.ModelView
 			}
 		}
 
-		private void SetValue(object value, string propertyName, bool forceSetValue)
+		private void SetValue(object? value, string propertyName, bool forceSetValue)
 		{
 			PropertyData propertyData = this.GetPropertyData(propertyName, nameof(propertyName));
 			this.ValidateValueForType(value, propertyData.Type);
