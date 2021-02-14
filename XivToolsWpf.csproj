@@ -1,0 +1,99 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net5.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<AppendTargetFramework>False</AppendTargetFramework>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	<Nullable>enable</Nullable>
+	<DocumentationFile>..\obj\XIVToolsWpf.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="FontAwesome.Sharp" Version="5.15.3" />
+	<PackageReference Include="MaterialDesignColors" Version="2.0.0" />
+	<PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	<PackageReference Include="Serilog" Version="2.10.0" />
+	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Compile Update="Controls\Header.xaml.cs">
+	  <DependentUpon>Header.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Controls\IconButton.xaml.cs">
+	  <DependentUpon>IconButton.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Controls\NumberBox.xaml.cs">
+	  <DependentUpon>NumberBox.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Controls\RenameTextBox.xaml.cs">
+	  <DependentUpon>RenameTextBox.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Controls\TextBlock.xaml.cs">
+	  <DependentUpon>TextBlock.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Selectors\GenericSelector.xaml.cs">
+	  <DependentUpon>GenericSelector.xaml</DependentUpon>
+	</Compile>
+	<Compile Update="Selectors\Selector.xaml.cs">
+	  <DependentUpon>Selector.xaml</DependentUpon>
+	</Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Page Update="Styles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\ButtonStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Controls\Header.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Controls\IconButton.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Controls\NumberBox.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Controls\RenameTextBox.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Controls\TextBlock.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Selectors\GenericSelector.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Selectors\Selector.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\ExpanderStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\GroupBoxStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\MarkdownStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\TabControlStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\TextBlockStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\TextBoxStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+	<Page Update="Styles\ToggleButtonStyles.xaml">
+	  <SubType>Designer</SubType>
+	</Page>
+  </ItemGroup>
+
+</Project>

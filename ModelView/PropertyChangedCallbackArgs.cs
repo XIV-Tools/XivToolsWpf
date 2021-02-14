@@ -25,7 +25,7 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
-namespace Wpf.Mv
+namespace XivToolsWpf.ModelView
 {
 	using System;
 	using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace Wpf.Mv
 		/// </summary>
 		/// <param name="oldValue">Previous value of the changed property.</param>
 		/// <param name="newValue">Current value of the changed property.</param>
-		public PropertyChangedCallbackArgs(object oldValue, object newValue)
+		public PropertyChangedCallbackArgs(object? oldValue, object? newValue)
 		{
 			this.Handled = false;
 			this.OldValue = oldValue;
@@ -57,11 +57,11 @@ namespace Wpf.Mv
 		/// <summary>
 		/// Gets the previous value of the changed property.
 		/// </summary>
-		public object OldValue { get; }
+		public object? OldValue { get; }
 
 		/// <summary>
 		/// Gets the current value of the changed property.
 		/// </summary>
-		public object NewValue { get; }
+		public object? NewValue { get; }
 	}
 }

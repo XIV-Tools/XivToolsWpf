@@ -25,8 +25,7 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
-
-namespace Wpf.Mv
+namespace XivToolsWpf.ModelView
 {
 	using System;
 	using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace Wpf.Mv
 			this.IsPropertyChangedEventInvokingEnabled = true;
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the <see cref="PropertyChanged"/> event should be invoked
@@ -88,7 +87,7 @@ namespace Wpf.Mv
 		///     </para>
 		/// </exception>
 		/// <exception cref="ArgumentNullException">Parameter <paramref name="type"/> is <c>null</c>.</exception>
-		public void RegisterProperty(string name, Type type, object defaultValue)
+		public void RegisterProperty(string name, Type type, object? defaultValue)
 		{
 			this.RegisterProperty(name, type, defaultValue, null);
 		}
@@ -112,7 +111,7 @@ namespace Wpf.Mv
 		///     </para>
 		/// </exception>
 		/// <exception cref="ArgumentNullException">Parameter <paramref name="type"/> is <c>null</c>.</exception>
-		public void RegisterProperty(string name, Type type, object defaultValue, PropertyChangedCallbackHandler propertyChangedCallback)
+		public void RegisterProperty(string name, Type type, object? defaultValue, PropertyChangedCallbackHandler? propertyChangedCallback)
 		{
 			ValidateStringNotNullOrWhiteSpace(name, nameof(name));
 			ValidateObjectNotNull(type, nameof(type));
@@ -183,7 +182,7 @@ namespace Wpf.Mv
 		///         Actual instance does not contain registered property with the specified name.
 		///     </para>
 		/// </exception>
-		public object GetValue(string propertyName = null)
+		public object? GetValue(string? propertyName = null)
 		{
 			return this.GetPropertyData(propertyName, nameof(propertyName)).Value;
 		}
@@ -253,7 +252,7 @@ namespace Wpf.Mv
 			}
 		}
 
-		private static void ValidateStringNotNullOrWhiteSpace(string str, string parameterName)
+		private static void ValidateStringNotNullOrWhiteSpace(string? str, string parameterName)
 		{
 			if (string.IsNullOrWhiteSpace(str))
 			{
@@ -271,7 +270,7 @@ namespace Wpf.Mv
 
 			if (forceSetValue || (valuesEqual == null && value is object) || valuesEqual == false)
 			{
-				object oldValue = propertyData.Value;
+				object? oldValue = propertyData.Value;
 				propertyData.Value = value;
 
 				if (this.IsPropertyChangedCallbackInvokingEnabled)
@@ -286,7 +285,7 @@ namespace Wpf.Mv
 			}
 		}
 
-		private void ValidateValueForType(object value, Type type)
+		private void ValidateValueForType(object? value, Type type)
 		{
 			if (value == null)
 			{
@@ -304,9 +303,10 @@ namespace Wpf.Mv
 			}
 		}
 
-		private PropertyData GetPropertyData(string propertyName, string propertyNameParameterName)
+		private PropertyData GetPropertyData(string? propertyName, string propertyNameParameterName)
 		{
-			ValidateStringNotNullOrWhiteSpace(propertyName, propertyNameParameterName);
+			if (string.IsNullOrWhiteSpace(propertyName))
+				throw new ArgumentException("Value cannot be white space or null.", propertyNameParameterName);
 
 			try
 			{
@@ -320,7 +320,7 @@ namespace Wpf.Mv
 
 		private class PropertyData
 		{
-			internal PropertyData(object defaultValue, Type type, PropertyChangedCallbackHandler propertyChangedCallback)
+			internal PropertyData(object? defaultValue, Type type, PropertyChangedCallbackHandler? propertyChangedCallback)
 			{
 				this.Value = defaultValue;
 				this.Type = type;
@@ -328,9 +328,9 @@ namespace Wpf.Mv
 				this.PropertyChangedCallback += propertyChangedCallback;
 			}
 
-			internal event PropertyChangedCallbackHandler PropertyChangedCallback;
+			internal event PropertyChangedCallbackHandler? PropertyChangedCallback;
 
-			internal object Value { get; set; }
+			internal object? Value { get; set; }
 			internal Type Type { get; }
 
 			internal void InvokePropertyChangedCallback(object sender, PropertyChangedCallbackArgs e)

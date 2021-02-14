@@ -1,28 +1,26 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace Wpf.Mv
+namespace XivToolsWpf.ModelView
 {
 	using System;
 	using System.ComponentModel;
 	using System.Reflection;
 	using System.Runtime.CompilerServices;
-	using System.Windows.Controls;
 
-	public class View : UserControl, INotifyPropertyChanged
+	public abstract class Bindable : INotifyPropertyChanged
 	{
 		private readonly PropertyStore propertyStore;
 
-		protected View()
+		protected Bindable()
 		{
-			this.DataContext = this;
 			this.propertyStore = new PropertyStore();
-			this.propertyStore.PropertyChanged += this.OnPropertyStorePropertyChanged;
+			this.propertyStore.PropertyChanged += this.RaisePropertyChanged;
 
 			PropertyInfo[] properties = this.GetType().GetProperties();
 			foreach (PropertyInfo property in properties)
 			{
-				object defaultValue = null;
+				object? defaultValue = null;
 
 				if (property.PropertyType.IsValueType)
 					defaultValue = Activator.CreateInstance(property.PropertyType);
@@ -31,7 +29,7 @@ namespace Wpf.Mv
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		protected bool IsPropertyChangedEventInvokingEnabled
 		{
@@ -45,7 +43,7 @@ namespace Wpf.Mv
 			set => this.propertyStore.IsPropertyChangedCallbackInvokingEnabled = value;
 		}
 
-		protected object GetValue([CallerMemberName] string propertyName = null)
+		protected object? GetValue([CallerMemberName] string propertyName = null)
 		{
 			return this.propertyStore.GetValue(propertyName);
 		}
@@ -60,7 +58,12 @@ namespace Wpf.Mv
 			this.propertyStore.SetValue(value, propertyName);
 		}
 
-		private void OnPropertyStorePropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected void RaisePropertyChanged(object? sender, PropertyChangedEventArgs e)
+		{
+			this.PropertyChanged?.Invoke(this, e);
+		}
+
+		protected void RaisePropertyChanged(PropertyChangedEventArgs e)
 		{
 			this.PropertyChanged?.Invoke(this, e);
 		}

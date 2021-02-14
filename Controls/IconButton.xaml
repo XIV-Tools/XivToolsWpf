@@ -1,0 +1,43 @@
+﻿<modelview:View
+	x:Class="XivToolsWpf.Controls.IconButton"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+	xmlns:local="clr-namespace:XivToolsWpf.Controls"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:modelview="clr-namespace:XivToolsWpf.ModelView"
+	d:DesignWidth="128"
+	mc:Ignorable="d">
+
+	<Button
+		x:Name="ContentArea"
+		Padding="0"
+		HorizontalContentAlignment="Stretch"
+		Click="OnClick">
+		<Grid Margin="6,0,6,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+
+			<fa:IconBlock
+				Grid.Column="0"
+				Margin="3,0,3,0"
+				VerticalAlignment="Center"
+				FontFamily="/FontAwesome.Sharp;component/fonts/#Font Awesome 5 Free Solid"
+				Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+				Icon="{Binding Icon, FallbackValue=Upload}" />
+			<local:TextBlock
+				Key="{Binding Key}"
+				Grid.Column="1"
+				Margin="6,0,6,0"
+				VerticalAlignment="Center"
+				FontWeight="Light"
+				Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+				Text="{Binding Text, FallbackValue=Button}"
+				Visibility="{Binding Text, Converter={StaticResource NotNullToVisibilityConverter}}" />
+		</Grid>
+
+	</Button>
+</modelview:View>
