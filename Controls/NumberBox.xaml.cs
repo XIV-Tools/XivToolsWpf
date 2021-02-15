@@ -6,13 +6,11 @@ namespace XivToolsWpf.Controls
 	using System;
 	using System.ComponentModel;
 	using System.Data;
-	using System.Drawing;
 	using System.Threading.Tasks;
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Input;
 	using XivToolsWpf.DependencyProperties;
-	using XivToolsWpf.ModelView;
 
 	using DrawPoint = System.Drawing.Point;
 	using WinCur = System.Windows.Forms.Cursor;
@@ -21,7 +19,7 @@ namespace XivToolsWpf.Controls
 	/// <summary>
 	/// Interaction logic for NumberBox.xaml.
 	/// </summary>
-	public partial class NumberBox : View
+	public partial class NumberBox : UserControl, INotifyPropertyChanged
 	{
 		public static readonly IBind<double> ValueDp = Binder.Register<double, NumberBox>(nameof(Value), OnValueChanged);
 		public static readonly IBind<double> TickDp = Binder.Register<double, NumberBox>(nameof(TickFrequency), OnTickChanged, BindMode.OneWay);
@@ -31,6 +29,7 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<double> MaxDp = Binder.Register<double, NumberBox>(nameof(Maximum), OnMaximumChanged, BindMode.OneWay);
 		public static readonly IBind<bool> WrapDp = Binder.Register<bool, NumberBox>(nameof(Wrap), BindMode.OneWay);
 		public static readonly IBind<double> OffsetDp = Binder.Register<double, NumberBox>(nameof(ValueOffset), BindMode.OneWay);
+		public static readonly IBind<string> HintDp = Binder.Register<string, NumberBox>(nameof(Hint), BindMode.OneWay);
 
 		private string? inputString;
 		private Key keyHeld = Key.None;
@@ -50,6 +49,8 @@ namespace XivToolsWpf.Controls
 
 			this.ContentArea.DataContext = this;
 		}
+
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public enum SliderModes
 		{
@@ -104,6 +105,12 @@ namespace XivToolsWpf.Controls
 		{
 			get => ValueDp.Get(this);
 			set => ValueDp.Set(this, value);
+		}
+
+		public string Hint
+		{
+			get => HintDp.Get(this);
+			set => HintDp.Set(this, value);
 		}
 
 		public double DisplayValue
@@ -248,7 +255,7 @@ namespace XivToolsWpf.Controls
 
 		private static void OnValueChanged(NumberBox sender, double v)
 		{
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
 			////sender.DisplayValue = sender.Validate(v) + sender.ValueOffset;
 
 			if (sender.InputBox.IsFocused)
@@ -264,9 +271,9 @@ namespace XivToolsWpf.Controls
 			sender.SliderArea.Width = v ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
 			sender.InputBoxArea.Width = v ? new GridLength(42) : new GridLength(1, GridUnitType.Star);
 
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
 		}
 
 		private static void OnButtonsChanged(NumberBox sender, bool v)
@@ -276,19 +283,19 @@ namespace XivToolsWpf.Controls
 
 		private static void OnMinimumChanged(NumberBox sender, double value)
 		{
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
 		}
 
 		private static void OnMaximumChanged(NumberBox sender, double value)
 		{
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
 		}
 
 		private static void OnTickChanged(NumberBox sender, double tick)
 		{
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
-			sender.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
+			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
 		}
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e)

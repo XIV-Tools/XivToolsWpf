@@ -15,6 +15,9 @@
 	<PackageReference Include="MaterialDesignColors" Version="2.0.0" />
 	<PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	<PackageReference Include="PropertyChanged.Fody" Version="3.3.1">
+	  <PrivateAssets>all</PrivateAssets>
+	</PackageReference>
 	<PackageReference Include="Serilog" Version="2.10.0" />
 	<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 	  <PrivateAssets>all</PrivateAssets>
@@ -31,9 +34,6 @@
 	</Compile>
 	<Compile Update="Controls\NumberBox.xaml.cs">
 	  <DependentUpon>NumberBox.xaml</DependentUpon>
-	</Compile>
-	<Compile Update="Controls\RenameTextBox.xaml.cs">
-	  <DependentUpon>RenameTextBox.xaml</DependentUpon>
 	</Compile>
 	<Compile Update="Controls\TextBlock.xaml.cs">
 	  <DependentUpon>TextBlock.xaml</DependentUpon>
@@ -60,9 +60,6 @@
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Controls\NumberBox.xaml">
-	  <SubType>Designer</SubType>
-	</Page>
-	<Page Update="Controls\RenameTextBox.xaml">
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Controls\TextBlock.xaml">

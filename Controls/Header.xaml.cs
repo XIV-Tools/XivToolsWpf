@@ -6,12 +6,11 @@ namespace XivToolsWpf.Controls
 	using System.Windows.Controls;
 	using FontAwesome.Sharp;
 	using XivToolsWpf.DependencyProperties;
-	using XivToolsWpf.ModelView;
 
 	/// <summary>
 	/// Interaction logic for Panel.xaml.
 	/// </summary>
-	public partial class Header : View
+	public partial class Header : UserControl
 	{
 		public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, Header>(nameof(Icon));
 		public static readonly IBind<string> TextDp = Binder.Register<string, Header>(nameof(Text));

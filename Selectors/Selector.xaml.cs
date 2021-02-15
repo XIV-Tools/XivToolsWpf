@@ -14,12 +14,11 @@ namespace XivToolsWpf.Selectors
 	using System.Windows.Controls;
 	using System.Windows.Input;
 	using Serilog;
-	using XivToolsWpf.ModelView;
 
 	/// <summary>
 	/// Interaction logic for SelectorDrawer.xaml.
 	/// </summary>
-	public partial class Selector : View, ISelector
+	public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 	{
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(object), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
 		public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
@@ -47,6 +46,7 @@ namespace XivToolsWpf.Selectors
 
 		public event FilterEvent? Filter;
 		public event SelectorSelectedEvent? SelectionChanged;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public ObservableCollection<object> FilteredItems { get; set; } = new ObservableCollection<object>();
 
@@ -153,7 +153,7 @@ namespace XivToolsWpf.Selectors
 		{
 			if (sender is Selector view)
 			{
-				view.RaisePropertyChanged(new PropertyChangedEventArgs(e.Property.Name));
+				view.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(e.Property.Name));
 			}
 		}
 
@@ -295,7 +295,7 @@ namespace XivToolsWpf.Selectors
 					this.FilteredItems.Add(obj.Item);
 				}
 
-				this.RaisePropertyChanged(new PropertyChangedEventArgs(nameof(this.FilteredItems)));
+				this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.FilteredItems)));
 			});
 
 			this.idle = true;

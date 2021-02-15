@@ -8,12 +8,11 @@ namespace XivToolsWpf.Controls
 	using System.Windows.Controls;
 	using FontAwesome.Sharp;
 	using XivToolsWpf.DependencyProperties;
-	using XivToolsWpf.ModelView;
 
 	/// <summary>
 	/// Interaction logic for IconButton.xaml.
 	/// </summary>
-	public partial class IconButton : View
+	public partial class IconButton : UserControl, INotifyPropertyChanged
 	{
 		public static readonly IBind<string> KeyDp = Binder.Register<string, IconButton>(nameof(Key), OnKeyChanged);
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(IconButton), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnChanged)));
@@ -26,6 +25,8 @@ namespace XivToolsWpf.Controls
 
 			this.ContentArea.DataContext = this;
 		}
+
+		public event PropertyChangedEventHandler? PropertyChanged;
 
 		public event RoutedEventHandler Click
 		{
@@ -76,7 +77,7 @@ namespace XivToolsWpf.Controls
 		{
 			if (sender is IconButton target)
 			{
-				target.RaisePropertyChanged(new PropertyChangedEventArgs(e.Property.Name));
+				target.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(e.Property.Name));
 			}
 		}
 
