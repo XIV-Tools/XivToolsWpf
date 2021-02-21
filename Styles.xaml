@@ -107,6 +107,7 @@
 	<converters:RadiansToDegreesConverter x:Key="Rad2Deg" />
 	<converters:NotZeroToVisibilityConverter x:Key="NotZeroToVisibility" />
 	<converters:BoolInversionConverter x:Key="!B" />
+	<converters:ListToStringConverter x:Key="ListToStringConverter" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />
