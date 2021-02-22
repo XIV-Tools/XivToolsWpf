@@ -45,7 +45,7 @@
 			md:HintAssist.Hint="{Binding Hint}"
 			LostFocus="OnLostFocus"
 			LostKeyboardFocus="OnLostFocus"
-			Style="{StaticResource MaterialDesignFilledTextBox}"
+			Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 			Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}" />
 
 		<Line
