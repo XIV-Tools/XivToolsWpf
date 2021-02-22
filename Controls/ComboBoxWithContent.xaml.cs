@@ -60,7 +60,7 @@ namespace XivToolsWpf.Controls
 			set => HintDp.Set(this, value);
 		}
 
-		public FrameworkElement? SelectedContent{ get; set; }
+		public FrameworkElement? SelectedContent { get; set; }
 
 		private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
