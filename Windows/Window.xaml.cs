@@ -16,7 +16,7 @@ namespace XivToolsWpf.Windows
 	{
 		private bool overlapTitleBar;
 
-		private StyledWindow(UserControl content)
+		public StyledWindow(UserControl content)
 		{
 			this.DataContext = this;
 			this.InitializeComponent();

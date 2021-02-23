@@ -47,6 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
+	<Page Update="Dialogs\ErrorDialog.xaml">
+	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+	</Page>
 	<Page Update="Styles.xaml">
 	  <SubType>Designer</SubType>
 	</Page>

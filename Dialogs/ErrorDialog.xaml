@@ -1,0 +1,79 @@
+﻿<UserControl
+	x:Class="XivToolsWpf.Dialogs.ErrorDialog"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Width="650"
+	mc:Ignorable="d">
+
+	<Grid x:Name="ContentArea">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Margin="8,0,0,0">
+			<TextBlock
+				x:Name="Message"
+				FontSize="18"
+				Text="Critical Error"
+				TextWrapping="Wrap" />
+			<TextBlock
+				x:Name="Subtitle"
+				FontSize="14"
+				Text="XIV Mod Loader was unable to recover from this error, and must close."
+				TextWrapping="Wrap" />
+		</StackPanel>
+
+		<Expander
+			x:Name="DetailsExpander"
+			Grid.Row="1"
+			Margin="0,10,0,0"
+			Padding="0"
+			VerticalAlignment="Stretch"
+			VerticalContentAlignment="Stretch"
+			Foreground="{DynamicResource MaterialDesignBody}"
+			Header="Details">
+
+			<ScrollViewer
+				Grid.Row="1"
+				MaxHeight="256"
+				VerticalAlignment="Stretch"
+				HorizontalScrollBarVisibility="Auto"
+				Style="{DynamicResource MetroScrollViewer}">
+
+				<TextBlock
+					x:Name="StackTraceBlock"
+					Margin="10"
+					Foreground="{DynamicResource MaterialDesignBody}"
+					TextWrapping="NoWrap" />
+			</ScrollViewer>
+		</Expander>
+
+		<Grid Grid.Row="2" Margin="0,3,0,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<Button
+				x:Name="QuitButton"
+				Grid.Column="1"
+				Width="75"
+				Margin="3"
+				Background="#DD2020"
+				BorderBrush="#CC1010"
+				Click="OnQuitClick"
+				Content="Quit" />
+			<Button
+				x:Name="OkButton"
+				Grid.Column="1"
+				Width="75"
+				Margin="3"
+				Click="OnOkClick"
+				Content="OK" />
+		</Grid>
+	</Grid>
+</UserControl>
