@@ -53,7 +53,7 @@
 		<ResourceDictionary Source="Styles/TabControlStyles.xaml" />
 		<ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
-
+		<ResourceDictionary Source="Styles/MenuStyles.xaml" />
 		<ResourceDictionary Source="Styles/MarkdownStyles.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
