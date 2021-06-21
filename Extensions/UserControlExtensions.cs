@@ -1,4 +1,5 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace System.Windows.Controls

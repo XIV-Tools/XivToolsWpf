@@ -1,12 +1,13 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
 {
 	using System.ComponentModel;
 	using System.Windows;
+	using XivToolsWpf.DependencyInjection;
 	using XivToolsWpf.DependencyProperties;
-	using XivToolsWpf.Services;
 
 	/// <summary>
 	/// Interaction logic for Label.xaml.
@@ -15,11 +16,14 @@ namespace XivToolsWpf.Controls
 	{
 		public static readonly IBind<string> KeyDp = Binder.Register<string, TextBlock>(nameof(Key), OnKeyChanged, BindMode.OneWay);
 		public static readonly IBind<string?> ValueDp = Binder.Register<string?, TextBlock>(nameof(Value), OnValueChanged, BindMode.OneWay);
+		public static readonly IBind<bool> AllLanguagesDp = Binder.Register<bool, TextBlock>(nameof(AllLanguages), BindMode.OneWay);
+
+		private static readonly ILocaleProvider LocaleProvider = DependencyFactory.GetDependency<ILocaleProvider>();
 
 		public TextBlock()
 		{
 			this.Loaded += this.TextBlock_Loaded;
-			LocalizationService.LocaleChanged += this.OnLocaleChanged;
+			LocaleProvider.LocaleChanged += this.OnLocaleChanged;
 		}
 
 		public string? Key { get; set; }
@@ -30,9 +34,19 @@ namespace XivToolsWpf.Controls
 			set => ValueDp.Set(this, value);
 		}
 
+		public bool AllLanguages
+		{
+			get => AllLanguagesDp.Get(this);
+			set => AllLanguagesDp.Set(this, value);
+		}
+
 		public static void OnKeyChanged(TextBlock sender, string val)
 		{
 			sender.Key = val;
+
+			if (!LocaleProvider.Loaded)
+				return;
+
 			sender.LoadString();
 		}
 
@@ -43,6 +57,9 @@ namespace XivToolsWpf.Controls
 
 		private void TextBlock_Loaded(object sender, RoutedEventArgs e)
 		{
+			if (!LocaleProvider.Loaded)
+				return;
+
 			this.LoadString();
 		}
 
@@ -62,11 +79,18 @@ namespace XivToolsWpf.Controls
 			{
 				if (this.Value == null)
 				{
-					val = LocalizationService.GetString(this.Key);
+					if (this.AllLanguages)
+					{
+						val = LocaleProvider.GetStringAllLanguages(this.Key);
+					}
+					else
+					{
+						val = LocaleProvider.GetString(this.Key);
+					}
 				}
 				else
 				{
-					val = LocalizationService.GetStringFormatted(this.Key, this.Value);
+					val = LocaleProvider.GetStringFormatted(this.Key, this.Value);
 				}
 			}
 

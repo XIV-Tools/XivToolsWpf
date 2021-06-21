@@ -1,4 +1,5 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
@@ -6,17 +7,19 @@ namespace XivToolsWpf.Controls
 	using System.ComponentModel;
 	using System.Windows;
 	using System.Windows.Controls;
-	using FontAwesome.Sharp;
+	using System.Windows.Media;
 	using XivToolsWpf.DependencyProperties;
+	using FontAwesome.Sharp;
+	using PropertyChanged;
 
 	/// <summary>
 	/// Interaction logic for IconButton.xaml.
 	/// </summary>
-	public partial class IconButton : UserControl, INotifyPropertyChanged
+	[AddINotifyPropertyChangedInterface]
+	public partial class IconButton : UserControl
 	{
-		public static readonly IBind<string> KeyDp = Binder.Register<string, IconButton>(nameof(Key), OnKeyChanged);
-		public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(IconButton), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnChanged)));
-		public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(IconChar), typeof(IconButton), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnChanged)));
+		public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, IconButton>(nameof(Icon));
+
 		public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(IconButton));
 
 		public IconButton()
@@ -26,59 +29,28 @@ namespace XivToolsWpf.Controls
 			this.ContentArea.DataContext = this;
 		}
 
-		public event PropertyChangedEventHandler? PropertyChanged;
-
 		public event RoutedEventHandler Click
 		{
-			add
-			{
-				this.AddHandler(ClickEvent, value);
-			}
-
-			remove
-			{
-				this.RemoveHandler(ClickEvent, value);
-			}
+			add => this.AddHandler(ClickEvent, value);
+			remove => this.RemoveHandler(ClickEvent, value);
 		}
 
-		public string? Key { get; set; }
-
-		public string Text
+		public string? Key
 		{
-			get
-			{
-				return (string)this.GetValue(TextProperty);
-			}
+			get => this.TextBlock.Key;
+			set => this.TextBlock.Key = value;
+		}
 
-			set
-			{
-				this.SetValue(TextProperty, value);
-			}
+		public string? Text
+		{
+			get => this.TextBlock.Text;
+			set => this.TextBlock.Text = value;
 		}
 
 		public IconChar Icon
 		{
-			get
-			{
-				return (IconChar)this.GetValue(IconProperty);
-			}
-			set
-			{
-				this.SetValue(IconProperty, value);
-			}
-		}
-
-		public static void OnKeyChanged(IconButton sender, string val)
-		{
-			sender.Key = val;
-		}
-
-		private static void OnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-		{
-			if (sender is IconButton target)
-			{
-				target.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(e.Property.Name));
-			}
+			get => IconDp.Get(this);
+			set => IconDp.Set(this, value);
 		}
 
 		private void OnClick(object sender, RoutedEventArgs e)

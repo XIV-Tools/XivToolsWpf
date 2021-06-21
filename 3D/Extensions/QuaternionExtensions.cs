@@ -1,11 +1,12 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace System.Windows.Media.Media3D
 {
 	public static class QuaternionExtensions
 	{
-		private static double rad2Deg = 360 / (Math.PI * 2);
+		private static readonly double Rad2Deg = 360 / (Math.PI * 2);
 
 		/// <summary>
 		/// Converts quaternion to euler angles.
@@ -23,7 +24,7 @@ namespace System.Windows.Media.Media3D
 				v.Y = 2f * Math.Atan2(q1.X, q1.Y);
 				v.X = Math.PI / 2;
 				v.Z = 0;
-				return NormalizeAngles(v * rad2Deg);
+				return NormalizeAngles(v * Rad2Deg);
 			}
 
 			if (test < -0.4995f)
@@ -31,7 +32,7 @@ namespace System.Windows.Media.Media3D
 				v.Y = -2f * Math.Atan2(q1.X, q1.W);
 				v.X = -Math.PI / 2;
 				v.Z = 0;
-				return NormalizeAngles(v * rad2Deg);
+				return NormalizeAngles(v * Rad2Deg);
 			}
 
 			double sqx = q1.X * q1.X;
@@ -42,7 +43,7 @@ namespace System.Windows.Media.Media3D
 			v.X = Math.Asin(2 * test);
 			v.Z = Math.Atan2((2 * q1.X * q1.W) - (2 * q1.Y * q1.Z), 1 - (2 * sqx) - (2 * sqz));
 
-			return NormalizeAngles(v * rad2Deg);
+			return NormalizeAngles(v * Rad2Deg);
 		}
 
 		private static Vector3D NormalizeAngles(Vector3D angles)

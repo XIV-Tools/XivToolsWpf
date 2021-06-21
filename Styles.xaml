@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converters="clr-namespace:XivToolsWpf.Styles.Converters">
+	xmlns:converters="clr-namespace:XivToolsWpf.Converters">
 
 	<ResourceDictionary.MergedDictionaries>
 

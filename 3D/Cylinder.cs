@@ -1,7 +1,8 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Three3D
+namespace Anamnesis.Three3D
 {
 	using System;
 	using System.Windows.Media.Media3D;

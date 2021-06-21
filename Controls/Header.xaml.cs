@@ -1,11 +1,12 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
 {
 	using System.Windows.Controls;
-	using FontAwesome.Sharp;
 	using XivToolsWpf.DependencyProperties;
+	using FontAwesome.Sharp;
 
 	/// <summary>
 	/// Interaction logic for Panel.xaml.

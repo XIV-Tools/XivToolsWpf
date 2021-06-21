@@ -1,7 +1,8 @@
-// © XIV-Tools.
+// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.ThreeD
+namespace Anamnesis.ThreeD
 {
 	using System;
 	using System.Diagnostics;

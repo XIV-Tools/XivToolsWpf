@@ -1,4 +1,5 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.DependencyProperties
@@ -7,7 +8,7 @@ namespace XivToolsWpf.DependencyProperties
 
 	public class DependencyProperty<TValue> : IBind<TValue>
 	{
-		private readonly DependencyProperty dp;
+		private DependencyProperty dp;
 
 		public DependencyProperty(DependencyProperty dp)
 		{

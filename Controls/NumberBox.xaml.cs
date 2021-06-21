@@ -1,4 +1,5 @@
-﻿// © XIV-Tools.
+﻿// © Anamnesis.
+// Developed by W and A Walsh.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
@@ -6,11 +7,13 @@ namespace XivToolsWpf.Controls
 	using System;
 	using System.ComponentModel;
 	using System.Data;
+	using System.Drawing;
 	using System.Threading.Tasks;
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Input;
 	using XivToolsWpf.DependencyProperties;
+	using PropertyChanged;
 
 	using DrawPoint = System.Drawing.Point;
 	using WinCur = System.Windows.Forms.Cursor;
@@ -19,6 +22,7 @@ namespace XivToolsWpf.Controls
 	/// <summary>
 	/// Interaction logic for NumberBox.xaml.
 	/// </summary>
+	[AddINotifyPropertyChangedInterface]
 	public partial class NumberBox : UserControl, INotifyPropertyChanged
 	{
 		public static readonly IBind<double> ValueDp = Binder.Register<double, NumberBox>(nameof(Value), OnValueChanged);
@@ -29,7 +33,6 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<double> MaxDp = Binder.Register<double, NumberBox>(nameof(Maximum), OnMaximumChanged, BindMode.OneWay);
 		public static readonly IBind<bool> WrapDp = Binder.Register<bool, NumberBox>(nameof(Wrap), BindMode.OneWay);
 		public static readonly IBind<double> OffsetDp = Binder.Register<double, NumberBox>(nameof(ValueOffset), BindMode.OneWay);
-		public static readonly IBind<string> HintDp = Binder.Register<string, NumberBox>(nameof(Hint), BindMode.OneWay);
 
 		private string? inputString;
 		private Key keyHeld = Key.None;
@@ -43,7 +46,7 @@ namespace XivToolsWpf.Controls
 			this.Minimum = double.MinValue;
 			this.Maximum = double.MaxValue;
 			this.Wrap = false;
-			this.Text = "0";
+			this.Text = this.DisplayValue.ToString();
 			this.Slider = SliderModes.None;
 			this.Buttons = false;
 
@@ -105,12 +108,6 @@ namespace XivToolsWpf.Controls
 		{
 			get => ValueDp.Get(this);
 			set => ValueDp.Set(this, value);
-		}
-
-		public string Hint
-		{
-			get => HintDp.Get(this);
-			set => HintDp.Set(this, value);
 		}
 
 		public double DisplayValue
@@ -310,6 +307,8 @@ namespace XivToolsWpf.Controls
 			OnSliderChanged(this, this.Slider);
 			OnButtonsChanged(this, this.Buttons);
 			OnTickChanged(this, this.TickFrequency);
+
+			this.Text = this.DisplayValue.ToString("0.###");
 		}
 
 		private double Validate(double v)

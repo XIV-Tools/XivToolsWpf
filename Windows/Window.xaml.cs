@@ -70,8 +70,8 @@ namespace XivToolsWpf.Windows
 
 		private void OnResizeDrag(object sender, DragDeltaEventArgs e)
 		{
-			this.Width += e.HorizontalChange;
-			this.Height += e.VerticalChange;
+			this.Width = Math.Clamp(this.Width + e.HorizontalChange, 100, 9999);
+			this.Height = Math.Clamp(this.Height + e.VerticalChange, 100, 9999);
 		}
 
 		private void OnWindowActivated(object sender, EventArgs e)
