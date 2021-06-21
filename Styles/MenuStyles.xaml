@@ -327,6 +327,8 @@
 	</Style>
 
 	<Style x:Key="AnaMenu" TargetType="{x:Type Menu}" BasedOn="{x:Null}">
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="Padding" Value="0"/>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
 	</Style>
