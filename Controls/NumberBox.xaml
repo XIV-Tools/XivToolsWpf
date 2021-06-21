@@ -40,6 +40,7 @@
 			x:Name="InputBox"
 			Grid.Row="0"
 			Grid.Column="1"
+			Style="{StaticResource MaterialDesignTextBox}"
 			Foreground="{DynamicResource MaterialDesignBody}"
 			Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}"
 			LostFocus="OnLostFocus"
