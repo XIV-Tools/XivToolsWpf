@@ -1,5 +1,4 @@
-﻿// © Anamnesis.
-// Developed by W and A Walsh.
+﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
@@ -8,9 +7,9 @@ namespace XivToolsWpf.Controls
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Media;
-	using XivToolsWpf.DependencyProperties;
 	using FontAwesome.Sharp;
 	using PropertyChanged;
+	using XivToolsWpf.DependencyProperties;
 
 	/// <summary>
 	/// Interaction logic for IconButton.xaml.

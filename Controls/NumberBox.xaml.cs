@@ -1,5 +1,4 @@
-﻿// © Anamnesis.
-// Developed by W and A Walsh.
+﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Controls
@@ -12,9 +11,8 @@ namespace XivToolsWpf.Controls
 	using System.Windows;
 	using System.Windows.Controls;
 	using System.Windows.Input;
-	using XivToolsWpf.DependencyProperties;
 	using PropertyChanged;
-
+	using XivToolsWpf.DependencyProperties;
 	using DrawPoint = System.Drawing.Point;
 	using WinCur = System.Windows.Forms.Cursor;
 	using WinPoint = System.Windows.Point;

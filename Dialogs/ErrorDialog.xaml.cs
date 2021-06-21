@@ -109,7 +109,7 @@ namespace XivToolsWpf.Dialogs
 				this.StackTraceBlock.Inlines.Add(new Run(parts[0]));
 				this.StackTraceBlock.Inlines.Add(new Run(" @ ") { Foreground = Brushes.LightGray });
 
-				string path;
+				string? path;
 				if (this.GetPath(parts[1], out path, out _) && File.Exists(path))
 				{
 					Hyperlink link = new Hyperlink(new Run(parts[1] + "\n"));
@@ -130,8 +130,8 @@ namespace XivToolsWpf.Dialogs
 
 		private void Link_RequestNavigate(object sender, RequestNavigateEventArgs e)
 		{
-			string path;
-			string line;
+			string? path;
+			string? line;
 
 			if (!this.GetPath(e.Uri.OriginalString, out path, out line))
 				return;

@@ -1,5 +1,4 @@
-﻿// © Anamnesis.
-// Developed by W and A Walsh.
+﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.DependencyProperties
