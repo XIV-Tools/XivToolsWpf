@@ -8,6 +8,7 @@
 
 	<converters:IconConverter x:Key="StringToIconConveter"/>
 	<wpf:BrushRoundConverter x:Key="BrushRoundConverter"/>
+	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentConverter"/>
 
 	<Style x:Key="AnaMenuItem" TargetType="{x:Type MenuItem}" BasedOn="{x:Null}">
 		<Setter Property="Background" Value="Transparent"/>
@@ -69,7 +70,7 @@
 									<Grid x:Name="InputGestureTextWrapper"
 											  Grid.Column="2"
 											  Visibility="Collapsed">
-										<TextBlock Visibility="{TemplateBinding InputGestureText, Converter={StaticResource StringIsEmptyVisibilityConverter}}"
+										<TextBlock Visibility="{TemplateBinding InputGestureText, Converter={StaticResource StringHasContentConverter}}"
 													   Margin="16 0 0 0"
 													   VerticalAlignment="Center" HorizontalAlignment="Right"
 													   Text="{TemplateBinding InputGestureText}"
