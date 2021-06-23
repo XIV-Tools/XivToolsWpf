@@ -7,5 +7,5 @@
 			 mc:Ignorable="d" 
 			 d:DesignHeight="450" d:DesignWidth="800"
 			 IsVisibleChanged="OnIsVisibleChanged">
-	<TextBox x:Name="TextArea" Text="{Binding Text}" PreviewKeyDown="TextArea_PreviewKeyDown" LostFocus="TextArea_LostFocus"/>
+	<TextBox x:Name="TextArea" Text="{Binding Text}" Style="{StaticResource MaterialDesignTextBox}" PreviewKeyDown="TextArea_PreviewKeyDown" LostFocus="TextArea_LostFocus"/>
 </UserControl>
