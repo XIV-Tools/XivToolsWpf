@@ -45,6 +45,7 @@
 		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ValidationErrorTemplate.xaml" />
 
 		<!--  Custom  -->
+		<ResourceDictionary Source="Styles/BorderStyles.xaml" />
 		<ResourceDictionary Source="Styles/GroupBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/ButtonStyles.xaml" />
 		<ResourceDictionary Source="Styles/TextBlockStyles.xaml" />
@@ -55,7 +56,8 @@
 		<ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/MenuStyles.xaml" />
 		<ResourceDictionary Source="Styles/MarkdownStyles.xaml" />
-
+		<ResourceDictionary Source="Styles/WindowStyles.xaml" />
+		
 	</ResourceDictionary.MergedDictionaries>
 
 	<!--  Material Design:Styles  -->
