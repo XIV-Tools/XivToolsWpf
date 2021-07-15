@@ -12,12 +12,14 @@ namespace XivToolsWpf.Windows
 	using System.Windows.Media;
 	using System.Windows.Shapes;
 	using System.Windows.Shell;
+	using MaterialDesignThemes.Wpf;
 	using PropertyChanged;
 
 	[AddINotifyPropertyChangedInterface]
 	public class ChromedWindow : Window
 	{
 		private bool enableTranslucency = true;
+		private bool isDarkTheme = false;
 
 		public ChromedWindow()
 		{
@@ -40,6 +42,12 @@ namespace XivToolsWpf.Windows
 			this.Loaded += this.OnLoaded;
 
 			this.TitlebarForeground = new SolidColorBrush(Colors.Black);
+
+			IThemeManager? themeManager = new PaletteHelper().GetThemeManager();
+			if (themeManager != null)
+			{
+				themeManager.ThemeChanged += this.OnThemeChanged;
+			}
 		}
 
 		private enum AccentState
@@ -73,10 +81,25 @@ namespace XivToolsWpf.Windows
 			set;
 		}
 
+		public bool TransprentWhenNotInFocus
+		{
+			get;
+			set;
+		}
+
 		protected override void OnActivated(EventArgs e)
 		{
-			this.TitlebarForeground = new SolidColorBrush(Colors.White);
+			if (!this.EnableTranslucency || this.isDarkTheme)
+			{
+				this.TitlebarForeground = new SolidColorBrush(Colors.White);
+			}
+			else if (!this.isDarkTheme)
+			{
+				this.TitlebarForeground = new SolidColorBrush(Colors.Black);
+			}
+
 			base.OnActivated(e);
+			this.SetTranslucency();
 		}
 
 		protected override void OnDeactivated(EventArgs e)
@@ -85,6 +108,7 @@ namespace XivToolsWpf.Windows
 				this.TitlebarForeground = new SolidColorBrush(Colors.DarkGray);
 
 			base.OnDeactivated(e);
+			this.SetTranslucency();
 		}
 
 		[DllImport("user32.dll")]
@@ -114,6 +138,11 @@ namespace XivToolsWpf.Windows
 			}
 		}
 
+		private void OnThemeChanged(object? sender, ThemeChangedEventArgs e)
+		{
+			this.SetTranslucency();
+		}
+
 		private void SetTranslucency()
 		{
 			Rectangle? titlebarRect = this.GetTemplateChild("TitleBarArea") as Rectangle;
@@ -126,13 +155,21 @@ namespace XivToolsWpf.Windows
 
 			AccentPolicy accent = new ();
 
-			uint blurOpacity = 0;
-			uint blurBackgroundColor = 0x000000;
+			this.isDarkTheme = new PaletteHelper().GetTheme().GetBaseTheme() == BaseTheme.Dark;
+
+			int blurOpacity = 0;
+			int blurBackgroundColor = 0x000000;
 
 			bool isWindows11 = RuntimeInformation.OSDescription == "Microsoft Windows 10.0.22000";
 			bool isWindows10 = RuntimeInformation.OSDescription.StartsWith("Microsoft Windows 10");
 
-			if (!this.EnableTranslucency || (!isWindows10 && !isWindows11))
+			if (this.TransprentWhenNotInFocus && !this.IsActive)
+			{
+				accent.AccentState = AccentState.ACCENT_ENABLE_TRANSPARENTGRADIENT;
+				blurOpacity = 0;
+				blurBackgroundColor = this.isDarkTheme ? 0x303030 : 0xFFFFFF;
+			}
+			else if (!this.EnableTranslucency || (!isWindows10 && !isWindows11))
 			{
 				accent.AccentState = AccentState.ACCENT_DISABLED;
 				backgroundRect.Visibility = Visibility.Visible;
@@ -143,8 +180,9 @@ namespace XivToolsWpf.Windows
 			else if (isWindows11)
 			{
 				accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
-				blurOpacity = 190;
-				blurBackgroundColor = 0x303030;
+				blurOpacity = this.isDarkTheme ? 190 : 150;
+				blurBackgroundColor = this.isDarkTheme ? 0x303030 : 0xFFFFFF;
+
 				backgroundRect.Visibility = Visibility.Collapsed;
 				titlebarRect.Fill = new SolidColorBrush(Colors.Transparent);
 				titlebarRect.Opacity = 1.0;
@@ -160,7 +198,7 @@ namespace XivToolsWpf.Windows
 				titlebarRect.Opacity = 0.75;
 			}
 
-			accent.GradientColor = (blurOpacity << 24) | (blurBackgroundColor & 0xFFFFFF);
+			accent.GradientColor = ((uint)blurOpacity << 24) | ((uint)blurBackgroundColor & 0xFFFFFF);
 
 			int accentStructSize = Marshal.SizeOf(accent);
 
