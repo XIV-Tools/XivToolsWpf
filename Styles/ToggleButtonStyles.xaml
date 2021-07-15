@@ -203,13 +203,9 @@
 				<ControlTemplate TargetType="ToggleButton">
 
 					<Grid TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}" Cursor="Hand">
-						<Border Background="{DynamicResource MaterialDesignCardBackground}" x:Name="HoverBorder" CornerRadius="3" BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignCardBackground}" Opacity="0">
-							<Border.Effect>
-								<DropShadowEffect ShadowDepth="0" BlurRadius="5" Opacity="0.5"/>
-							</Border.Effect>
-						</Border>
+						<Border  x:Name="HoverBorder" Style="{DynamicResource Panel}" Opacity="0"/>
 
-						<Line X1="0" X2="1" Stretch="Fill" x:Name="Border" StrokeThickness="{TemplateBinding BorderThickness}" Stroke="{TemplateBinding BorderBrush}" VerticalAlignment="Bottom" Margin="3, 0, 3, 0"/>
+						<Line X1="0" X2="1" Stretch="Fill" x:Name="Border" Opacity="0" StrokeThickness="{TemplateBinding BorderThickness}" Stroke="{TemplateBinding BorderBrush}" VerticalAlignment="Bottom" Margin="3, 0, 3, 0"/>
 
 						<md:Ripple Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Focusable="False"
 									ContentStringFormat="{TemplateBinding ContentStringFormat}"
@@ -230,6 +226,7 @@
 						</Trigger>
 						<Trigger Property="IsChecked" Value="true">
 							<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
+							<Setter TargetName="Border" Property="Opacity" Value="1.0"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
