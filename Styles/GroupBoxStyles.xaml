@@ -77,7 +77,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type GroupBox}">
-					<Border Grid.Column="0" Background="{DynamicResource MaterialDesignCardBackground}" CornerRadius="3" Margin="3">
+					<Border Grid.Column="0" Style="{DynamicResource Panel}" Margin="3">
 						<Grid Margin="3">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="15"/>
