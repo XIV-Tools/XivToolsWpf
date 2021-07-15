@@ -18,25 +18,32 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="TabItem">
 					<Grid Margin="1, 1, 0, 3" Cursor="Hand">
-						<Border x:Name="Panel" Background="{DynamicResource MaterialDesignPaper}" CornerRadius="3,0,0,3"/>
-						<ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="6"/>
+						<Border x:Name="Highlight" Margin="1" CornerRadius="3" Width="5" HorizontalAlignment="Left" Height="16" Background="{DynamicResource PrimaryHueMidBrush}"/>
+						<Border x:Name="Panel" Style="{DynamicResource Panel}"/>
+
+						<ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12, 8, 8, 8"/>
 					</Grid>
 
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsSelected" Value="False">
-							<Setter TargetName="Panel" Property="Opacity" Value="0.25" />
+							<Setter TargetName="Panel" Property="Opacity" Value="0" />
+							<Setter TargetName="Highlight" Property="Opacity" Value="0" />
 							<Setter TargetName="ContentSite" Property="Opacity" Value="0.75" />
 						</Trigger>
 						<Trigger Property="IsSelected" Value="True">
 							<Setter TargetName="Panel" Property="Opacity" Value="1.0" />
+							<Setter TargetName="Highlight" Property="Opacity" Value="1.0" />
 							<Setter TargetName="ContentSite" Property="Opacity" Value="1.0" />
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="Panel" Property="Opacity" Value="0.5" />
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter TargetName="Panel" Property="Opacity" Value="0" />
+							<Setter TargetName="Highlight" Property="Opacity" Value="0" />
 							<Setter TargetName="ContentSite" Property="Opacity" Value="0.25" />
 						</Trigger>
 					</ControlTemplate.Triggers>
-					
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
