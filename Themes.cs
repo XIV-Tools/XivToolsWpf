@@ -4,79 +4,49 @@
 namespace XivToolsWpf
 {
 	using System;
+	using System.Threading.Tasks;
 	using System.Windows;
 	using System.Windows.Media;
 	using MaterialDesignColors;
 	using MaterialDesignThemes.Wpf;
-
-	public enum Colors
-	{
-		Yellow,
-		Amber,
-		DeepOrange,
-		LightBlue,
-		Teal,
-		Cyan,
-		Pink,
-		Green,
-		DeepPurple,
-		Indigo,
-		LightGreen,
-		Blue,
-		Lime,
-		Red,
-		Orange,
-		Purple,
-		BlueGrey,
-		Grey,
-		Brown,
-	}
-
-	public enum Brightness
-	{
-		Light,
-		Dark,
-	}
+	using Microsoft.Win32;
 
 	public static class Themes
 	{
-		private static readonly SwatchesProvider SwatchesProvider = new SwatchesProvider();
+		private static Color currentColor;
+		private static bool currentLight;
 
-		public static void Apply(Brightness brightness, Colors color)
+		static Themes()
 		{
-			Theme theme = new Theme();
-
-			theme.SetBaseTheme(GetBaseTheme(brightness));
-
-			Swatch swatch = GetColorSwatch(color);
-			theme.SetPrimaryColor(swatch.ExemplarHue.Color);
-
-			if (swatch.AccentExemplarHue != null)
-				theme.SetSecondaryColor(swatch.AccentExemplarHue.Color);
-
-			Application.Current.Resources.SetTheme(theme);
+			SystemParameters.StaticPropertyChanged += OnSystemParametersChanged;
 		}
 
-		private static IBaseTheme GetBaseTheme(Brightness brightness)
+		public static void ApplySystemTheme()
 		{
-			if (brightness == Brightness.Dark)
-				return new DarkTheme();
+			int? value = Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\", "AppsUseLightTheme", 0) as int?;
 
-			return new LightTheme();
-		}
-
-		private static Swatch GetColorSwatch(Colors color)
-		{
-			string name = color.ToString().ToLower();
-			foreach (Swatch swatch in new SwatchesProvider().Swatches)
+			if (value != null)
 			{
-				if (swatch.Name == name)
-				{
-					return swatch;
-				}
-			}
+				bool lightMode = value == 1;
 
-			throw new Exception($"Unable to locate color swatch by name: {name}");
+				if (currentColor == SystemParameters.WindowGlassColor && currentLight == lightMode)
+					return;
+
+				currentColor = SystemParameters.WindowGlassColor;
+				currentLight = lightMode;
+
+				Theme theme = new Theme();
+				theme.SetBaseTheme(lightMode ? new LightTheme() : new DarkTheme());
+				theme.SetPrimaryColor(currentColor);
+				////theme.SetSecondaryColor(currentColor);
+
+				Application.Current.Resources.SetTheme(theme);
+			}
+		}
+
+		private static void OnSystemParametersChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			ApplySystemTheme();
 		}
 
 		public class DarkTheme : IBaseTheme

@@ -57,7 +57,7 @@
 		<ResourceDictionary Source="Styles/MenuStyles.xaml" />
 		<ResourceDictionary Source="Styles/MarkdownStyles.xaml" />
 		<ResourceDictionary Source="Styles/WindowStyles.xaml" />
-		
+
 	</ResourceDictionary.MergedDictionaries>
 
 	<!--  Material Design:Styles  -->

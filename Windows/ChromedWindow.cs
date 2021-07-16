@@ -180,8 +180,8 @@ namespace XivToolsWpf.Windows
 			else if (isWindows11)
 			{
 				accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
-				blurOpacity = this.isDarkTheme ? 190 : 150;
-				blurBackgroundColor = this.isDarkTheme ? 0x303030 : 0xFFFFFF;
+				blurOpacity = this.isDarkTheme ? 210 : 150;
+				blurBackgroundColor = this.isDarkTheme ? 0x202020 : 0xFFFFFF;
 
 				backgroundRect.Visibility = Visibility.Collapsed;
 				titlebarRect.Fill = new SolidColorBrush(Colors.Transparent);
