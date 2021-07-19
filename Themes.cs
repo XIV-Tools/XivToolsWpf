@@ -15,24 +15,27 @@ namespace XivToolsWpf
 	{
 		private static Color currentColor;
 		private static bool currentLight;
+		private static bool usingCustomColor;
 
 		static Themes()
 		{
 			SystemParameters.StaticPropertyChanged += OnSystemParametersChanged;
 		}
 
-		public static void ApplySystemTheme()
+		public static void ApplySystemTheme(bool useCustomColor, Color? customColor = null)
 		{
+			usingCustomColor = useCustomColor;
+
 			int? value = Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\", "AppsUseLightTheme", 0) as int?;
 
 			if (value != null)
 			{
 				bool lightMode = value == 1;
 
-				if (currentColor == SystemParameters.WindowGlassColor && currentLight == lightMode)
+				if (!usingCustomColor && currentColor == SystemParameters.WindowGlassColor && currentLight == lightMode)
 					return;
 
-				currentColor = SystemParameters.WindowGlassColor;
+				currentColor = useCustomColor ? customColor ?? SystemParameters.WindowGlassColor : SystemParameters.WindowGlassColor;
 				currentLight = lightMode;
 
 				Theme theme = new Theme();
@@ -46,7 +49,9 @@ namespace XivToolsWpf
 
 		private static void OnSystemParametersChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			ApplySystemTheme();
+			if (usingCustomColor)
+				return;
+			ApplySystemTheme(false, null);
 		}
 
 		public class DarkTheme : IBaseTheme
