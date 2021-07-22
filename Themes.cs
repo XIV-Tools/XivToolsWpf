@@ -21,6 +21,22 @@ namespace XivToolsWpf
 			SystemParameters.StaticPropertyChanged += OnSystemParametersChanged;
 		}
 
+		public static void ApplyCustomTheme(bool light, Color highlightColor)
+		{
+			if (currentColor == highlightColor && currentLight == light)
+				return;
+
+			currentColor = highlightColor;
+			currentLight = light;
+
+			Theme theme = new Theme();
+			theme.SetBaseTheme(light ? new LightTheme() : new DarkTheme());
+			theme.SetPrimaryColor(currentColor);
+			////theme.SetSecondaryColor(currentColor);
+
+			Application.Current.Resources.SetTheme(theme);
+		}
+
 		public static void ApplySystemTheme()
 		{
 			int? value = Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\", "AppsUseLightTheme", 0) as int?;
@@ -29,18 +45,7 @@ namespace XivToolsWpf
 			{
 				bool lightMode = value == 1;
 
-				if (currentColor == SystemParameters.WindowGlassColor && currentLight == lightMode)
-					return;
-
-				currentColor = SystemParameters.WindowGlassColor;
-				currentLight = lightMode;
-
-				Theme theme = new Theme();
-				theme.SetBaseTheme(lightMode ? new LightTheme() : new DarkTheme());
-				theme.SetPrimaryColor(currentColor);
-				////theme.SetSecondaryColor(currentColor);
-
-				Application.Current.Resources.SetTheme(theme);
+				ApplyCustomTheme(lightMode, SystemParameters.WindowGlassColor);
 			}
 		}
 
