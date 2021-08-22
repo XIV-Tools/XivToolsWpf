@@ -20,21 +20,13 @@ namespace XivToolsWpf.Windows
 	{
 		private bool enableTranslucency = true;
 		private bool isDarkTheme = false;
+		private bool extendIntoChrome = true;
 
 		public ChromedWindow()
 		{
 			this.Background = new SolidColorBrush(Colors.Transparent);
 
-			WindowChrome? chrome = WindowChrome.GetWindowChrome(this);
-
-			if (chrome is null)
-			{
-				chrome = new WindowChrome();
-				WindowChrome.SetWindowChrome(this, chrome);
-			}
-
-			chrome.NonClientFrameEdges = NonClientFrameEdges.Right | NonClientFrameEdges.Left | NonClientFrameEdges.Bottom;
-			chrome.CaptionHeight = 0;
+			this.SetChrome();
 
 			this.Style = Application.Current.FindResource("ChromedWindowStyle") as Style;
 
@@ -85,6 +77,16 @@ namespace XivToolsWpf.Windows
 		{
 			get;
 			set;
+		}
+
+		public bool ExtendIntoChrome
+		{
+			get => this.extendIntoChrome;
+			set
+			{
+				this.extendIntoChrome = value;
+				this.SetChrome();
+			}
 		}
 
 		protected override void OnActivated(EventArgs e)
@@ -140,11 +142,38 @@ namespace XivToolsWpf.Windows
 
 		private void OnThemeChanged(object? sender, ThemeChangedEventArgs e)
 		{
+			this.SetChrome();
 			this.SetTranslucency();
+		}
+
+		private void SetChrome()
+		{
+			WindowChrome? chrome = WindowChrome.GetWindowChrome(this);
+
+			if (chrome is null)
+			{
+				chrome = new WindowChrome();
+				WindowChrome.SetWindowChrome(this, chrome);
+			}
+
+			if (this.extendIntoChrome)
+			{
+				chrome.NonClientFrameEdges = NonClientFrameEdges.Right | NonClientFrameEdges.Left | NonClientFrameEdges.Bottom;
+				chrome.CaptionHeight = 0;
+			}
+			else
+			{
+				chrome.NonClientFrameEdges = NonClientFrameEdges.None;
+				chrome.CaptionHeight = 22;
+				chrome.UseAeroCaptionButtons = true;
+			}
 		}
 
 		private void SetTranslucency()
 		{
+			if (!this.ExtendIntoChrome)
+				this.enableTranslucency = false;
+
 			Rectangle? titlebarRect = this.GetTemplateChild("TitleBarArea") as Rectangle;
 			Rectangle? backgroundRect = this.GetTemplateChild("BackgroundArea") as Rectangle;
 

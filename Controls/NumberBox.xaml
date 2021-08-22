@@ -44,7 +44,7 @@
 			Foreground="{DynamicResource MaterialDesignBody}"
 			Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}"
 			LostFocus="OnLostFocus"
-			Margin="0,-1,0,0"
+			Margin="0,0,0,2"
 			LostKeyboardFocus="OnLostFocus"/>
 		
 		<Line
