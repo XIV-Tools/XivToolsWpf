@@ -167,6 +167,13 @@ namespace XivToolsWpf.Controls
 				else
 				{
 					this.relativeSliderCurrent = value;
+
+					if (Keyboard.IsKeyDown(Key.LeftShift))
+						value *= 10;
+
+					if (Keyboard.IsKeyDown(Key.LeftCtrl))
+						value /= 10;
+
 					this.DisplayValue = this.relativeSliderStart + value;
 				}
 			}
