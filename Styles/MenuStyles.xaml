@@ -251,13 +251,14 @@
 							   VerticalOffset="0"
 							   HorizontalOffset="{TemplateBinding Popup.HorizontalOffset}"
 							   CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}">
+							
 							<Border x:Name="SubMenuBorder"
 									Background="{DynamicResource MaterialDesignPaper}"
 									Effect="{DynamicResource MaterialDesignShadowDepth1}"
 									BorderThickness="0"
-									CornerRadius="3">
+									CornerRadius="6">
 
-								<Border Background="Transparent">
+								<Border Background="Transparent" Margin="3">
 									<ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
 										<Grid RenderOptions.ClearTypeHint="Enabled" Margin="1, 6">
 											<Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -324,7 +325,7 @@
 	<Style x:Key="ButtonMenuItemRight" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ButtonMenuItem}">
 		<Setter Property="Border.CornerRadius" Value="0, 4, 4, 0"/>
 		<Setter Property="Margin" Value="0,0,2,0"/>
-		<Setter Property="Popup.HorizontalOffset" Value="-75"/>
+		<Setter Property="Popup.HorizontalOffset" Value="0"/>
 		<Setter Property="HorizontalContentAlignment" Value="Left"/>
 	</Style>
 
