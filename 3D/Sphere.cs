@@ -1,7 +1,7 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace Anamnesis.ThreeD
+namespace XivToolsWpf.Meida3D
 {
 	using System;
 	using System.Windows;
@@ -9,7 +9,7 @@ namespace Anamnesis.ThreeD
 
 	public class Sphere : ModelVisual3D
 	{
-		private GeometryModel3D model;
+		private readonly GeometryModel3D model;
 		private int slices = 32;
 		private int stacks = 16;
 		private double radius = 1;

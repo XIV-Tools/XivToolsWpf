@@ -1,7 +1,7 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace Anamnesis.Three3D
+namespace XivToolsWpf.Meida3D
 {
 	using System;
 	using System.Windows.Media.Media3D;

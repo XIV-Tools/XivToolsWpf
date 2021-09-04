@@ -1,7 +1,7 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace Anamnesis.ThreeD.Lines
+namespace XivToolsWpf.Meida3D.Lines
 {
 	using System;
 	using System.Windows.Media.Media3D;
