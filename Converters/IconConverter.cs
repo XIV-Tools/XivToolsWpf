@@ -15,7 +15,7 @@ namespace XivToolsWpf.Converters
 			if (value == null)
 				return IconChar.None;
 
-			return (IconChar)Enum.Parse(typeof(IconChar), (string)value);
+			return (IconChar)Enum.Parse(typeof(IconChar), (string)value, true);
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
