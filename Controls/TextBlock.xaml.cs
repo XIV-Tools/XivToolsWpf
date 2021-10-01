@@ -21,6 +21,9 @@ namespace XivToolsWpf.Controls
 
 		public TextBlock()
 		{
+			if (DesignerProperties.GetIsInDesignMode(this))
+				return;
+
 			this.Loaded += this.TextBlock_Loaded;
 			LocaleProvider.LocaleChanged += this.OnLocaleChanged;
 		}
