@@ -193,7 +193,7 @@
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Margin" Value="1" />
-		<Setter Property="Padding" Value="6, 0, 6, 0"/>
+		<Setter Property="Padding" Value="6, 0, 6, 6"/>
 		<Setter Property="MinWidth" Value="18"/>
 		<Setter Property="MinHeight" Value="18"/>
 		<Setter Property="SnapsToDevicePixels" Value="True"/>
@@ -205,28 +205,107 @@
 					<Grid TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}" Cursor="Hand">
 						<Border  x:Name="HoverBorder" Style="{DynamicResource Panel}" Opacity="0"/>
 
-						<Line X1="0" X2="1" Stretch="Fill" x:Name="Border" Opacity="0" StrokeThickness="{TemplateBinding BorderThickness}" Stroke="{TemplateBinding BorderBrush}" VerticalAlignment="Bottom" Margin="3, 0, 3, 0"/>
+						<Border x:Name="Border"
+								Opacity="0"
+								BorderBrush="{TemplateBinding Background}"
+								BorderThickness="1"
+								Background="{TemplateBinding BorderBrush}"
+								CornerRadius="2"
+								Height="4"
+								VerticalAlignment="Bottom"
+								Margin="6, 0, 6, 3" />
 
-						<md:Ripple Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Focusable="False"
-									ContentStringFormat="{TemplateBinding ContentStringFormat}"
-									HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-									VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-									Padding="{TemplateBinding Padding}"
-									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-						</md:Ripple>
+						<ContentPresenter x:Name="Content"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  Focusable="False"
+										  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  Margin="6, 0, 6, 0"
+										  md:RippleAssist.ClipToBounds="True"
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+						</ContentPresenter>
+	
 
 					</Grid>
 
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="HoverBorder" Property="Opacity" Value="1"/>
+
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation From="0"
+														 To="1"
+														 Duration="00:00:00.1"
+														 Storyboard.TargetName="HoverBorder"
+														 Storyboard.TargetProperty="Opacity">
+
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation From="1"
+														 To="0"
+														 Duration="00:00:00.2"
+														 Storyboard.TargetName="HoverBorder"
+														 Storyboard.TargetProperty="Opacity">
+
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="false">
 							<Setter TargetName="Border" Property="Opacity" Value="0"/>
+							<Setter TargetName="Content" Property="Margin" Value="6, 0, 6, 6" />
 						</Trigger>
 						<Trigger Property="IsChecked" Value="true">
 							<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}"/>
-							<Setter TargetName="Border" Property="Opacity" Value="1.0"/>
+							<Setter TargetName="Border"
+									Property="Opacity"
+									Value="1.0" />
+
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<ThicknessAnimationUsingKeyFrames BeginTime="00:00:00"
+																		  Storyboard.TargetName="Content"
+																		  Storyboard.TargetProperty="Margin">
+											<SplineThicknessKeyFrame KeyTime="00:00:00.00"
+																	 Value="6, 0, 6, 0" />
+											<SplineThicknessKeyFrame KeyTime="00:00:00.10"
+																	 Value="6, 0, 6, 8" />
+											<SplineThicknessKeyFrame KeyTime="00:00:00.15"
+																	 Value="6, 0, 6, 5" />
+											<SplineThicknessKeyFrame KeyTime="00:00:00.18"
+																	 Value="6, 0, 6, 6" />
+										</ThicknessAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<ThicknessAnimation From="6, 0, 6, 6"
+															To="6, 0, 6, 0" 
+															Duration="00:00:00.30"
+															Storyboard.TargetName="Content" 
+															Storyboard.TargetProperty="Margin">
+											<ThicknessAnimation.EasingFunction>
+												<SineEase />
+											</ThicknessAnimation.EasingFunction>
+										</ThicknessAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
