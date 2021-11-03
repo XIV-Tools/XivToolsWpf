@@ -44,6 +44,9 @@ namespace XivToolsWpf
 
 			public void OnCompleted(Action continuation)
 			{
+				if (Application.Current == null)
+					return;
+
 				Application.Current.Dispatcher.BeginInvoke(continuation);
 			}
 		}
