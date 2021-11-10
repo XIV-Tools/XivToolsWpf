@@ -189,8 +189,11 @@ namespace XivToolsWpf.Windows
 			int blurOpacity = 0;
 			int blurBackgroundColor = 0x000000;
 
-			bool isWindows11 = RuntimeInformation.OSDescription == "Microsoft Windows 10.0.22000";
-			bool isWindows10 = RuntimeInformation.OSDescription.StartsWith("Microsoft Windows 10");
+			bool isWindows11 = RuntimeInformation.OSDescription.StartsWith("Microsoft Windows 10.0.2");
+			bool isWindows10 = false;
+
+			if (!isWindows11)
+				isWindows10 = RuntimeInformation.OSDescription.StartsWith("Microsoft Windows 10");
 
 			if (this.TransprentWhenNotInFocus && !this.IsActive)
 			{
@@ -228,7 +231,6 @@ namespace XivToolsWpf.Windows
 			}
 
 			accent.GradientColor = ((uint)blurOpacity << 24) | ((uint)blurBackgroundColor & 0xFFFFFF);
-
 			int accentStructSize = Marshal.SizeOf(accent);
 
 			IntPtr accentPtr = Marshal.AllocHGlobal(accentStructSize);
