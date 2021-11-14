@@ -64,6 +64,9 @@ namespace XivToolsWpf.Controls
 
 		private void TextBlock_Loaded(object sender, RoutedEventArgs e)
 		{
+			if (localeProvider == null)
+				return;
+
 			if (!localeProvider.Loaded)
 				return;
 
