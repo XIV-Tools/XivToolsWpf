@@ -15,9 +15,9 @@ namespace XivToolsWpf
 			return default(SwitchToUiAwaitable);
 		}
 
-		public static SwitchToUiAwaitable NonUiThread()
+		public static SwitchFromUiAwaitable NonUiThread()
 		{
-			return default(SwitchToUiAwaitable);
+			return default(SwitchFromUiAwaitable);
 		}
 
 		public struct SwitchToUiAwaitable : INotifyCompletion
