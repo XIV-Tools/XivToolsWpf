@@ -17,7 +17,7 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<string?> ValueDp = Binder.Register<string?, TextBlock>(nameof(Value), OnValueChanged, BindMode.OneWay);
 		public static readonly IBind<bool> AllLanguagesDp = Binder.Register<bool, TextBlock>(nameof(AllLanguages), BindMode.OneWay);
 
-		private static readonly ILocaleProvider LocaleProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+		private static ILocaleProvider? localeProvider;
 
 		public TextBlock()
 		{
@@ -25,7 +25,9 @@ namespace XivToolsWpf.Controls
 				return;
 
 			this.Loaded += this.TextBlock_Loaded;
-			LocaleProvider.LocaleChanged += this.OnLocaleChanged;
+
+			localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+			localeProvider.LocaleChanged += this.OnLocaleChanged;
 		}
 
 		public string? Key { get; set; }
@@ -46,7 +48,10 @@ namespace XivToolsWpf.Controls
 		{
 			sender.Key = val;
 
-			if (!LocaleProvider.Loaded)
+			if (localeProvider == null)
+				return;
+
+			if (!localeProvider.Loaded)
 				return;
 
 			sender.LoadString();
@@ -59,7 +64,7 @@ namespace XivToolsWpf.Controls
 
 		private void TextBlock_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (!LocaleProvider.Loaded)
+			if (!localeProvider.Loaded)
 				return;
 
 			this.LoadString();
@@ -75,6 +80,9 @@ namespace XivToolsWpf.Controls
 			if (string.IsNullOrEmpty(this.Key))
 				return;
 
+			if (localeProvider == null)
+				return;
+
 			string? val = null;
 
 			if (!DesignerProperties.GetIsInDesignMode(this))
@@ -83,16 +91,16 @@ namespace XivToolsWpf.Controls
 				{
 					if (this.AllLanguages)
 					{
-						val = LocaleProvider.GetStringAllLanguages(this.Key);
+						val = localeProvider.GetStringAllLanguages(this.Key);
 					}
 					else
 					{
-						val = LocaleProvider.GetString(this.Key);
+						val = localeProvider.GetString(this.Key);
 					}
 				}
 				else
 				{
-					val = LocaleProvider.GetStringFormatted(this.Key, this.Value);
+					val = localeProvider.GetStringFormatted(this.Key, this.Value);
 				}
 			}
 
