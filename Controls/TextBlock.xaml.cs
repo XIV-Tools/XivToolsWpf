@@ -25,9 +25,9 @@ namespace XivToolsWpf.Controls
 				return;
 
 			this.Loaded += this.TextBlock_Loaded;
+			this.Unloaded += this.TextBlock_Unloaded;
 
 			localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
-			localeProvider.LocaleChanged += this.OnLocaleChanged;
 		}
 
 		public string? Key { get; set; }
@@ -67,10 +67,22 @@ namespace XivToolsWpf.Controls
 			if (localeProvider == null)
 				return;
 
+			localeProvider.LocaleChanged += this.OnLocaleChanged;
+
 			if (!localeProvider.Loaded)
 				return;
 
 			this.LoadString();
+		}
+
+		private void TextBlock_Unloaded(object sender, RoutedEventArgs e)
+		{
+			if (localeProvider == null)
+				return;
+
+			localeProvider.LocaleChanged -= this.OnLocaleChanged;
+
+			localeProvider = null;
 		}
 
 		private void OnLocaleChanged()
