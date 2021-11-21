@@ -15,13 +15,25 @@ namespace XivToolsWpf.Converters
 			bool isZero = true;
 
 			if (value is int intV)
+			{
 				isZero = intV == 0;
-
-			if (value is float floatV)
+			}
+			else if (value is float floatV)
+			{
 				isZero = floatV == 0;
-
-			if (value is double doubleV)
+			}
+			else if (value is double doubleV)
+			{
 				isZero = doubleV == 0;
+			}
+			else if (value is uint uintV)
+			{
+				isZero = uintV == 0;
+			}
+			else
+			{
+				throw new NotImplementedException($"value type {value.GetType()} not supported for not zero converter");
+			}
 
 			return isZero ? Visibility.Collapsed : Visibility.Visible;
 		}
