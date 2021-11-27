@@ -4,12 +4,11 @@
 namespace XivToolsWpf.Meida3D
 {
 	using System;
-	using System.Diagnostics;
 	using System.Windows;
 	using System.Windows.Media;
 	using System.Windows.Media.Media3D;
 
-	public class Line : ModelVisual3D
+	public class Line : ModelVisual3D, IDisposable
 	{
 		public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color), typeof(Line), new PropertyMetadata(Colors.White, OnColorChanged));
 		public static readonly DependencyProperty ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(Line), new PropertyMetadata(1.0, OnThicknessChanged));
@@ -50,6 +49,15 @@ namespace XivToolsWpf.Meida3D
 		{
 			get { return (Point3DCollection)this.GetValue(PointsProperty); }
 			set { this.SetValue(PointsProperty, value); }
+		}
+
+		public void Dispose()
+		{
+			CompositionTarget.Rendering -= this.OnRender;
+
+			this.Points.Clear();
+			this.Children.Clear();
+			this.Content = null;
 		}
 
 		public void MakeWireframe(Model3D model)
