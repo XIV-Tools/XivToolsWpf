@@ -49,6 +49,9 @@ namespace XivToolsWpf.Controls
 			sender.Key = val;
 
 			if (localeProvider == null)
+				localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+
+			if (localeProvider == null)
 				return;
 
 			if (!localeProvider.Loaded)
@@ -94,6 +97,9 @@ namespace XivToolsWpf.Controls
 		{
 			if (string.IsNullOrEmpty(this.Key))
 				return;
+
+			if (localeProvider == null)
+				localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
 
 			if (localeProvider == null)
 				return;
