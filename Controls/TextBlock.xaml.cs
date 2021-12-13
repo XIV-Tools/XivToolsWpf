@@ -17,7 +17,17 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<string?> ValueDp = Binder.Register<string?, TextBlock>(nameof(Value), OnValueChanged, BindMode.OneWay);
 		public static readonly IBind<bool> AllLanguagesDp = Binder.Register<bool, TextBlock>(nameof(AllLanguages), BindMode.OneWay);
 
-		private static ILocaleProvider? localeProvider;
+		private static ILocaleProvider? _localeProvider;
+		
+		private static ILocaleProvider? localeProvider 
+		{
+			get {
+				if (_localeProvider == null)
+					_localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+				
+				return _localeProvider;
+			}
+		}
 
 		public TextBlock()
 		{
@@ -27,7 +37,7 @@ namespace XivToolsWpf.Controls
 			this.Loaded += this.TextBlock_Loaded;
 			this.Unloaded += this.TextBlock_Unloaded;
 
-			localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+			_localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
 		}
 
 		public string? Key { get; set; }
@@ -47,9 +57,6 @@ namespace XivToolsWpf.Controls
 		public static void OnKeyChanged(TextBlock sender, string val)
 		{
 			sender.Key = val;
-
-			if (localeProvider == null)
-				localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
 
 			if (localeProvider == null)
 				return;
@@ -97,10 +104,7 @@ namespace XivToolsWpf.Controls
 		{
 			if (string.IsNullOrEmpty(this.Key))
 				return;
-
-			if (localeProvider == null)
-				localeProvider = DependencyFactory.GetDependency<ILocaleProvider>();
-
+				
 			if (localeProvider == null)
 				return;
 
