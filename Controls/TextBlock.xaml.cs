@@ -100,11 +100,11 @@ namespace XivToolsWpf.Controls
 
 			string? val = null;
 
-			if (LocaleProvider != null)
+			if (!DesignerProperties.GetIsInDesignMode(this))
 			{
-				if (LocaleProvider.Loaded)
+				if (LocaleProvider != null)
 				{
-					if (!DesignerProperties.GetIsInDesignMode(this))
+					if (LocaleProvider.Loaded)
 					{
 						if (this.Value == null)
 						{
