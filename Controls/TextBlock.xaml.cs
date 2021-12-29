@@ -16,18 +16,14 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<string> KeyDp = Binder.Register<string, TextBlock>(nameof(Key), OnKeyChanged, BindMode.OneWay);
 		public static readonly IBind<string?> ValueDp = Binder.Register<string?, TextBlock>(nameof(Value), OnValueChanged, BindMode.OneWay);
 		public static readonly IBind<bool> AllLanguagesDp = Binder.Register<bool, TextBlock>(nameof(AllLanguages), BindMode.OneWay);
-
 		private static ILocaleProvider? cachedlocaleProvider;
 
 		public TextBlock()
 		{
-			if (DesignerProperties.GetIsInDesignMode(this))
-				return;
-
 			this.Loaded += this.TextBlock_Loaded;
 			this.Unloaded += this.TextBlock_Unloaded;
 
-			cachedlocaleProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+			this.LoadString();
 		}
 
 		public string? Key { get; set; }
@@ -49,7 +45,15 @@ namespace XivToolsWpf.Controls
 			get
 			{
 				if (cachedlocaleProvider == null)
-					cachedlocaleProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+				{
+					try
+					{
+						cachedlocaleProvider = DependencyFactory.GetDependency<ILocaleProvider>();
+					}
+					catch
+					{
+					}
+				}
 
 				return cachedlocaleProvider;
 			}
@@ -58,13 +62,6 @@ namespace XivToolsWpf.Controls
 		public static void OnKeyChanged(TextBlock sender, string val)
 		{
 			sender.Key = val;
-
-			if (LocaleProvider == null)
-				return;
-
-			if (!LocaleProvider.Loaded)
-				return;
-
 			sender.LoadString();
 		}
 
@@ -75,25 +72,20 @@ namespace XivToolsWpf.Controls
 
 		private void TextBlock_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (LocaleProvider == null)
-				return;
-
-			LocaleProvider.LocaleChanged += this.OnLocaleChanged;
-
-			if (!LocaleProvider.Loaded)
-				return;
+			if (LocaleProvider != null)
+			{
+				LocaleProvider.LocaleChanged += this.OnLocaleChanged;
+			}
 
 			this.LoadString();
 		}
 
 		private void TextBlock_Unloaded(object sender, RoutedEventArgs e)
 		{
-			if (LocaleProvider == null)
-				return;
-
-			LocaleProvider.LocaleChanged -= this.OnLocaleChanged;
-
-			cachedlocaleProvider = null;
+			if (LocaleProvider != null)
+			{
+				LocaleProvider.LocaleChanged -= this.OnLocaleChanged;
+			}
 		}
 
 		private void OnLocaleChanged()
@@ -106,27 +98,30 @@ namespace XivToolsWpf.Controls
 			if (string.IsNullOrEmpty(this.Key))
 				return;
 
-			if (LocaleProvider == null)
-				return;
-
 			string? val = null;
 
 			if (!DesignerProperties.GetIsInDesignMode(this))
 			{
-				if (this.Value == null)
+				if (LocaleProvider != null)
 				{
-					if (this.AllLanguages)
+					if (LocaleProvider.Loaded)
 					{
-						val = LocaleProvider.GetStringAllLanguages(this.Key);
+						if (this.Value == null)
+						{
+							if (this.AllLanguages)
+							{
+								val = LocaleProvider.GetStringAllLanguages(this.Key);
+							}
+							else
+							{
+								val = LocaleProvider.GetString(this.Key);
+							}
+						}
+						else
+						{
+							val = LocaleProvider.GetStringFormatted(this.Key, this.Value);
+						}
 					}
-					else
-					{
-						val = LocaleProvider.GetString(this.Key);
-					}
-				}
-				else
-				{
-					val = LocaleProvider.GetStringFormatted(this.Key, this.Value);
 				}
 			}
 
