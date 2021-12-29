@@ -114,4 +114,5 @@
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />
+	<converters:MultiBoolOrConverter x:Key="MultiBoolOr" />
 </ResourceDictionary>
