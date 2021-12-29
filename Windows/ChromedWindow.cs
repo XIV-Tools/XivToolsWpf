@@ -18,6 +18,8 @@ namespace XivToolsWpf.Windows
 	[AddINotifyPropertyChangedInterface]
 	public class ChromedWindow : Window
 	{
+		private static readonly IntPtr InvisibleRegion = CreateRectRgn(0, 0, -1, -1);
+
 		private bool enableTranslucency = true;
 		private bool isDarkTheme = false;
 		private bool extendIntoChrome = true;
@@ -55,6 +57,7 @@ namespace XivToolsWpf.Windows
 		private enum WindowCompositionAttribute
 		{
 			WCA_ACCENT_POLICY = 19,
+			WCA_USEDARKMODECOLORS = 26,
 		}
 
 		public bool EnableTranslucency
@@ -115,6 +118,12 @@ namespace XivToolsWpf.Windows
 
 		[DllImport("user32.dll")]
 		private static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+
+		[DllImport("dwmapi.dll")]
+		private static extern void DwmEnableBlurBehindWindow(IntPtr hwnd, ref DWM_BLURBEHIND blurBehind);
+
+		[DllImport("gdi32.dll")]
+		private static extern IntPtr CreateRectRgn(int x1, int y1, int x2, int y2);
 
 		private void OnLoaded(object sender, RoutedEventArgs e)
 		{
@@ -184,6 +193,11 @@ namespace XivToolsWpf.Windows
 
 			AccentPolicy accent = new ();
 
+			DWM_BLURBEHIND blurBehind = new ();
+			blurBehind.Flags = /* DWM_BB_ENABLE | DWM_BB_BLUREGION */ 0x1 | 0x2;
+			blurBehind.Enable = false;
+			blurBehind.RgnBlur = IntPtr.Zero;
+
 			this.isDarkTheme = new PaletteHelper().GetTheme().GetBaseTheme() == BaseTheme.Dark;
 
 			int blurOpacity = 0;
@@ -218,6 +232,8 @@ namespace XivToolsWpf.Windows
 				backgroundRect.Visibility = Visibility.Collapsed;
 				titlebarRect.Fill = new SolidColorBrush(Colors.Transparent);
 				titlebarRect.Opacity = 1.0;
+
+				blurBehind.Enable = true;
 			}
 			else if (isWindows10)
 			{
@@ -228,6 +244,12 @@ namespace XivToolsWpf.Windows
 				backgroundRect.Opacity = 0.75;
 				titlebarRect.Fill = Application.Current.FindResource("MaterialDesignPaper") as SolidColorBrush;
 				titlebarRect.Opacity = 0.75;
+				blurBehind.Enable = true;
+			}
+
+			if (blurBehind.Enable)
+			{
+				blurBehind.RgnBlur = InvisibleRegion;
 			}
 
 			accent.GradientColor = ((uint)blurOpacity << 24) | ((uint)blurBackgroundColor & 0xFFFFFF);
@@ -244,6 +266,19 @@ namespace XivToolsWpf.Windows
 			SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
 			Marshal.FreeHGlobal(accentPtr);
+
+			accentPtr = Marshal.AllocHGlobal(sizeof(int));
+			Marshal.WriteInt32(accentPtr, this.isDarkTheme ? 1 : 0);
+
+			data.Attribute = WindowCompositionAttribute.WCA_USEDARKMODECOLORS;
+			data.SizeOfData = sizeof(int);
+			data.Data = accentPtr;
+
+			SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+			Marshal.FreeHGlobal(accentPtr);
+
+			DwmEnableBlurBehindWindow(windowHelper.Handle, ref blurBehind);
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
@@ -261,6 +296,15 @@ namespace XivToolsWpf.Windows
 			public WindowCompositionAttribute Attribute;
 			public IntPtr Data;
 			public int SizeOfData;
+		}
+
+		[StructLayout(LayoutKind.Sequential)]
+		private struct DWM_BLURBEHIND
+		{
+			public int Flags;
+			public bool Enable;
+			public IntPtr RgnBlur;
+			public bool TransitionOnMaximized;
 		}
 	}
 }
