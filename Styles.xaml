@@ -116,4 +116,5 @@
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />
 	<converters:MultiBoolOrConverter x:Key="MultiBoolOr" />
 	<converters:MultiBoolOrToVisibilityConverter x:Key="MultiBoolOrToVisibility" />
+	<converters:MultiBoolAndToVisibilityConverter x:Key="MultiBoolAndToVisibility" />
 </ResourceDictionary>
