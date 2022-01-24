@@ -22,7 +22,7 @@ namespace XivToolsWpf
 
 		public struct SwitchToUiAwaitable : INotifyCompletion
 		{
-			public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == false;
+			public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == true;
 
 			public SwitchToUiAwaitable GetAwaiter()
 			{
