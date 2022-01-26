@@ -33,8 +33,10 @@ namespace XivToolsWpf.DependencyProperties
 		{
 			Action<DependencyObject, DependencyPropertyChangedEventArgs> callback = (d, e) =>
 			{
-				if (d is TOwner owner && e.OldValue is TValue oldValue && e.NewValue is TValue newValue)
+				if (d is TOwner owner)
 				{
+					TValue oldValue = (TValue)e.OldValue;
+					TValue newValue = (TValue)e.NewValue;
 					changed?.Invoke(owner, oldValue, newValue);
 				}
 			};
@@ -58,7 +60,6 @@ namespace XivToolsWpf.DependencyProperties
 		}
 	}
 
-	#pragma warning disable SA1201
 	public enum BindMode
 	{
 		OneWay,
