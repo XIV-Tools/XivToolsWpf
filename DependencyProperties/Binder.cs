@@ -60,6 +60,7 @@ namespace XivToolsWpf.DependencyProperties
 		}
 	}
 
+#pragma warning disable SA1201
 	public enum BindMode
 	{
 		OneWay,
