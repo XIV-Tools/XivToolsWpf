@@ -118,6 +118,8 @@ namespace XivToolsWpf.Controls
 			set
 			{
 				this.Value = value - this.ValueOffset;
+				this.Value = Math.Max(this.Minimum, this.Value);
+				this.Value = Math.Min(this.Maximum, this.Value);
 			}
 		}
 
