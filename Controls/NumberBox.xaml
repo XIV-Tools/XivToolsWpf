@@ -14,9 +14,9 @@
 	<Grid x:Name="ContentArea">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition x:Name="SliderArea" Width="Auto"/>
-			<ColumnDefinition x:Name="InputBoxArea" Width="45"/>
+			<ColumnDefinition x:Name="InputBoxArea" MinWidth="16"/>
 			<ColumnDefinition Width="Auto"/>
-			
+
 		</Grid.ColumnDefinitions>
 
 		<Slider
@@ -46,7 +46,7 @@
 			LostFocus="OnLostFocus"
 			Margin="0,0,0,2"
 			LostKeyboardFocus="OnLostFocus"/>
-		
+
 		<Line
 			Visibility="Collapsed"
 			x:Name="ErrorDisplay"
@@ -70,6 +70,6 @@
 			<RepeatButton Grid.Column="1" Content="+" Style="{StaticResource TransparentRepeatButton}" Padding="1" Click="OnUpClick" Width="20" HorizontalContentAlignment="Center" Margin="1,1,0,1"/>
 
 		</Grid>
-		
+
 	</Grid>
 </UserControl>
