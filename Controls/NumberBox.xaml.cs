@@ -31,6 +31,7 @@ namespace XivToolsWpf.Controls
 		public static readonly IBind<double> MaxDp = Binder.Register<double, NumberBox>(nameof(Maximum), OnMaximumChanged, BindMode.OneWay);
 		public static readonly IBind<bool> WrapDp = Binder.Register<bool, NumberBox>(nameof(Wrap), BindMode.OneWay);
 		public static readonly IBind<double> OffsetDp = Binder.Register<double, NumberBox>(nameof(ValueOffset), BindMode.OneWay);
+		public static readonly IBind<bool> UncapTextInputDp = Binder.Register<bool, NumberBox>(nameof(UncapTextInput), BindMode.OneWay);
 
 		private string? inputString;
 		private Key keyHeld = Key.None;
@@ -108,6 +109,12 @@ namespace XivToolsWpf.Controls
 			set => ValueDp.Set(this, value);
 		}
 
+		public bool UncapTextInput
+		{
+			get => UncapTextInputDp.Get(this);
+			set => UncapTextInputDp.Set(this, value);
+		}
+
 		public double DisplayValue
 		{
 			get
@@ -118,8 +125,12 @@ namespace XivToolsWpf.Controls
 			set
 			{
 				this.Value = value - this.ValueOffset;
-				this.Value = Math.Max(this.Minimum, this.Value);
-				this.Value = Math.Min(this.Maximum, this.Value);
+
+				if (!this.UncapTextInput)
+				{
+					this.Value = Math.Max(this.Minimum, this.Value);
+					this.Value = Math.Min(this.Maximum, this.Value);
+				}
 			}
 		}
 
@@ -262,8 +273,8 @@ namespace XivToolsWpf.Controls
 			sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
 			////sender.DisplayValue = sender.Validate(v) + sender.ValueOffset;
 
-			if (sender.InputBox.IsFocused)
-				return;
+			////if (sender.InputBox.IsFocused)
+			////	return;
 
 			sender.Text = sender.DisplayValue.ToString("0.###");
 		}
