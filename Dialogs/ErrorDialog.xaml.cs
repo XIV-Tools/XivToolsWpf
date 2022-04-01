@@ -23,22 +23,34 @@ namespace XivToolsWpf.Dialogs
 	{
 		private Window? window;
 
-		private ErrorDialog(ExceptionDispatchInfo exDispatch, bool isCritical)
+		public ErrorDialog(Window? host, ExceptionDispatchInfo exDispatch, bool isCritical)
 		{
 			this.InitializeComponent();
+
+			this.window = host;
 
 			this.OkButton.Visibility = isCritical ? Visibility.Collapsed : Visibility.Visible;
 			this.QuitButton.Visibility = !isCritical ? Visibility.Collapsed : Visibility.Visible;
 
 			this.Message.Text = isCritical ? "Critical Error" : "Error";
 			this.Subtitle.Visibility = isCritical ? Visibility.Visible : Visibility.Collapsed;
-			this.DetailsExpander.Header = exDispatch.SourceException.Message;
 
+			Exception? ex = exDispatch.SourceException;
 			if (exDispatch.SourceException is AggregateException aggEx && aggEx.InnerException != null)
-				this.DetailsExpander.Header = aggEx.InnerException.Message;
+				ex = aggEx.InnerException;
 
 			StringBuilder builder = new StringBuilder();
-			Exception? ex = exDispatch.SourceException;
+			builder.Append(ex.Message);
+
+			if (ex.InnerException != null)
+			{
+				builder.AppendLine();
+				builder.Append(ex.InnerException.Message);
+			}
+
+			this.DetailsExpander.Header = builder.ToString();
+
+			builder.Clear();
 			while (ex != null)
 			{
 				this.StackTraceBlock.Inlines.Add(new Run("[" + ex.GetType().Name + "] ") { FontWeight = FontWeights.Bold });
@@ -69,7 +81,7 @@ namespace XivToolsWpf.Dialogs
 			{
 				try
 				{
-					ErrorDialog errorDialog = new ErrorDialog(ex, isCriticial);
+					ErrorDialog errorDialog = new ErrorDialog(null, ex, isCriticial);
 					errorDialog.window = new StyledWindow(errorDialog);
 					errorDialog.window.ShowDialog();
 
