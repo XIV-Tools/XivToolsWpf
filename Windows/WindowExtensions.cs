@@ -10,15 +10,15 @@ namespace XivToolsWpf.Windows
 
 	public static class WindowExtensions
 	{
-		[DllImport("user32.dll")]
-		private static extern IntPtr GetForegroundWindow();
-
-		private static bool GetIsActive(this Window? self)
+		public static bool GetIsActive(this Window? self)
 		{
 			if (self == null)
 				return false;
 
 			return GetForegroundWindow() == new WindowInteropHelper(self).Handle;
 		}
+
+		[DllImport("user32.dll")]
+		private static extern IntPtr GetForegroundWindow();
 	}
 }
