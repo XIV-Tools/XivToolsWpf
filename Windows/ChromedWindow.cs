@@ -92,6 +92,11 @@ namespace XivToolsWpf.Windows
 			}
 		}
 
+		public bool GetIsActive()
+		{
+			return WindowExtensions.GetIsActive(this);
+		}
+
 		protected override void OnActivated(EventArgs e)
 		{
 			if (!this.EnableTranslucency || this.isDarkTheme)
