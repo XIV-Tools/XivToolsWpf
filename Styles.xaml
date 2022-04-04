@@ -109,6 +109,9 @@
 	<converters:InvertedBoolToVisibilityConverter x:Key="!B2V" />
 	<converters:RadiansToDegreesConverter x:Key="Rad2Deg" />
 	<converters:NotZeroToVisibilityConverter x:Key="NotZeroToVisibility" />
+	<converters:IsZeroToVisibilityConverter x:Key="IsZeroToVisibility"/>
+	<converters:NotZeroToBoolConverter x:Key="NotZeroToBool"/>
+	<converters:IsZeroToBoolConverter x:Key="IsZeroToBool"/>
 	<converters:BoolInversionConverter x:Key="!B" />
 	<converters:ListToStringConverter x:Key="ListToStringConverter" />
 
