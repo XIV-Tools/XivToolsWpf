@@ -96,6 +96,8 @@
 	<!--<Style BasedOn="{StaticResource MaterialDesignMenu}" TargetType="{x:Type Menu}" />
 	<Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}" />-->
 
+	<converters:MaterialDesignBorderClipConverter x:Key="MdBorderClipConverter"/>
+
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
 	<!--  Custom converters  -->
