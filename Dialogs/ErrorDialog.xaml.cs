@@ -48,7 +48,7 @@ namespace XivToolsWpf.Dialogs
 				builder.Append(ex.InnerException.Message);
 			}
 
-			this.DetailsExpander.Header = builder.ToString();
+			this.HeaderTextBlock.Text = builder.ToString();
 
 			builder.Clear();
 			while (ex != null)
