@@ -12,7 +12,7 @@
 
 	<Grid x:Name="ContentArea" VerticalAlignment="Bottom" Margin="3">
 
-		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3">
+		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1" BorderBrush="Orange">
 			<Border.Effect>
 				<DropShadowEffect
 					BlurRadius="3"
