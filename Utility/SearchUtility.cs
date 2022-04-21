@@ -27,7 +27,16 @@ namespace XivToolsWpf
 
 				// ignore all symbols
 				string strB = Regex.Replace(str, @"[^\w\d\s]", string.Empty);
-				matchesSearch &= input.Contains(strB);
+
+				// Parse integers as numbers instead of strings
+				if (int.TryParse(str, out int v))
+				{
+					matchesSearch &= input.Contains(v.ToString());
+				}
+				else
+				{
+					matchesSearch &= input.Contains(strB);
+				}
 			}
 
 			if (!matchesSearch)
