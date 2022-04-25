@@ -28,6 +28,10 @@ namespace XivToolsWpf.Converters
 			{
 				return uintV == 0;
 			}
+			else if (value is ushort ushortV)
+			{
+				return ushortV == 0;
+			}
 			else
 			{
 				throw new NotImplementedException($"value type {value.GetType()} not supported for not zero converter");
