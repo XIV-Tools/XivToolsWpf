@@ -104,6 +104,7 @@
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />
 	<converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
 	<converters:NotEmptyToVisibilityConverter x:Key="NotEmptyToVisibilityConverter" />
+	<converters:IsEmptyToVisibilityConverter x:Key="IsEmptyToVisibilityConverter" />
 	<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 	<converters:NotNullToBoolConverter x:Key="NotNullToBoolConverter" />
 	<converters:NullToBoolConverter x:Key="NullToBoolConverter" />
