@@ -12,15 +12,15 @@
 
 	<Grid x:Name="ContentArea" VerticalAlignment="Bottom" Margin="3">
 
-		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1" BorderBrush="Orange">
+		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1">
 			<Border.Effect>
 				<DropShadowEffect
-					BlurRadius="3"
-					Direction="270"
-					Opacity="0.75"
-					ShadowDepth="2" />
+					BlurRadius="10"
+					ShadowDepth="0" />
 			</Border.Effect>
 		</Border>
+
+		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1" BorderBrush="Orange"/>
 
 		<Grid Margin="6,3">
 			<Grid.ColumnDefinitions>
