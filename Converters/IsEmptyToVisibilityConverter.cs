@@ -10,7 +10,7 @@ namespace XivToolsWpf.Converters
 	using System.Windows.Data;
 
 	[ValueConversion(typeof(IEnumerable), typeof(Visibility))]
-	public class NotEmptyToVisibilityConverter : IValueConverter
+	public class IsEmptyToVisibilityConverter : IValueConverter
 	{
 		public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
 		{
