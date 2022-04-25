@@ -226,7 +226,8 @@
 								SnapsToDevicePixels="True"
 								CornerRadius="1"
 								Height="2"
-								VerticalAlignment="Bottom"/>
+								VerticalAlignment="Bottom"
+								Margin="6, 0, 6, 3"/>
 
 						<ContentControl x:Name="Content"
 										Content="{TemplateBinding Content}"
