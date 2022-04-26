@@ -1,43 +1,42 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Controls
+namespace XivToolsWpf.Controls;
+
+using System.Windows.Controls;
+using FontAwesome.Sharp;
+using XivToolsWpf.DependencyProperties;
+
+/// <summary>
+/// Interaction logic for Panel.xaml.
+/// </summary>
+public partial class Header : UserControl
 {
-	using System.Windows.Controls;
-	using FontAwesome.Sharp;
-	using XivToolsWpf.DependencyProperties;
+	public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, Header>(nameof(Icon));
+	public static readonly IBind<string> TextDp = Binder.Register<string, Header>(nameof(Text));
+	public static readonly IBind<string> KeyDp = Binder.Register<string, Header>(nameof(Key));
 
-	/// <summary>
-	/// Interaction logic for Panel.xaml.
-	/// </summary>
-	public partial class Header : UserControl
+	public Header()
 	{
-		public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, Header>(nameof(Icon));
-		public static readonly IBind<string> TextDp = Binder.Register<string, Header>(nameof(Text));
-		public static readonly IBind<string> KeyDp = Binder.Register<string, Header>(nameof(Key));
+		this.InitializeComponent();
+		this.ContentArea.DataContext = this;
+	}
 
-		public Header()
-		{
-			this.InitializeComponent();
-			this.ContentArea.DataContext = this;
-		}
+	public IconChar Icon
+	{
+		get => IconDp.Get(this);
+		set => IconDp.Set(this, value);
+	}
 
-		public IconChar Icon
-		{
-			get => IconDp.Get(this);
-			set => IconDp.Set(this, value);
-		}
+	public string Text
+	{
+		get => TextDp.Get(this);
+		set => TextDp.Set(this, value);
+	}
 
-		public string Text
-		{
-			get => TextDp.Get(this);
-			set => TextDp.Set(this, value);
-		}
-
-		public string Key
-		{
-			get => KeyDp.Get(this);
-			set => KeyDp.Set(this, value);
-		}
+	public string Key
+	{
+		get => KeyDp.Get(this);
+		set => KeyDp.Set(this, value);
 	}
 }

@@ -1,30 +1,29 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Converters
+namespace XivToolsWpf.Converters;
+
+using System;
+using System.Windows.Data;
+
+[ValueConversion(typeof(object), typeof(bool))]
+public class NullToBoolConverter : IValueConverter
 {
-	using System;
-	using System.Windows.Data;
-
-	[ValueConversion(typeof(object), typeof(bool))]
-	public class NullToBoolConverter : IValueConverter
+	public object? Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 	{
-		public object? Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		if (value is string str)
 		{
-			if (value is string str)
+			if (string.IsNullOrEmpty(str))
 			{
-				if (string.IsNullOrEmpty(str))
-				{
-					value = null;
-				}
+				value = null;
 			}
-
-			return value == null;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+		return value == null;
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+	{
+		throw new NotImplementedException();
 	}
 }

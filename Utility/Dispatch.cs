@@ -1,61 +1,60 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf
+namespace XivToolsWpf;
+
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows;
+
+public static class Dispatch
 {
-	using System;
-	using System.Runtime.CompilerServices;
-	using System.Threading.Tasks;
-	using System.Windows;
-
-	public static class Dispatch
+	public static SwitchToUiAwaitable MainThread()
 	{
-		public static SwitchToUiAwaitable MainThread()
+		return default(SwitchToUiAwaitable);
+	}
+
+	public static SwitchFromUiAwaitable NonUiThread()
+	{
+		return default(SwitchFromUiAwaitable);
+	}
+
+	public struct SwitchToUiAwaitable : INotifyCompletion
+	{
+		public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == true;
+
+		public SwitchToUiAwaitable GetAwaiter()
 		{
-			return default(SwitchToUiAwaitable);
+			return this;
 		}
 
-		public static SwitchFromUiAwaitable NonUiThread()
+		public void GetResult()
 		{
-			return default(SwitchFromUiAwaitable);
 		}
 
-		public struct SwitchToUiAwaitable : INotifyCompletion
+		public void OnCompleted(Action continuation)
 		{
-			public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == true;
+			Application.Current?.Dispatcher.BeginInvoke(continuation);
+		}
+	}
 
-			public SwitchToUiAwaitable GetAwaiter()
-			{
-				return this;
-			}
+	public struct SwitchFromUiAwaitable : INotifyCompletion
+	{
+		public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == false;
 
-			public void GetResult()
-			{
-			}
-
-			public void OnCompleted(Action continuation)
-			{
-				Application.Current?.Dispatcher.BeginInvoke(continuation);
-			}
+		public SwitchFromUiAwaitable GetAwaiter()
+		{
+			return this;
 		}
 
-		public struct SwitchFromUiAwaitable : INotifyCompletion
+		public void GetResult()
 		{
-			public bool IsCompleted => Application.Current?.Dispatcher.CheckAccess() == false;
+		}
 
-			public SwitchFromUiAwaitable GetAwaiter()
-			{
-				return this;
-			}
-
-			public void GetResult()
-			{
-			}
-
-			public void OnCompleted(Action continuation)
-			{
-				Task.Run(continuation);
-			}
+		public void OnCompleted(Action continuation)
+		{
+			Task.Run(continuation);
 		}
 	}
 }

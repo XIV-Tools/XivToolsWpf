@@ -1,42 +1,41 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Controls
+namespace XivToolsWpf.Controls;
+
+using System.Windows.Controls;
+using PropertyChanged;
+
+/// <summary>
+/// Interaction logic for InfoControl.xaml.
+/// </summary>
+[AddINotifyPropertyChangedInterface]
+public partial class InfoControl : UserControl
 {
-	using System.Windows.Controls;
-	using PropertyChanged;
-
-	/// <summary>
-	/// Interaction logic for InfoControl.xaml.
-	/// </summary>
-	[AddINotifyPropertyChangedInterface]
-	public partial class InfoControl : UserControl
+	public InfoControl()
 	{
-		public InfoControl()
-		{
-			this.InitializeComponent();
+		this.InitializeComponent();
 
-			this.ContentArea.DataContext = this;
+		this.ContentArea.DataContext = this;
 
-			this.IsError = false;
-		}
+		this.IsError = false;
+	}
 
-		public string? Key
-		{
-			get => this.TextBlock.Key;
-			set => this.TextBlock.Key = value;
-		}
+	public string? Key
+	{
+		get => this.TextBlock.Key;
+		set => this.TextBlock.Key = value;
+	}
 
-		public string? Text
-		{
-			get => this.TextBlock.Text;
-			set => this.TextBlock.Text = value;
-		}
+	public string? Text
+	{
+		get => this.TextBlock.Text;
+		set => this.TextBlock.Text = value;
+	}
 
-		public bool IsError
-		{
-			get;
-			set;
-		}
+	public bool IsError
+	{
+		get;
+		set;
 	}
 }

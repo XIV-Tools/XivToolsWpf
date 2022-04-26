@@ -1,9 +1,8 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.DependencyInjection
+namespace XivToolsWpf.DependencyInjection;
+
+public interface IDependency
 {
-	public interface IDependency
-	{
-	}
 }

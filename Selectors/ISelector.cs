@@ -1,17 +1,16 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Selectors
+namespace XivToolsWpf.Selectors;
+
+public delegate void SelectorSelectedEvent(bool close);
+
+public interface ISelector
 {
-	public delegate void SelectorSelectedEvent(bool close);
+	event SelectorSelectedEvent? SelectionChanged;
+}
 
-	public interface ISelector
-	{
-		event SelectorSelectedEvent? SelectionChanged;
-	}
-
-	public interface ISelectorView : ISelector
-	{
-		Selector Selector { get; }
-	}
+public interface ISelectorView : ISelector
+{
+	Selector Selector { get; }
 }

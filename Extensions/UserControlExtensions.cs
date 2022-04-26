@@ -1,15 +1,14 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace System.Windows.Controls
-{
-	using System.Windows;
+namespace System.Windows.Controls;
 
-	public static class UserControlExtensions
+using System.Windows;
+
+public static class UserControlExtensions
+{
+	public static T GetValue<T>(this UserControl self, DependencyProperty dp)
 	{
-		public static T GetValue<T>(this UserControl self, DependencyProperty dp)
-		{
-			return (T)self.GetValue(dp);
-		}
+		return (T)self.GetValue(dp);
 	}
 }

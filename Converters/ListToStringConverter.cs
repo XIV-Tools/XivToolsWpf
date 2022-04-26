@@ -1,36 +1,35 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Converters
+namespace XivToolsWpf.Converters;
+
+using System;
+using System.Collections;
+using System.Windows.Data;
+
+[ValueConversion(typeof(IEnumerable), typeof(string))]
+public class ListToStringConverter : IValueConverter
 {
-	using System;
-	using System.Collections;
-	using System.Windows.Data;
-
-	[ValueConversion(typeof(IEnumerable), typeof(string))]
-	public class ListToStringConverter : IValueConverter
+	public object? Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 	{
-		public object? Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		if (value is IEnumerable enumerable)
 		{
-			if (value is IEnumerable enumerable)
+			string str = string.Empty;
+			int count = 0;
+			foreach (object v in enumerable)
 			{
-				string str = string.Empty;
-				int count = 0;
-				foreach (object v in enumerable)
-				{
-					str += v.ToString() + ", ";
-					count++;
-				}
-
-				return count + ": " + str.TrimEnd(' ', ',');
+				str += v.ToString() + ", ";
+				count++;
 			}
 
-			throw new Exception("List to string converter can only be used with enumerable sources");
+			return count + ": " + str.TrimEnd(' ', ',');
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+		throw new Exception("List to string converter can only be used with enumerable sources");
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+	{
+		throw new NotImplementedException();
 	}
 }

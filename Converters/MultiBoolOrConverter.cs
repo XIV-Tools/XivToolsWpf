@@ -1,31 +1,30 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Converters
+namespace XivToolsWpf.Converters;
+
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+public class MultiBoolOrConverter : IMultiValueConverter
 {
-	using System;
-	using System.Globalization;
-	using System.Windows.Data;
-
-	public class MultiBoolOrConverter : IMultiValueConverter
+	public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 	{
-		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+		foreach (object value in values)
 		{
-			foreach (object value in values)
+			if (value is bool boolValue)
 			{
-				if (value is bool boolValue)
-				{
-					if (boolValue)
-						return true;
-				}
+				if (boolValue)
+					return true;
 			}
-
-			return false;
 		}
 
-		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-		{
-			throw new NotSupportedException("BooleanAndConverter is a OneWay converter.");
-		}
+		return false;
+	}
+
+	public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+	{
+		throw new NotSupportedException("BooleanAndConverter is a OneWay converter.");
 	}
 }

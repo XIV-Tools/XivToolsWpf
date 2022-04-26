@@ -1,43 +1,42 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Meida3D.Lines
+namespace XivToolsWpf.Meida3D.Lines;
+
+using System;
+using System.Windows.Media.Media3D;
+
+public class Circle : Line
 {
-	using System;
-	using System.Windows.Media.Media3D;
+	private double radius;
 
-	public class Circle : Line
+	public Circle()
 	{
-		private double radius;
+		this.Generate();
+	}
 
-		public Circle()
+	public double Radius
+	{
+		get
 		{
+			return this.radius;
+		}
+		set
+		{
+			this.radius = value;
 			this.Generate();
 		}
+	}
 
-		public double Radius
+	public void Generate()
+	{
+		this.Points.Clear();
+
+		double angleStep = MathUtils.DegreesToRadians(1);
+		for (int i = 0; i < 360; i++)
 		{
-			get
-			{
-				return this.radius;
-			}
-			set
-			{
-				this.radius = value;
-				this.Generate();
-			}
-		}
-
-		public void Generate()
-		{
-			this.Points.Clear();
-
-			double angleStep = MathUtils.DegreesToRadians(1);
-			for (int i = 0; i < 360; i++)
-			{
-				this.Points.Add(new Point3D(Math.Cos(angleStep * i) * this.Radius, 0.0, Math.Sin(angleStep * i) * this.Radius));
-				this.Points.Add(new Point3D(Math.Cos(angleStep * (i + 1)) * this.Radius, 0.0, Math.Sin(angleStep * (i + 1)) * this.Radius));
-			}
+			this.Points.Add(new Point3D(Math.Cos(angleStep * i) * this.Radius, 0.0, Math.Sin(angleStep * i) * this.Radius));
+			this.Points.Add(new Point3D(Math.Cos(angleStep * (i + 1)) * this.Radius, 0.0, Math.Sin(angleStep * (i + 1)) * this.Radius));
 		}
 	}
 }

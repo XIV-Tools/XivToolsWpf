@@ -3,12 +3,15 @@
 [*.cs]
 indent_style = tab
 file_header_template = © XIV-Tools.\nLicensed under the MIT license.
+csharp_style_namespace_declarations = file_scoped:warning
 
+dotnet_diagnostic.SA1000.severity = none
 dotnet_diagnostic.SA1027.severity = none
 dotnet_diagnostic.SA1600.severity = none
 dotnet_diagnostic.SA1503.severity = none
 dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.SA1401.severity = none
+dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none
 dotnet_diagnostic.SA1516.severity = none
 dotnet_diagnostic.SA1618.severity = none
@@ -16,12 +19,17 @@ dotnet_diagnostic.SA1611.severity = none
 dotnet_diagnostic.SA1615.severity = none
 dotnet_diagnostic.SA1011.severity = none
 
+dotnet_diagnostic.IDE0011.severity = none
+dotnet_diagnostic.IDE0022.severity = none
+dotnet_diagnostic.IDE0023.severity = none
 dotnet_diagnostic.IDE1006.severity = warning
 dotnet_diagnostic.IDE0044.severity = warning
+dotnet_diagnostic.IDE0058.severity = none
 dotnet_diagnostic.IDE0073.severity = warning
 dotnet_diagnostic.IDE0025.severity = none
 dotnet_diagnostic.IDE0027.severity = none
 dotnet_diagnostic.IDE0059.severity = none
+dotnet_diagnostic.IDE0065.severity = none
 
 dotnet_diagnostic.UNT0001.severity = warning
 dotnet_diagnostic.UNT0002.severity = warning
@@ -46,3 +54,6 @@ dotnet_diagnostic.UNT0020.severity = warning
 
 dotnet_diagnostic.CS1591.severity = none
 dotnet_diagnostic.CS0067.severity = none
+
+dotnet_diagnostic.CA1416.severity = none
+dotnet_diagnostic.CA2201.severity = none

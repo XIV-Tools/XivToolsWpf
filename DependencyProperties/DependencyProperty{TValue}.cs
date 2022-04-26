@@ -1,32 +1,31 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.DependencyProperties
+namespace XivToolsWpf.DependencyProperties;
+
+using System.Windows;
+
+public class DependencyProperty<TValue> : IBind<TValue>
 {
-	using System.Windows;
+	private DependencyProperty dp;
 
-	public class DependencyProperty<TValue> : IBind<TValue>
+	public DependencyProperty(DependencyProperty dp)
 	{
-		private DependencyProperty dp;
+		this.dp = dp;
+	}
 
-		public DependencyProperty(DependencyProperty dp)
-		{
-			this.dp = dp;
-		}
+	public TValue Get(DependencyObject control)
+	{
+		return (TValue)control.GetValue(this.dp);
+	}
 
-		public TValue Get(DependencyObject control)
-		{
-			return (TValue)control.GetValue(this.dp);
-		}
+	public void Set(DependencyObject control, TValue value)
+	{
+		TValue old = this.Get(control);
 
-		public void Set(DependencyObject control, TValue value)
-		{
-			TValue old = this.Get(control);
+		if (old != null && old.Equals(value))
+			return;
 
-			if (old != null && old.Equals(value))
-				return;
-
-			control.SetValue(this.dp, value);
-		}
+		control.SetValue(this.dp, value);
 	}
 }

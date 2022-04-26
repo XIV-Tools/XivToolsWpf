@@ -1,60 +1,59 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Controls
+namespace XivToolsWpf.Controls;
+
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using FontAwesome.Sharp;
+using PropertyChanged;
+using XivToolsWpf.DependencyProperties;
+
+/// <summary>
+/// Interaction logic for IconButton.xaml.
+/// </summary>
+[AddINotifyPropertyChangedInterface]
+public partial class IconButton : UserControl
 {
-	using System.ComponentModel;
-	using System.Windows;
-	using System.Windows.Controls;
-	using System.Windows.Media;
-	using FontAwesome.Sharp;
-	using PropertyChanged;
-	using XivToolsWpf.DependencyProperties;
+	public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, IconButton>(nameof(Icon));
 
-	/// <summary>
-	/// Interaction logic for IconButton.xaml.
-	/// </summary>
-	[AddINotifyPropertyChangedInterface]
-	public partial class IconButton : UserControl
+	public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(IconButton));
+
+	public IconButton()
 	{
-		public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, IconButton>(nameof(Icon));
+		this.InitializeComponent();
 
-		public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(IconButton));
+		this.ContentArea.DataContext = this;
+	}
 
-		public IconButton()
-		{
-			this.InitializeComponent();
+	public event RoutedEventHandler Click
+	{
+		add => this.AddHandler(ClickEvent, value);
+		remove => this.RemoveHandler(ClickEvent, value);
+	}
 
-			this.ContentArea.DataContext = this;
-		}
+	public string? Key
+	{
+		get => this.TextBlock.Key;
+		set => this.TextBlock.Key = value;
+	}
 
-		public event RoutedEventHandler Click
-		{
-			add => this.AddHandler(ClickEvent, value);
-			remove => this.RemoveHandler(ClickEvent, value);
-		}
+	public string? Text
+	{
+		get => this.TextBlock.Text;
+		set => this.TextBlock.Text = value;
+	}
 
-		public string? Key
-		{
-			get => this.TextBlock.Key;
-			set => this.TextBlock.Key = value;
-		}
+	public IconChar Icon
+	{
+		get => IconDp.Get(this);
+		set => IconDp.Set(this, value);
+	}
 
-		public string? Text
-		{
-			get => this.TextBlock.Text;
-			set => this.TextBlock.Text = value;
-		}
-
-		public IconChar Icon
-		{
-			get => IconDp.Get(this);
-			set => IconDp.Set(this, value);
-		}
-
-		private void OnClick(object sender, RoutedEventArgs e)
-		{
-			this.RaiseEvent(new RoutedEventArgs(ClickEvent));
-		}
+	private void OnClick(object sender, RoutedEventArgs e)
+	{
+		this.RaiseEvent(new RoutedEventArgs(ClickEvent));
 	}
 }

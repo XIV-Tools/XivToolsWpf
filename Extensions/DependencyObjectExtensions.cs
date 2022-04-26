@@ -1,52 +1,51 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace System.Windows
+namespace System.Windows;
+
+using System.Collections.Generic;
+using System.Windows.Media;
+
+public static class DependencyObjectExtensions
 {
-	using System.Collections.Generic;
-	using System.Windows.Media;
-
-	public static class DependencyObjectExtensions
+	public static T? FindParent<T>(this DependencyObject child)
+		where T : DependencyObject
 	{
-		public static T? FindParent<T>(this DependencyObject child)
-			where T : DependencyObject
+		DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+		if (parentObject == null)
+			return null;
+
+		T? parent = parentObject as T;
+
+		if (parent != null)
 		{
-			DependencyObject parentObject = VisualTreeHelper.GetParent(child);
-
-			if (parentObject == null)
-				return null;
-
-			T? parent = parentObject as T;
-
-			if (parent != null)
-			{
-				return parent;
-			}
-			else
-			{
-				return parentObject.FindParent<T>();
-			}
+			return parent;
 		}
-
-		public static List<T> FindChildren<T>(this DependencyObject self)
+		else
 		{
-			List<T> results = new List<T>();
-			self.FindChildren<T>(ref results);
-			return results;
+			return parentObject.FindParent<T>();
 		}
+	}
 
-		public static void FindChildren<T>(this DependencyObject self, ref List<T> results)
+	public static List<T> FindChildren<T>(this DependencyObject self)
+	{
+		List<T> results = new List<T>();
+		self.FindChildren<T>(ref results);
+		return results;
+	}
+
+	public static void FindChildren<T>(this DependencyObject self, ref List<T> results)
+	{
+		int children = VisualTreeHelper.GetChildrenCount(self);
+		for (int i = 0; i < children; i++)
 		{
-			int children = VisualTreeHelper.GetChildrenCount(self);
-			for (int i = 0; i < children; i++)
-			{
-				DependencyObject? child = VisualTreeHelper.GetChild(self, i);
+			DependencyObject? child = VisualTreeHelper.GetChild(self, i);
 
-				if (child is T tChild)
-					results.Add(tChild);
+			if (child is T tChild)
+				results.Add(tChild);
 
-				child.FindChildren(ref results);
-			}
+			child.FindChildren(ref results);
 		}
 	}
 }

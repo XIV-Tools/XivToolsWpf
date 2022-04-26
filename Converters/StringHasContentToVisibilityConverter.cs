@@ -1,24 +1,23 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Converters
+namespace XivToolsWpf.Converters;
+
+using System;
+using System.Windows;
+using System.Windows.Data;
+
+[ValueConversion(typeof(string), typeof(Visibility))]
+public class StringHasContentToVisibilityConverter : IValueConverter
 {
-	using System;
-	using System.Windows;
-	using System.Windows.Data;
-
-	[ValueConversion(typeof(string), typeof(Visibility))]
-	public class StringHasContentToVisibilityConverter : IValueConverter
+	public object Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 	{
-		public object Convert(object? value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			string? val = value as string;
-			return string.IsNullOrEmpty(val) ? Visibility.Collapsed : Visibility.Visible;
-		}
+		string? val = value as string;
+		return string.IsNullOrEmpty(val) ? Visibility.Collapsed : Visibility.Visible;
+	}
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+	public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+	{
+		throw new NotImplementedException();
 	}
 }

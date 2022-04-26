@@ -1,26 +1,25 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Controls
+namespace XivToolsWpf.Controls;
+
+using System.Windows;
+using System.Windows.Media;
+using FontAwesome.Sharp;
+
+public class IconBlock : IconBlockBase<IconChar>
 {
-	using System.Windows;
-	using System.Windows.Media;
-	using FontAwesome.Sharp;
+	private static readonly Typeface[] Typefaces = typeof(IconHelper).Assembly.LoadTypefaces("fonts", "Font Awesome 5 Free Solid");
 
-	public class IconBlock : IconBlockBase<IconChar>
+	public IconBlock()
+		: base(Font)
 	{
-		private static readonly Typeface[] Typefaces = typeof(IconHelper).Assembly.LoadTypefaces("fonts", "Font Awesome 5 Free Solid");
+	}
 
-		public IconBlock()
-			: base(Font)
-		{
-		}
+	private static FontFamily Font => Typefaces[0].FontFamily;
 
-		private static FontFamily Font => Typefaces[0].FontFamily;
-
-		protected override FontFamily FontFor(IconChar icon)
-		{
-			return Font;
-		}
+	protected override FontFamily FontFor(IconChar icon)
+	{
+		return Font;
 	}
 }

@@ -7,7 +7,11 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-public class MultiBoolAndConverter : IMultiValueConverter
+/// <summary>
+/// If all of the bools are true, returns false.
+/// If any of the bools are false, returns true.
+/// </summary>
+public class AnyBoolIsFalseToBoolMultiConverter : IMultiValueConverter
 {
 	public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 	{
@@ -16,11 +20,13 @@ public class MultiBoolAndConverter : IMultiValueConverter
 			if (value is bool boolValue)
 			{
 				if (!boolValue)
-					return false;
+				{
+					return true;
+				}
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

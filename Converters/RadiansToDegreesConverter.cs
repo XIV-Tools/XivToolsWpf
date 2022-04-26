@@ -1,23 +1,22 @@
 ﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
-namespace XivToolsWpf.Converters
+namespace XivToolsWpf.Converters;
+
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+[ValueConversion(typeof(float), typeof(float))]
+public class RadiansToDegreesConverter : IValueConverter
 {
-	using System;
-	using System.Globalization;
-	using System.Windows.Data;
-
-	[ValueConversion(typeof(float), typeof(float))]
-	public class RadiansToDegreesConverter : IValueConverter
+	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return System.Convert.ToSingle(value) * (180 / Math.PI);
-		}
+		return System.Convert.ToSingle(value) * (180 / Math.PI);
+	}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return System.Convert.ToSingle(value) * (Math.PI / 180);
-		}
+	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	{
+		return System.Convert.ToSingle(value) * (Math.PI / 180);
 	}
 }
