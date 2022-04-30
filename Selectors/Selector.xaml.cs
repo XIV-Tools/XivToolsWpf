@@ -22,7 +22,7 @@ using XivToolsWpf;
 /// Interaction logic for SelectorDrawer.xaml.
 /// </summary>
 [AddINotifyPropertyChangedInterface]
-public partial class Selector : UserControl, INotifyPropertyChanged, ISelector
+public partial class Selector : UserControl, INotifyPropertyChanged
 {
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(object), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
 	public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
@@ -47,6 +47,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged, ISelector
 		this.ProgressBar.Visibility = Visibility.Visible;
 	}
 
+	public delegate void SelectorSelectedEvent(bool close);
 	public delegate bool FilterEvent(object item, string[]? search);
 	public delegate int SortEvent(object itemA, object itemB);
 	public delegate Task GetItemsEvent();

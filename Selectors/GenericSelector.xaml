@@ -9,6 +9,7 @@
 	Width="256"
 	d:DesignHeight="450"
 	mc:Ignorable="d">
+	
 	<selectors:Selector
 		x:Name="Selector"
 		Filter="OnFilter"
@@ -36,4 +37,5 @@
 			</DataTemplate>
 		</selectors:Selector.ItemTemplate>
 	</selectors:Selector>
+	
 </UserControl>

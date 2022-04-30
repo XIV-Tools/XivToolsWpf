@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using XivToolsWpf;
 
+using static XivToolsWpf.Selectors.Selector;
+
 /// <summary>
 /// Interaction logic for GenericSelector.xaml.
 /// </summary>
-public partial class GenericSelector : UserControl, ISelectorView
+public partial class GenericSelector : UserControl
 {
 	public GenericSelector(IEnumerable<ISelectable> options)
 	{
@@ -38,14 +40,6 @@ public partial class GenericSelector : UserControl, ISelectorView
 		set
 		{
 			this.Selector.Value = value;
-		}
-	}
-
-	Selector ISelectorView.Selector
-	{
-		get
-		{
-			return this.Selector;
 		}
 	}
 
