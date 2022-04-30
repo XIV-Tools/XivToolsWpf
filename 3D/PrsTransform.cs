@@ -1,4 +1,4 @@
-﻿// © Anamnesis.
+﻿// © XIV-Tools.
 // Licensed under the MIT license.
 
 namespace XivToolsWpf.Meida3D;
