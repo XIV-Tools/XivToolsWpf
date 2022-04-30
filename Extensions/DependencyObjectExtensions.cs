@@ -28,6 +28,18 @@ public static class DependencyObjectExtensions
 		}
 	}
 
+	public static T? FindChild<T>(this DependencyObject self)
+		where T : notnull
+	{
+		List<T> results = new List<T>();
+		self.FindChildren<T>(ref results);
+
+		if (results.Count == 0)
+			return default;
+
+		return results[0];
+	}
+
 	public static List<T> FindChildren<T>(this DependencyObject self)
 	{
 		List<T> results = new List<T>();
