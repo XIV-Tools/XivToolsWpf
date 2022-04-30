@@ -9,7 +9,7 @@
 	Width="256"
 	d:DesignHeight="450"
 	mc:Ignorable="d">
-	
+
 	<selectors:Selector
 		x:Name="Selector"
 		Filter="OnFilter"
@@ -19,16 +19,27 @@
 			<DataTemplate>
 				<Grid>
 
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
 					<TextBlock
 						Grid.Row="0"
-						Grid.Column="1"
-						Margin="6,0,0,0"
+						Margin="3,0"
 						Foreground="{DynamicResource MaterialDesignBody}"
+						FontWeight="DemiBold"
 						Text="{Binding Name}" />
+
+					<TextBlock
+						Grid.Row="1"
+						Margin="3,0"
+						Text="{Binding Description}" 
+						Foreground="{DynamicResource MaterialDesignBodyLight}"
+						Visibility="{Binding Description, Converter={StaticResource StringHasContentToVisibility}}"/>
 
 					<Rectangle
 						Grid.RowSpan="2"
-						Grid.ColumnSpan="2"
 						Fill="Transparent"
 						ToolTipService.ToolTip="{Binding Description}"
 						Visibility="{Binding Description, Converter={StaticResource StringHasContentToVisibility}}" />
@@ -37,5 +48,5 @@
 			</DataTemplate>
 		</selectors:Selector.ItemTemplate>
 	</selectors:Selector>
-	
+
 </UserControl>
