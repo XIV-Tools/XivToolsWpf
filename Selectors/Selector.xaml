@@ -8,20 +8,37 @@
 	d:DesignHeight="450"
 	d:DesignWidth="232"
 	Loaded="OnLoaded"
+	Unloaded="OnUnloaded"
 	mc:Ignorable="d">
-	<Grid>
+
+	<Grid x:Name="ContentArea">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0" Margin="3,0,12,0">
+		<Grid Grid.Row="0" Margin="3,0,12,0"
+			  Visibility="{Binding SearchEnabled, Converter={StaticResource B2V}}">
+			
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="32" />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
 
-			<fa:IconBlock Width="16" Icon="Search" />
+			<Button Style="{DynamicResource TransparentIconButton}"
+					Click="OnClearSearchClicked"
+					Margin="0, 6, 0, 6"
+					IsEnabled="{Binding HasSearch}">
+				<Grid>
+					<fa:IconBlock Width="16"
+								  Icon="Search"
+								  Visibility="{Binding HasSearch, Converter={StaticResource !B2V}}" />
+
+					<fa:IconBlock Width="16"
+								  Icon="TimesCircle"
+								  Visibility="{Binding HasSearch, Converter={StaticResource B2V}}" />
+				</Grid>
+			</Button>
 
 			<TextBox
 				x:Name="SearchBox"
@@ -35,15 +52,27 @@
 
 		</Grid>
 
-		<ListBox
-			x:Name="ListBox"
+		<ListBox x:Name="ListBox"
+				 Grid.Row="1"
+				 HorizontalContentAlignment="Stretch"
+				 ItemTemplate="{Binding ItemTemplate}"
+				 ItemsSource="{Binding FilteredItems}"
+				 MouseDoubleClick="OnDoubleClick"
+				 SelectedItem="{Binding Value}"
+				 SelectionChanged="OnSelectionChanged"
+				 VirtualizingStackPanel.IsVirtualizing="True"
+				 VirtualizingStackPanel.VirtualizationMode="Recycling">
+		</ListBox>
+
+		<ProgressBar
+			Width="48"
+			Height="48"
 			Grid.Row="1"
-			HorizontalContentAlignment="Stretch"
-			ItemTemplate="{Binding ItemTemplate}"
-			ItemsSource="{Binding FilteredItems}"
-			MouseDoubleClick="OnDoubleClick"
-			SelectedItem="{Binding Value}"
-			SelectionChanged="OnSelectionChanged"
-			VirtualizingStackPanel.IsVirtualizing="True" />
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			IsIndeterminate="True"
+			x:Name="ProgressBar"
+			Style="{StaticResource MaterialDesignCircularProgressBar}"/>
+
 	</Grid>
 </UserControl>

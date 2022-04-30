@@ -49,13 +49,6 @@ public partial class GenericSelector : UserControl, ISelectorView
 		}
 	}
 
-	public static void Show<T>(T? current, IEnumerable<T> options, Action<T, bool> changed)
-		where T : class, ISelectable
-	{
-		GenericSelector selector = new GenericSelector(options);
-		Selectors.Selector.Show<ISelectable>(selector, current, (v, b) => changed.Invoke((T)v, b));
-	}
-
 	private void OnSelectionChanged(bool close)
 	{
 		this.SelectionChanged?.Invoke(close);

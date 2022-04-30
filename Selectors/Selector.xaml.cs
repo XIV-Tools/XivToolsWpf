@@ -13,42 +13,55 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using PropertyChanged;
 using Serilog;
+using XivToolsWpf;
 
 /// <summary>
 /// Interaction logic for SelectorDrawer.xaml.
 /// </summary>
-public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
+[AddINotifyPropertyChangedInterface]
+public partial class Selector : UserControl, INotifyPropertyChanged, ISelector
 {
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(object), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
 	public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
 
 	private static readonly Dictionary<Type, string?> SearchInputs = new Dictionary<Type, string?>();
+	private static readonly Dictionary<Type, double> ScrollPositions = new Dictionary<Type, double>();
 	private readonly List<ItemEntry> entries = new List<ItemEntry>();
 
-	private Type? objectType;
 	private bool searching = false;
 	private bool idle = true;
-	private string[]? searchQuerry;
-	private bool loading = false;
+	private string[]? searchQuery;
+	private bool xamlLoading = false;
 	private bool abortSearch = false;
 
 	public Selector()
 	{
 		this.InitializeComponent();
-		this.loading = true;
-		this.DataContext = this;
+		this.xamlLoading = true;
+		this.ContentArea.DataContext = this;
 
 		this.PropertyChanged += this.OnPropertyChanged;
+		this.ProgressBar.Visibility = Visibility.Visible;
 	}
 
 	public delegate bool FilterEvent(object item, string[]? search);
+	public delegate int SortEvent(object itemA, object itemB);
+	public delegate Task GetItemsEvent();
 
-	public event FilterEvent? Filter;
-	public event SelectorSelectedEvent? SelectionChanged;
 	public event PropertyChangedEventHandler? PropertyChanged;
+	public event FilterEvent? Filter;
+	public event SortEvent? Sort;
+	public event SelectorSelectedEvent? SelectionChanged;
+	public event GetItemsEvent? LoadItems;
 
 	public ObservableCollection<object> FilteredItems { get; set; } = new ObservableCollection<object>();
+
+	public bool SearchEnabled { get; set; } = true;
+	public bool HasSearch { get; set; } = false;
+	public Type? ObjectType { get; set; }
 
 	public IEnumerable<object> Entries
 	{
@@ -74,31 +87,43 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 		set => this.SetValue(ItemTemplateProperty, value);
 	}
 
-	private static ILogger Log => Serilog.Log.ForContext<Selector>();
-
-	public static void Show<TView, TValue>(TValue? current, Action<TValue, bool> changed)
-		where TView : ISelectorView
-		where TValue : class
+	public double ScrollPosition
 	{
-		ISelectorView view = Activator.CreateInstance<TView>();
-		Show(view, current, changed);
+		get
+		{
+			ScrollViewer? scroll = this.ScrollViewer;
+			if (scroll == null)
+				return 0;
+
+			return scroll.VerticalOffset;
+		}
+
+		set
+		{
+			ScrollViewer? scroll = this.ScrollViewer;
+			if (scroll == null)
+				return;
+
+			scroll.ScrollToVerticalOffset(value);
+		}
 	}
 
-	public static void Show<TValue>(ISelectorView view, TValue? current, Action<TValue, bool> changed)
-		where TValue : class
-	{
-		view.Selector.objectType = typeof(TValue);
-		view.Selector.Value = current;
-		view.Selector.SelectionChanged += (bool close) =>
-		{
-			object? v = view.Selector.Value;
-			if (v is TValue tval)
-			{
-				changed?.Invoke(tval, close);
-			}
-		};
+	private static ILogger Log => Serilog.Log.ForContext<Selector>();
 
-		throw new NotImplementedException();
+	private ScrollViewer? ScrollViewer
+	{
+		get
+		{
+			Decorator? border = VisualTreeHelper.GetChild(this.ListBox, 0) as Decorator;
+			if (border == null)
+				return null;
+
+			return border.Child as ScrollViewer;
+		}
+	}
+
+	public void OnClosed()
+	{
 	}
 
 	public void ClearItems()
@@ -118,9 +143,9 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 			entry.OriginalIndex = this.entries.Count;
 			this.entries.Add(entry);
 
-			if (this.objectType == null)
+			if (this.ObjectType == null)
 			{
-				this.objectType = item.GetType();
+				this.ObjectType = item.GetType();
 			}
 		}
 	}
@@ -136,9 +161,9 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 				entry.OriginalIndex = this.entries.Count;
 				this.entries.Add(entry);
 
-				if (this.objectType == null)
+				if (this.ObjectType == null)
 				{
-					this.objectType = item.GetType();
+					this.ObjectType = item.GetType();
 				}
 			}
 		}
@@ -147,6 +172,16 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 	public void FilterItems()
 	{
 		Task.Run(this.DoFilter);
+	}
+
+	public Task FilterItemsAsync()
+	{
+		return this.DoFilter();
+	}
+
+	public void RaiseSelectionChanged()
+	{
+		this.SelectionChanged?.Invoke(false);
 	}
 
 	private static void OnValueChangedStatic(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -159,25 +194,76 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 
 	private void OnLoaded(object sender, RoutedEventArgs e)
 	{
-		if (this.objectType != null && SearchInputs.ContainsKey(this.objectType))
-			this.SearchBox.Text = SearchInputs[this.objectType];
+		if (this.ObjectType != null)
+		{
+			if (SearchInputs.ContainsKey(this.ObjectType))
+				this.SearchBox.Text = SearchInputs[this.ObjectType];
+
+			if (ScrollPositions.ContainsKey(this.ObjectType))
+			{
+				this.ScrollPosition = ScrollPositions[this.ObjectType];
+			}
+		}
 
 		Keyboard.Focus(this.SearchBox);
 		this.SearchBox.CaretIndex = int.MaxValue;
-		this.loading = false;
+		this.xamlLoading = false;
+
+		if (this.LoadItems != null)
+		{
+			Task.Run(async () =>
+			{
+				await Dispatch.NonUiThread();
+				await this.LoadItems.Invoke();
+
+				await this.FilterItemsAsync();
+
+				await Dispatch.MainThread();
+				this.ProgressBar.Visibility = Visibility.Collapsed;
+
+				this.ListBox.ScrollIntoView(this.Value);
+			});
+		}
+		else
+		{
+			this.ProgressBar.Visibility = Visibility.Collapsed;
+		}
+	}
+
+	private void OnUnloaded(object sender, RoutedEventArgs e)
+	{
+		if (this.ObjectType == null)
+			return;
+
+		if (!SearchInputs.ContainsKey(this.ObjectType))
+			SearchInputs.Add(this.ObjectType, null);
+
+		SearchInputs[this.ObjectType] = this.SearchBox.Text;
+
+		if (!ScrollPositions.ContainsKey(this.ObjectType))
+			ScrollPositions.Add(this.ObjectType, 0);
+
+		ScrollPositions[this.ObjectType] = this.ScrollPosition;
 	}
 
 	private void OnSearchChanged(object sender, TextChangedEventArgs e)
 	{
-		if (this.objectType == null)
+		if (this.ObjectType == null)
 			return;
 
-		if (!SearchInputs.ContainsKey(this.objectType))
-			SearchInputs.Add(this.objectType, null);
-
 		string str = this.SearchBox.Text;
-		SearchInputs[this.objectType] = str;
+
+		this.HasSearch = !string.IsNullOrWhiteSpace(str);
+
+		SearchInputs[this.ObjectType] = str;
 		Task.Run(async () => { await this.Search(str); });
+
+		this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.HasSearch)));
+	}
+
+	private void OnClearSearchClicked(object sender, RoutedEventArgs e)
+	{
+		this.SearchBox.Text = string.Empty;
 	}
 
 	private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -193,7 +279,7 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 		this.idle = false;
 		this.abortSearch = true;
 
-		if (!this.loading)
+		if (!this.xamlLoading)
 			await Task.Delay(50);
 
 		try
@@ -216,12 +302,12 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 
 			if (string.IsNullOrEmpty(str))
 			{
-				this.searchQuerry = null;
+				this.searchQuery = null;
 			}
 			else
 			{
 				str = str.ToLower();
-				this.searchQuerry = str.Split(' ');
+				this.searchQuery = str.Split(' ');
 			}
 
 			this.abortSearch = false;
@@ -239,6 +325,9 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 	private async Task DoFilter()
 	{
 		this.idle = false;
+
+		if (!this.SearchEnabled)
+			this.searchQuery = null;
 
 		ConcurrentQueue<ItemEntry> entries;
 		lock (this.entries)
@@ -262,7 +351,7 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 
 					try
 					{
-						if (this.Filter != null && !this.Filter.Invoke(entry.Item, this.searchQuerry))
+						if (this.Filter != null && !this.Filter.Invoke(entry.Item, this.searchQuery))
 							continue;
 					}
 					catch (Exception ex)
@@ -285,6 +374,12 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 		await Task.WhenAll(tasks.ToArray());
 
 		IOrderedEnumerable<ItemEntry>? sortedFilteredEntries = filteredEntries.OrderBy(cc => cc.OriginalIndex);
+
+		if (this.Sort != null)
+		{
+			Compare comp = new Compare(this.Sort);
+			sortedFilteredEntries = sortedFilteredEntries.OrderBy(cc => cc.Item, comp);
+		}
 
 		await Application.Current.Dispatcher.InvokeAsync(() =>
 		{
@@ -309,7 +404,7 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 		if (this.searching)
 			return;
 
-		this.SelectionChanged?.Invoke(false);
+		this.RaiseSelectionChanged();
 	}
 
 	private async void OnSearchBoxKeyDown(object sender, KeyEventArgs e)
@@ -328,6 +423,12 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 
 	private void OnDoubleClick(object sender, MouseButtonEventArgs e)
 	{
+		Point pos = e.GetPosition(this.ListBox);
+
+		// over scrollbar
+		if (pos.X > this.ListBox.ActualWidth - SystemParameters.VerticalScrollBarWidth)
+			return;
+
 		this.SelectionChanged?.Invoke(true);
 	}
 
@@ -335,5 +436,23 @@ public partial class Selector : UserControl, ISelector, INotifyPropertyChanged
 	{
 		public object Item;
 		public int OriginalIndex;
+	}
+
+	private class Compare : IComparer<object>
+	{
+		private readonly SortEvent filter;
+
+		public Compare(SortEvent filter)
+		{
+			this.filter = filter;
+		}
+
+		int IComparer<object>.Compare(object? x, object? y)
+		{
+			if (x == null || y == null)
+				return 0;
+
+			return this.filter.Invoke(x, y);
+		}
 	}
 }
