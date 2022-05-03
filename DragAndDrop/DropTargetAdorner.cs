@@ -9,13 +9,13 @@ using System.Windows.Media;
 
 public abstract class DropTargetAdorner : Adorner
 {
-	private readonly AdornerLayer adornerLayer;
+	private readonly AdornerLayer? adornerLayer;
 
 	public DropTargetAdorner(UIElement adornedElement, DragEventArgs args)
 		: base(adornedElement)
 	{
 		this.adornerLayer = AdornerLayer.GetAdornerLayer(adornedElement);
-		this.adornerLayer.Add(this);
+		this.adornerLayer?.Add(this);
 		this.IsHitTestVisible = false;
 		this.EventArgs = args;
 	}
@@ -24,7 +24,7 @@ public abstract class DropTargetAdorner : Adorner
 
 	public void Detatch()
 	{
-		this.adornerLayer.Remove(this);
+		this.adornerLayer?.Remove(this);
 	}
 
 	protected sealed override void OnRender(DrawingContext drawingContext)

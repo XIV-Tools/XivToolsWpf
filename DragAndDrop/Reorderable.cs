@@ -79,22 +79,21 @@ public class Reorderable : Behaviour
 	{
 		UIElement? itemContainer = this.ItemsControl.ItemContainerGenerator.ContainerFromItem(context) as UIElement;
 
-		object? obj = this.ItemsControl.ItemContainerGenerator.ContainerFromIndex(0);
-
 		if (itemContainer == null)
 			return;
 
 		itemContainer.AllowDrop = true;
 
 		itemContainer.PreviewMouseMove -= this.OnMouseMove;
-		itemContainer.PreviewMouseMove += this.OnMouseMove;
 		itemContainer.Drop -= this.OnDrop;
-		itemContainer.Drop += this.OnDrop;
 		itemContainer.DragEnter -= this.OnDragEnter;
-		itemContainer.DragEnter += this.OnDragEnter;
 		itemContainer.DragLeave -= this.OnDragLeave;
-		itemContainer.DragLeave += this.OnDragLeave;
 		itemContainer.DragOver -= this.OnDragOver;
+
+		itemContainer.PreviewMouseMove += this.OnMouseMove;
+		itemContainer.Drop += this.OnDrop;
+		itemContainer.DragEnter += this.OnDragEnter;
+		itemContainer.DragLeave += this.OnDragLeave;
 		itemContainer.DragOver += this.OnDragOver;
 	}
 
@@ -202,8 +201,13 @@ public class Reorderable : Behaviour
 
 		Point dropPoint = e.GetPosition(senderElement);
 
-		// TODO: vertical lists...?
 		bool vertical = false;
+
+		StackPanel? itemParent = senderElement.FindParent<StackPanel>();
+		if (itemParent != null)
+		{
+			vertical = itemParent.Orientation == Orientation.Vertical;
+		}
 
 		if (vertical)
 		{
