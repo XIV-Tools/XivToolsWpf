@@ -23,19 +23,10 @@ public class Reorderable : Behaviour
 	{
 		this.ItemsControl = control;
 
+		this.ItemsControl.ItemContainerGenerator.StatusChanged += this.OnContainerGeneratorStatusChanged;
+
 		INotifyCollectionChanged source = this.ItemsControl.Items;
 		source.CollectionChanged += this.OnControlItemsChanged;
-
-		Task.Run(async () =>
-		{
-			await Task.Delay(10);
-			await Dispatch.MainThread();
-
-			foreach (object? newItem in this.ItemsControl.Items)
-			{
-				this.AttachToContainerContext(newItem);
-			}
-		});
 	}
 
 	public static void SetIsReorderable(ItemsControl items, bool enable)
@@ -49,6 +40,14 @@ public class Reorderable : Behaviour
 
 		INotifyCollectionChanged source = this.ItemsControl.Items;
 		source.CollectionChanged -= this.OnControlItemsChanged;
+	}
+
+	private void OnContainerGeneratorStatusChanged(object? sender, EventArgs e)
+	{
+		foreach (object? newItem in this.ItemsControl.Items)
+		{
+			this.AttachToContainerContext(newItem);
+		}
 	}
 
 	private void OnControlItemsChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -80,14 +79,22 @@ public class Reorderable : Behaviour
 	{
 		UIElement? itemContainer = this.ItemsControl.ItemContainerGenerator.ContainerFromItem(context) as UIElement;
 
+		object? obj = this.ItemsControl.ItemContainerGenerator.ContainerFromIndex(0);
+
 		if (itemContainer == null)
-			throw new Exception($"No item container found for item: {context}");
+			return;
 
 		itemContainer.AllowDrop = true;
+
+		itemContainer.PreviewMouseMove -= this.OnMouseMove;
 		itemContainer.PreviewMouseMove += this.OnMouseMove;
+		itemContainer.Drop -= this.OnDrop;
 		itemContainer.Drop += this.OnDrop;
+		itemContainer.DragEnter -= this.OnDragEnter;
 		itemContainer.DragEnter += this.OnDragEnter;
+		itemContainer.DragLeave -= this.OnDragLeave;
 		itemContainer.DragLeave += this.OnDragLeave;
+		itemContainer.DragOver -= this.OnDragOver;
 		itemContainer.DragOver += this.OnDragOver;
 	}
 
@@ -139,6 +146,9 @@ public class Reorderable : Behaviour
 
 		if (isNext)
 			index++;
+
+		if (index < 0)
+			index = 0;
 
 		source.Insert(index, context);
 	}
