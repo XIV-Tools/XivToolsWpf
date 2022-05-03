@@ -89,12 +89,14 @@ public class Reorderable : Behaviour
 		itemContainer.DragEnter -= this.OnDragEnter;
 		itemContainer.DragLeave -= this.OnDragLeave;
 		itemContainer.DragOver -= this.OnDragOver;
+		itemContainer.GiveFeedback -= this.OnGiveFeedback;
 
 		itemContainer.PreviewMouseMove += this.OnMouseMove;
 		itemContainer.Drop += this.OnDrop;
 		itemContainer.DragEnter += this.OnDragEnter;
 		itemContainer.DragLeave += this.OnDragLeave;
 		itemContainer.DragOver += this.OnDragOver;
+		itemContainer.GiveFeedback += this.OnGiveFeedback;
 	}
 
 	private void OnMouseMove(object sender, MouseEventArgs e)
@@ -139,6 +141,12 @@ public class Reorderable : Behaviour
 		if (context == null)
 			throw new Exception("No context in drag");
 
+		Type type = source.GetType();
+		Type itemType = type.GenericTypeArguments[0];
+
+		if (!itemType.IsAssignableFrom(context.GetType()))
+			return;
+
 		source.Remove(context);
 
 		int index = source.IndexOf(senderElement.DataContext);
@@ -164,6 +172,20 @@ public class Reorderable : Behaviour
 		{
 			e.Effects = DragDropEffects.None;
 			return;
+		}
+
+		// Is the thing being dragged a compatibile type
+		ICollection? source = this.ItemsControl.ItemsSource as ICollection;
+		if (source != null)
+		{
+			Type type = source.GetType();
+			Type itemType = type.GenericTypeArguments[0];
+
+			if (!itemType.IsAssignableFrom(context.GetType()))
+			{
+				e.Effects = DragDropEffects.None;
+				return;
+			}
 		}
 
 		e.Effects = DragDropEffects.Move;
@@ -192,6 +214,20 @@ public class Reorderable : Behaviour
 			this.dragAdorner.Detatch();
 			this.dragAdorner = new(senderElement, e, newPos);
 		}
+	}
+
+	private void OnGiveFeedback(object sender, GiveFeedbackEventArgs e)
+	{
+		if (this.dragAdorner == null || this.dragAdorner.EventArgs.Effects == DragDropEffects.None)
+		{
+			Mouse.SetCursor(Cursors.No);
+		}
+		else
+		{
+			Mouse.SetCursor(Cursors.Hand);
+		}
+
+		e.Handled = true;
 	}
 
 	private DropTargetInsertionAdorner.InsertPositions GetDropPosition(object sender, DragEventArgs e)
