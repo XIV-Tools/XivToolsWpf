@@ -11,14 +11,21 @@ public static class XamlBehaviours
 {
 	private static readonly ConditionalWeakTable<FrameworkElement, Behaviour> AttachedHandlers = new();
 
-	public static void AttachHandler<T>(this FrameworkElement element, bool enable)
+	public static void AttachHandler<T>(this FrameworkElement element, bool enable, object? value = null)
 		where T : Behaviour
 	{
 		if (enable)
 		{
 			if (!AttachedHandlers.TryGetValue(element, out var handler))
 			{
-				handler = Activator.CreateInstance(typeof(T), new[] { element }) as Behaviour;
+				if (value == null)
+				{
+					handler = Activator.CreateInstance(typeof(T), new[] { element }) as Behaviour;
+				}
+				else
+				{
+					handler = Activator.CreateInstance(typeof(T), new[] { element, value }) as Behaviour;
+				}
 
 				if (handler == null)
 					throw new InvalidOperationException();
