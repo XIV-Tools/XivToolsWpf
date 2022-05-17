@@ -9,9 +9,9 @@ using System.Windows;
 
 public static class XamlBehaviours
 {
-	private static readonly ConditionalWeakTable<FrameworkElement, Behaviour> AttachedHandlers = new();
+	private static readonly ConditionalWeakTable<DependencyObject, Behaviour> AttachedHandlers = new();
 
-	public static void AttachHandler<T>(this FrameworkElement element, bool enable, object? value = null)
+	public static void AttachHandler<T>(this DependencyObject element, bool enable, object? value = null)
 		where T : Behaviour
 	{
 		if (enable)
