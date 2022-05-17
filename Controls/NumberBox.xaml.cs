@@ -165,7 +165,16 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 			}
 			else
 			{
-				this.ErrorDisplay.Visibility = Visibility.Visible;
+				try
+				{
+					val = Convert.ToDouble(new DataTable().Compute(value, null));
+					this.DisplayValue = val;
+					this.ErrorDisplay.Visibility = Visibility.Collapsed;
+				}
+				catch (Exception)
+				{
+					this.ErrorDisplay.Visibility = Visibility.Visible;
+				}
 			}
 		}
 	}
