@@ -37,6 +37,7 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	private Key keyHeld = Key.None;
 	private double relativeSliderStart;
 	private double relativeSliderCurrent;
+	private bool bypassFocusLock = false;
 
 	public NumberBox()
 	{
@@ -128,6 +129,17 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 			if (!this.UncapTextInput)
 			{
+				if (this.Wrap)
+				{
+					double range = this.Maximum - this.Minimum;
+
+					while (this.Value > this.Maximum)
+						this.Value -= range;
+
+					while (this.Value < this.Minimum)
+						this.Value += range;
+				}
+
 				this.Value = Math.Max(this.Minimum, this.Value);
 				this.Value = Math.Min(this.Maximum, this.Value);
 			}
@@ -173,6 +185,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		}
 		set
 		{
+			this.bypassFocusLock = true;
+
 			if (this.Slider == SliderModes.Absolute)
 			{
 				this.DisplayValue = value;
@@ -189,6 +203,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 				this.DisplayValue = this.relativeSliderStart + value;
 			}
+
+			this.bypassFocusLock = false;
 		}
 	}
 
@@ -271,10 +287,9 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	private static void OnValueChanged(NumberBox sender, double v)
 	{
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
-		////sender.DisplayValue = sender.Validate(v) + sender.ValueOffset;
 
-		////if (sender.InputBox.IsFocused)
-		////	return;
+		if (!sender.bypassFocusLock && sender.InputBox.IsFocused)
+			return;
 
 		sender.Text = sender.DisplayValue.ToString("0.###");
 	}
@@ -426,7 +441,9 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		if (newValue == value)
 			return;
 
+		this.bypassFocusLock = true;
 		this.DisplayValue = newValue;
+		this.bypassFocusLock = false;
 	}
 
 	private void OnDownClick(object sender, RoutedEventArgs e)
