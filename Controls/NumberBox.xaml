@@ -44,7 +44,8 @@
 			Foreground="{DynamicResource MaterialDesignBody}"
 			Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}"
 			LostFocus="OnLostFocus"
-			Margin="0,0,0,2"
+			Margin="0, 0, 0, 0"
+			Padding="0, 4, 0, 0"
 			LostKeyboardFocus="OnLostFocus"/>
 
 		<Line
@@ -58,7 +59,7 @@
 			Stretch="Fill"
 			StrokeThickness="1"
 			Stroke="Red"
-			Margin="2,0,0,0"/>
+			Margin="0,0,0,0"/>
 
 		<Grid Grid.Column="2" x:Name="ButtonsArea">
 			<Grid.ColumnDefinitions>
