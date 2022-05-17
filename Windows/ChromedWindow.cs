@@ -143,6 +143,9 @@ public class ChromedWindow : Window
 		if (e.ChangedButton != MouseButton.Left)
 			return;
 
+		if (e.LeftButton != MouseButtonState.Pressed)
+			return;
+
 		IInputElement? element = Mouse.DirectlyOver;
 
 		if (element is FrameworkElement obj)
