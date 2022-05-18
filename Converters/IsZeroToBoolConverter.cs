@@ -32,6 +32,10 @@ public class IsZeroToBoolConverter : IValueConverter
 		{
 			return ushortV == 0;
 		}
+		else if (value is byte byteV)
+		{
+			return byteV == 0;
+		}
 		else
 		{
 			throw new NotImplementedException($"value type {value.GetType()} not supported for not zero converter");
