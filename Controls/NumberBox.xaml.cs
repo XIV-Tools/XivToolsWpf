@@ -133,11 +133,11 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 				{
 					double range = this.Maximum - this.Minimum;
 
-					while (this.Value > this.Maximum)
-						this.Value -= range;
+					if (this.Value > this.Maximum)
+						this.Value = this.Minimum + ((this.Value - this.Maximum) % range);
 
-					while (this.Value < this.Minimum)
-						this.Value += range;
+					if (this.Value < this.Minimum)
+						this.Value = this.Maximum - ((this.Maximum - this.Value) % range);
 				}
 
 				this.Value = Math.Max(this.Minimum, this.Value);
