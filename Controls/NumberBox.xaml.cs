@@ -289,6 +289,9 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 	protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
 	{
+		if (!this.InputBox.IsFocused)
+			return;
+
 		e.Handled = true;
 		this.TickValue(e.Delta > 0);
 	}
