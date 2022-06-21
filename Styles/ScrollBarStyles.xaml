@@ -78,8 +78,15 @@
 						</Grid.RowDefinitions>
 
 						<ScrollContentPresenter
+							x:Name="PART_ScrollContentPresenter"
 							Grid.Row="0"
-							Grid.Column="0" />
+							Grid.Column="0"
+							Margin="{TemplateBinding Padding}"
+							CanContentScroll="{TemplateBinding CanContentScroll}"
+							CanHorizontallyScroll="False"
+							CanVerticallyScroll="False"
+							Content="{TemplateBinding Content}"
+							ContentTemplate="{TemplateBinding ContentTemplate}" />
 
 						<ScrollBar
 							x:Name="PART_VerticalScrollBar"
