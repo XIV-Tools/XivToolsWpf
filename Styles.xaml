@@ -209,6 +209,7 @@
 	<converters:IsZeroToBoolConverter x:Key="IsZeroToBool" />
 	<converters:BoolInversionConverter x:Key="!B" />
 	<converters:ListToStringConverter x:Key="ListToStringConverter" />
+	<converters:ColorToBrushConverter x:Key="ColorToBrush" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />
