@@ -26,6 +26,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 {
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(object), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
 	public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnValueChangedStatic)));
+	public static readonly DependencyProperty FilterProperty = DependencyProperty.Register(nameof(Filter), typeof(FilterBase), typeof(Selector), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnFilterChangedStatic)));
 
 	private static readonly Dictionary<Type, string?> SearchInputs = new Dictionary<Type, string?>();
 	private static readonly Dictionary<Type, double> ScrollPositions = new Dictionary<Type, double>();
@@ -36,6 +37,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 	private string[]? searchQuery;
 	private bool xamlLoading = false;
 	private bool abortSearch = false;
+	private bool isFiltering = false;
 
 	public Selector()
 	{
@@ -48,13 +50,9 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 	}
 
 	public delegate void SelectorSelectedEvent(bool close);
-	public delegate bool FilterEvent(object item, string[]? search);
-	public delegate int SortEvent(object itemA, object itemB);
 	public delegate Task GetItemsEvent();
 
 	public event PropertyChangedEventHandler? PropertyChanged;
-	public event FilterEvent? Filter;
-	public event SortEvent? Sort;
 	public event SelectorSelectedEvent? SelectionChanged;
 	public event GetItemsEvent? LoadItems;
 
@@ -74,6 +72,12 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 			return values;
 		}
+	}
+
+	public FilterBase? Filter
+	{
+		get => (FilterBase)this.GetValue(FilterProperty);
+		set => this.SetValue(FilterProperty, value);
 	}
 
 	public object? Value
@@ -191,6 +195,25 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		{
 			view.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(e.Property.Name));
 		}
+	}
+
+	private static void OnFilterChangedStatic(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+	{
+		if (sender is Selector selector && e.NewValue is FilterBase newFilter)
+		{
+			if (e.OldValue is FilterBase oldFilter)
+				oldFilter.PropertyChanged -= selector.OnFilterChanged;
+
+			newFilter.PropertyChanged += selector.OnFilterChanged;
+		}
+	}
+
+	private void OnFilterChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		if (this.isFiltering)
+			return;
+
+		this.FilterItems();
 	}
 
 	private void OnLoaded(object sender, RoutedEventArgs e)
@@ -325,16 +348,26 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 	private async Task DoFilter()
 	{
+		while (this.isFiltering)
+			await Task.Delay(100);
+
 		this.idle = false;
+		this.isFiltering = true;
 
 		if (!this.SearchEnabled)
 			this.searchQuery = null;
+
+		await Dispatch.MainThread();
 
 		ConcurrentQueue<ItemEntry> entries;
 		lock (this.entries)
 		{
 			entries = new ConcurrentQueue<ItemEntry>(this.entries);
 		}
+
+		FilterBase? filter = this.Filter;
+
+		await Dispatch.NonUiThread();
 
 		ConcurrentBag<ItemEntry> filteredEntries = new ConcurrentBag<ItemEntry>();
 
@@ -352,7 +385,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 					try
 					{
-						if (this.Filter != null && !this.Filter.Invoke(entry.Item, this.searchQuery))
+						if (filter != null && !filter.FilterItem(entry.Item, this.searchQuery))
 							continue;
 					}
 					catch (Exception ex)
@@ -376,10 +409,9 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 		IOrderedEnumerable<ItemEntry>? sortedFilteredEntries = filteredEntries.OrderBy(cc => cc.OriginalIndex);
 
-		if (this.Sort != null)
+		if (filter != null)
 		{
-			Compare comp = new Compare(this.Sort);
-			sortedFilteredEntries = sortedFilteredEntries.OrderBy(cc => cc.Item, comp);
+			sortedFilteredEntries = sortedFilteredEntries.OrderBy(cc => cc.Item, filter);
 		}
 
 		await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -395,6 +427,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		});
 
 		this.idle = true;
+		this.isFiltering = false;
 	}
 
 	private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -439,21 +472,42 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		public int OriginalIndex;
 	}
 
-	private class Compare : IComparer<object>
+	[AddINotifyPropertyChangedInterface]
+	public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 	{
-		private readonly SortEvent filter;
+		public event PropertyChangedEventHandler? PropertyChanged;
 
-		public Compare(SortEvent filter)
-		{
-			this.filter = filter;
-		}
-
-		int IComparer<object>.Compare(object? x, object? y)
+		public int Compare(object? x, object? y)
 		{
 			if (x == null || y == null)
 				return 0;
 
-			return this.filter.Invoke(x, y);
+			return this.CompareItems(x, y);
 		}
+
+		public abstract bool FilterItem(object obj, string[]? search);
+		public abstract int CompareItems(object a, object b);
+	}
+
+	public abstract class FilterBase<T> : FilterBase
+	{
+		public sealed override bool FilterItem(object obj, string[]? search)
+		{
+			if (obj is T tObj)
+				return this.FilterItem(tObj, search);
+
+			return false;
+		}
+
+		public sealed override int CompareItems(object a, object b)
+		{
+			if (a is T tA && b is T tB)
+				return this.CompareItems(tA, tB);
+
+			return 0;
+		}
+
+		public abstract bool FilterItem(T obj, string[]? search);
+		public abstract int CompareItems(T a, T b);
 	}
 }
