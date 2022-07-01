@@ -237,6 +237,9 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		{
 			Task.Run(async () =>
 			{
+				await Dispatch.MainThread();
+				this.ClearItems();
+
 				await Dispatch.NonUiThread();
 				await this.LoadItems.Invoke();
 
