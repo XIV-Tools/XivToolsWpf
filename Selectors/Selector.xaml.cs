@@ -119,11 +119,22 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 	{
 		get
 		{
-			Decorator? border = VisualTreeHelper.GetChild(this.ListBox, 0) as Decorator;
-			if (border == null)
-				return null;
+			try
+			{
+				if (!this.IsLoaded)
+					return null;
 
-			return border.Child as ScrollViewer;
+				Decorator? border = VisualTreeHelper.GetChild(this.ListBox, 0) as Decorator;
+				if (border == null)
+					return null;
+
+				return border.Child as ScrollViewer;
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, "Failed to get scrollviewer in selector");
+				return null;
+			}
 		}
 	}
 
@@ -269,9 +280,6 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 		if (!ScrollPositions.ContainsKey(this.ObjectType))
 			ScrollPositions.Add(this.ObjectType, 0);
-
-		if (!this.IsLoaded)
-			return;
 
 		ScrollPositions[this.ObjectType] = this.ScrollPosition;
 	}

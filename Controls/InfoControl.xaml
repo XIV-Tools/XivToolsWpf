@@ -6,21 +6,13 @@
 	xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
 	xmlns:local="clr-namespace:XivToolsWpf.Controls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	HorizontalAlignment="Stretch"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
 
-	<Grid
-		x:Name="ContentArea"
-		Margin="3"
-		HorizontalAlignment="Stretch"
-		VerticalAlignment="Bottom">
+	<Grid x:Name="ContentArea" VerticalAlignment="Bottom" Margin="3">
 
-		<Border
-			Background="{DynamicResource MaterialDesignToolBarBackground}"
-			BorderThickness="1"
-			CornerRadius="3">
+		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1">
 			<Border.Effect>
 				<DropShadowEffect
 					BlurRadius="10"
@@ -28,11 +20,7 @@
 			</Border.Effect>
 		</Border>
 
-		<Border
-			Background="{DynamicResource MaterialDesignToolBarBackground}"
-			BorderBrush="Orange"
-			BorderThickness="1"
-			CornerRadius="3" />
+		<Border Background="{DynamicResource MaterialDesignToolBarBackground}" CornerRadius="3" BorderThickness="1" BorderBrush="Orange"/>
 
 		<Grid Margin="6,3">
 			<Grid.ColumnDefinitions>
@@ -41,28 +29,28 @@
 			</Grid.ColumnDefinitions>
 
 			<fa:IconBlock
+				Visibility="{Binding IsError, Converter={StaticResource !B2V}}"
 				Grid.Column="0"
 				Margin="0,3,6,3"
-				VerticalAlignment="Top"
 				FontSize="20"
 				Foreground="Orange"
-				Icon="ExclamationTriangle"
-				Visibility="{Binding IsError, Converter={StaticResource !B2V}}" />
+				VerticalAlignment="Top"
+				Icon="ExclamationTriangle" />
 
 			<fa:IconBlock
+				Visibility="{Binding IsError, Converter={StaticResource B2V}}"
 				Grid.Column="0"
 				Margin="0,3,6,3"
-				VerticalAlignment="Top"
 				FontSize="20"
 				Foreground="DarkRed"
-				Icon="Ban"
-				Visibility="{Binding IsError, Converter={StaticResource B2V}}" />
+				VerticalAlignment="Top"
+				Icon="Ban" />
 
 			<local:TextBlock
 				x:Name="TextBlock"
-				Grid.Column="1"
 				VerticalAlignment="Center"
 				Foreground="{DynamicResource MaterialDesignBody}"
+				Grid.Column="1"
 				TextAlignment="Left"
 				TextWrapping="Wrap" />
 		</Grid>
