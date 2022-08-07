@@ -270,6 +270,9 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		if (!ScrollPositions.ContainsKey(this.ObjectType))
 			ScrollPositions.Add(this.ObjectType, 0);
 
+		if (!this.IsLoaded)
+			return;
+
 		ScrollPositions[this.ObjectType] = this.ScrollPosition;
 	}
 
