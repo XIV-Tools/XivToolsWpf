@@ -12,7 +12,7 @@ public interface ILocaleProvider : IDependency
 	bool Loaded { get; }
 
 	bool HasString(string key);
-	string GetStringFormatted(string key, params string[] param);
+	string GetStringFormatted(string key, params object[] param);
 	string GetStringAllLanguages(string key);
 	string GetString(string key, bool silent = false);
 }
