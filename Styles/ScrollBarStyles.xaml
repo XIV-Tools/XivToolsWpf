@@ -5,6 +5,8 @@
 
 	<sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">12</sys:Double>
 	<sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarHeightKey}">12</sys:Double>
+	<sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">48</sys:Double>
+	<sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">48</sys:Double>
 
 	<Style
 		x:Key="ScrollbarThumb"
