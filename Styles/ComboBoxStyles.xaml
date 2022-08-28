@@ -1,9 +1,109 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	
-	<Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-		<Setter Property="Padding" Value="0"/>
-		<Setter Property="Height" Value="24"/>
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+	<ControlTemplate
+		x:Key="XivToolsWpfComboBoxTemplate"
+		TargetType="{x:Type ComboBox}">
+
+		<Grid>
+			<AdornerDecorator>
+				<Border
+					Name="templateRoot"
+					Background="{TemplateBinding Background}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}"
+					SnapsToDevicePixels="True">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition
+								Width="0"
+								MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
+						</Grid.ColumnDefinitions>
+						<Border
+							Grid.Row="0"
+							Grid.Column="0"
+							Padding="{TemplateBinding Padding}">
+							<Grid
+								Name="InnerRoot"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+
+								<ContentPresenter
+									Name="contentPresenter"
+									Margin="{TemplateBinding Margin}"
+									Content="{TemplateBinding SelectionBoxItem}"
+									ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+									ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+									ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+									IsHitTestVisible="False" />
+
+							</Grid>
+						</Border>
+					</Grid>
+				</Border>
+			</AdornerDecorator>
+
+			<Popup
+				Name="PART_Popup"
+				Grid.Column="0"
+				Width="{Binding ElementName=templateRoot, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
+				Margin="-16"
+				AllowsTransparency="True"
+				Focusable="False"
+				HorizontalOffset="0"
+				IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				Placement="Bottom"
+				PlacementTarget="{Binding ElementName=templateRoot}"
+				PopupAnimation="Fade"
+				SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+				UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+				VerticalOffset="0">
+
+				<Grid Margin="16">
+					<Border
+						Background="Black"
+						CornerRadius="6">
+						<Border.Effect>
+							<DropShadowEffect
+								Direction="270"
+								ShadowDepth="0" />
+						</Border.Effect>
+					</Border>
+
+					<Border
+						Background="{DynamicResource MaterialDesignPaper}"
+						CornerRadius="0,0,6,6">
+						<ScrollViewer
+							MinHeight="1"
+							MaxHeight="{TemplateBinding MaxDropDownHeight}">
+							<ItemsPresenter Name="ItemsPresenter" />
+						</ScrollViewer>
+					</Border>
+				</Grid>
+
+			</Popup>
+
+			<ToggleButton
+				Name="toggleButton"
+				Padding="{TemplateBinding Padding}"
+				BorderBrush="{TemplateBinding BorderBrush}"
+				IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				Style="{StaticResource MaterialDesignComboBoxToggleButton}" />
+
+		</Grid>
+	</ControlTemplate>
+
+	<Style
+		BasedOn="{StaticResource MaterialDesignComboBox}"
+		TargetType="{x:Type ComboBox}">
+		<Setter Property="Padding" Value="0" />
+
+		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
 	</Style>
-	
+
 </ResourceDictionary>

@@ -75,10 +75,6 @@
 		TargetType="{x:Type CheckBox}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignComboBox}"
-		TargetType="{x:Type ComboBox}" />
-
-	<Style
 		BasedOn="{StaticResource MaterialDesignContextMenu}"
 		TargetType="{x:Type ContextMenu}" />
 
