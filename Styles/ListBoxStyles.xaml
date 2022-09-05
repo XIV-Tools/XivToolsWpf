@@ -7,7 +7,7 @@
 		BasedOn="{StaticResource MaterialDesignListBox}"
 		TargetType="{x:Type ListBox}">
 
-		<Setter Property="Height" Value="32" />
+		<Setter Property="Height" Value="28" />
 		<Setter Property="Margin" Value="2" />
 
 		<Setter Property="Template">

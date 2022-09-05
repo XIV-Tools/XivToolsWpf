@@ -338,11 +338,15 @@
 							Margin="6,0,6,3"
 							VerticalAlignment="Bottom"
 							Background="{TemplateBinding BorderBrush}"
-							BorderBrush="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="0"
 							CornerRadius="1"
-							Opacity="0"
-							SnapsToDevicePixels="True" />
+							RenderTransformOrigin="0.5,0.5"
+							SnapsToDevicePixels="True">
+							<Border.RenderTransform>
+								<ScaleTransform ScaleX="0" />
+							</Border.RenderTransform>
+						</Border>
 
 						<ContentControl
 							x:Name="Content"
@@ -354,7 +358,12 @@
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
 							Focusable="False"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+							RenderTransformOrigin="0.5,0.5"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+							<ContentControl.RenderTransform>
+								<TranslateTransform Y="0" />
+							</ContentControl.RenderTransform>
+						</ContentControl>
 
 						<md:Ripple md:RippleAssist.ClipToBounds="False">
 							<md:Ripple.Clip>
@@ -408,28 +417,35 @@
 						</Trigger>
 						<Trigger Property="IsChecked" Value="true">
 							<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
-							<Setter TargetName="Border" Property="Opacity" Value="1.0" />
 
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<ThicknessAnimationUsingKeyFrames
+										<DoubleAnimationUsingKeyFrames
 											BeginTime="00:00:00"
 											Storyboard.TargetName="Content"
-											Storyboard.TargetProperty="Margin">
-											<SplineThicknessKeyFrame
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+											<SplineDoubleKeyFrame
 												KeyTime="00:00:00.00"
-												Value="6, 0, 6, 0" />
-											<SplineThicknessKeyFrame
+												Value="0" />
+											<SplineDoubleKeyFrame
 												KeyTime="00:00:00.10"
-												Value="6, 0, 6, 8" />
-											<SplineThicknessKeyFrame
+												Value="-6" />
+											<SplineDoubleKeyFrame
 												KeyTime="00:00:00.15"
-												Value="6, 0, 6, 5" />
-											<SplineThicknessKeyFrame
+												Value="-1" />
+											<SplineDoubleKeyFrame
 												KeyTime="00:00:00.18"
-												Value="6, 0, 6, 6" />
-										</ThicknessAnimationUsingKeyFrames>
+												Value="-2" />
+										</DoubleAnimationUsingKeyFrames>
+
+										<DoubleAnimation
+											EasingFunction="{StaticResource SinEaseOut}"
+											Storyboard.TargetName="Border"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											To="1"
+											Duration="00:00:00.30" />
+
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
@@ -437,16 +453,18 @@
 							<Trigger.ExitActions>
 								<BeginStoryboard>
 									<Storyboard>
-										<ThicknessAnimation
+										<DoubleAnimation
+											EasingFunction="{StaticResource SinEaseOut}"
 											Storyboard.TargetName="Content"
-											Storyboard.TargetProperty="Margin"
-											From="6, 0, 6, 6"
-											To="6, 0, 6, 0"
-											Duration="00:00:00.30">
-											<ThicknessAnimation.EasingFunction>
-												<SineEase />
-											</ThicknessAnimation.EasingFunction>
-										</ThicknessAnimation>
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+											To="0"
+											Duration="00:00:00.30" />
+										<DoubleAnimation
+											EasingFunction="{StaticResource SinEaseOut}"
+											Storyboard.TargetName="Border"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											To="0"
+											Duration="00:00:00.30" />
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>

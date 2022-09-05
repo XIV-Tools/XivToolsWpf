@@ -70,6 +70,10 @@
 		TargetType="{x:Type Button}" />
 
 	<Style
+		BasedOn="{StaticResource XivToolsComboBox}"
+		TargetType="{x:Type ComboBox}" />
+
+	<Style
 		BasedOn="{StaticResource MaterialDesignCalendarPortrait}"
 		TargetType="{x:Type Calendar}" />
 
