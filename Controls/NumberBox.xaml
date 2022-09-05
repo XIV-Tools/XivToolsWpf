@@ -1,76 +1,118 @@
-﻿<UserControl x:Class="XivToolsWpf.Controls.NumberBox"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:local="clr-namespace:XivToolsWpf.Controls"
-			 xmlns:converters="clr-namespace:XivToolsWpf.Converters"
-			 mc:Ignorable="d" 
-			 d:DesignWidth="128"
-			 Height="24"
-			 HorizontalAlignment="Stretch"
-			 Loaded="UserControl_Loaded">
+﻿<UserControl
+	x:Class="XivToolsWpf.Controls.NumberBox"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="clr-namespace:XivToolsWpf.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:XivToolsWpf.Controls"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Height="24"
+	HorizontalAlignment="Stretch"
+	d:DesignWidth="128"
+	Loaded="UserControl_Loaded"
+	mc:Ignorable="d">
+
 
 	<Grid x:Name="ContentArea">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition x:Name="SliderArea" Width="Auto"/>
-			<ColumnDefinition x:Name="InputBoxArea" MinWidth="16"/>
-			<ColumnDefinition Width="Auto"/>
-
+			<ColumnDefinition />
+			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 
-		<Slider
-			x:Name="InputSlider"
+		<Border
+			x:Name="SliderArea"
 			Grid.Row="0"
 			Grid.Column="0"
-			Margin="3, 0, 3, 0"
-			HorizontalAlignment="Stretch"
-			Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-			Minimum="{Binding SliderMinimum}"
-			Maximum="{Binding SliderMaximum}"
-			TickFrequency="{Binding TickFrequency}"
-			IsSnapToTickEnabled="True"
-			Focusable="False"
-			VerticalAlignment="Center"
-			PreviewMouseMove="OnSliderMouseMove"
-			PreviewMouseDown="OnSliderPreviewMouseDown"
-			PreviewMouseUp="OnSliderPreviewMouseUp"/>
+			Margin="0,0,1,0"
+			CornerRadius="6,0,0,6"
+			Style="{StaticResource XivToolsControlBorder}">
+			<Slider
+				x:Name="InputSlider"
+				Margin="3,0,3,0"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
+				Focusable="False"
+				IsSnapToTickEnabled="True"
+				Maximum="{Binding SliderMaximum}"
+				Minimum="{Binding SliderMinimum}"
+				PreviewMouseDown="OnSliderPreviewMouseDown"
+				PreviewMouseMove="OnSliderMouseMove"
+				PreviewMouseUp="OnSliderPreviewMouseUp"
+				Style="{StaticResource XivToolsSliderNoBorder}"
+				TickFrequency="{Binding TickFrequency}"
+				Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		</Border>
 
-		<TextBox
-			x:Name="InputBox"
+		<Border
+			x:Name="BoxBorder"
 			Grid.Row="0"
 			Grid.Column="1"
-			Style="{StaticResource MaterialDesignTextBox}"
-			Foreground="{DynamicResource MaterialDesignBody}"
-			Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}"
-			LostFocus="OnLostFocus"
-			Margin="0, 0, 0, 0"
-			Padding="0, 4, 0, 0"
-			LostKeyboardFocus="OnLostFocus"/>
+			CornerRadius="0, 6, 6, 0"
+			Style="{StaticResource XivToolsControlBorder}">
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition
+						Width="Auto"
+						MinWidth="45" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<TextBox
+					x:Name="InputBox"
+					Grid.Column="0"
+					Margin="0"
+					Padding="0"
+					BorderThickness="0"
+					Foreground="{DynamicResource MaterialDesignBody}"
+					LostFocus="OnLostFocus"
+					LostKeyboardFocus="OnLostFocus"
+					Style="{StaticResource MaterialDesignTextBox}"
+					Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}" />
+
+				<ContentPresenter
+					Grid.Column="1"
+					Content="{Binding Suffix}" />
+
+				<RepeatButton
+					x:Name="DownButton"
+					Grid.Column="2"
+					Width="20"
+					Margin="4,1,1,1"
+					Padding="1"
+					HorizontalContentAlignment="Center"
+					Click="OnDownClick"
+					Content="-"
+					Style="{StaticResource TransparentRepeatButton}" />
+				<RepeatButton
+					x:Name="UpButton"
+					Grid.Column="3"
+					Width="20"
+					Margin="1,1,0,1"
+					Padding="1"
+					HorizontalContentAlignment="Center"
+					Click="OnUpClick"
+					Content="+"
+					Style="{StaticResource TransparentRepeatButton}" />
+			</Grid>
+
+
+		</Border>
 
 		<Line
-			Visibility="Collapsed"
 			x:Name="ErrorDisplay"
 			Grid.Column="1"
-			X1="0"
-			X2="1"
-			VerticalAlignment="Bottom"
+			Margin="0,0,0,0"
 			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
 			Stretch="Fill"
-			StrokeThickness="1"
 			Stroke="Red"
-			Margin="0,0,0,0"/>
-
-		<Grid Grid.Column="2" x:Name="ButtonsArea">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-
-			<RepeatButton Grid.Column="0" Content="-" Style="{StaticResource TransparentRepeatButton}" Padding="1" Click="OnDownClick" Width="20" HorizontalContentAlignment="Center" Margin="4,1,1,1"/>
-			<RepeatButton Grid.Column="1" Content="+" Style="{StaticResource TransparentRepeatButton}" Padding="1" Click="OnUpClick" Width="20" HorizontalContentAlignment="Center" Margin="1,1,0,1"/>
-
-		</Grid>
+			StrokeThickness="1"
+			Visibility="Collapsed"
+			X1="0"
+			X2="1" />
 
 	</Grid>
 </UserControl>

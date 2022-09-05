@@ -32,6 +32,7 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	public static readonly IBind<bool> WrapDp = Binder.Register<bool, NumberBox>(nameof(Wrap), BindMode.OneWay);
 	public static readonly IBind<double> OffsetDp = Binder.Register<double, NumberBox>(nameof(ValueOffset), BindMode.OneWay);
 	public static readonly IBind<bool> UncapTextInputDp = Binder.Register<bool, NumberBox>(nameof(UncapTextInput), BindMode.OneWay);
+	public static readonly IBind<object> SuffixDp = Binder.Register<object, NumberBox>(nameof(Suffix), BindMode.OneWay);
 
 	private string? inputString;
 	private Key keyHeld = Key.None;
@@ -114,6 +115,12 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	{
 		get => UncapTextInputDp.Get(this);
 		set => UncapTextInputDp.Set(this, value);
+	}
+
+	public object Suffix
+	{
+		get => SuffixDp.Get(this);
+		set => SuffixDp.Set(this, value);
 	}
 
 	public double DisplayValue
@@ -308,10 +315,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 	private static void OnSliderChanged(NumberBox sender, SliderModes mode)
 	{
-		bool v = mode != SliderModes.None;
-
-		sender.SliderArea.Width = v ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
-		sender.InputBoxArea.Width = v ? new GridLength(42) : new GridLength(1, GridUnitType.Star);
+		sender.SliderArea.Visibility = mode != SliderModes.None ? Visibility.Visible : Visibility.Collapsed;
+		sender.BoxBorder.CornerRadius = mode != SliderModes.None ? new(0, 6, 6, 0) : new(6);
 
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
@@ -320,7 +325,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 	private static void OnButtonsChanged(NumberBox sender, bool v)
 	{
-		sender.ButtonsArea.Visibility = v ? Visibility.Visible : Visibility.Collapsed;
+		sender.DownButton.Visibility = v ? Visibility.Visible : Visibility.Collapsed;
+		sender.UpButton.Visibility = v ? Visibility.Visible : Visibility.Collapsed;
 	}
 
 	private static void OnMinimumChanged(NumberBox sender, double value)

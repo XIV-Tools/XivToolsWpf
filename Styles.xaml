@@ -5,6 +5,8 @@
 
 	<ResourceDictionary.MergedDictionaries>
 
+		<ResourceDictionary Source="Styles/AnimationResources.xaml" />
+
 		<!--  Material Design  -->
 		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
 		<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
@@ -58,6 +60,7 @@
 		<ResourceDictionary Source="Styles/MarkdownStyles.xaml" />
 		<ResourceDictionary Source="Styles/WindowStyles.xaml" />
 		<ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
+		<ResourceDictionary Source="Styles/SliderStyles.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 
@@ -147,7 +150,7 @@
 		TargetType="{x:Type ScrollBar}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignSlider}"
+		BasedOn="{StaticResource InsetSlider}"
 		TargetType="{x:Type Slider}" />
 
 	<Style
