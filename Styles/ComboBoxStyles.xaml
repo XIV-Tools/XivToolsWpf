@@ -22,7 +22,7 @@
 
 						<ContentPresenter
 							Name="contentPresenter"
-							Margin="0,4,0,2"
+							Margin="3"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
@@ -30,7 +30,7 @@
 
 						<controls:IconBlock
 							Grid.Column="1"
-							Margin="0,3"
+							Margin="3"
 							FontSize="10"
 							Icon="ChevronDown" />
 
@@ -49,7 +49,6 @@
 
 			<ToggleButton
 				Name="toggleButton"
-				Margin="-2"
 				Padding="{TemplateBinding Padding}"
 				HorizontalContentAlignment="Stretch"
 				IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -68,7 +67,7 @@
 			<Popup
 				Name="PART_Popup"
 				Grid.Column="0"
-				Width="{Binding ElementName=toggleButton, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
+				MinWidth="{Binding ElementName=toggleButton, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
 				Margin="-16"
 				AllowsTransparency="True"
 				Focusable="False"

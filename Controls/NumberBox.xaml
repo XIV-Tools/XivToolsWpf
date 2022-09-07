@@ -15,8 +15,10 @@
 
 	<Grid x:Name="ContentArea">
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition x:Name="SliderColumn" />
+			<ColumnDefinition
+				x:Name="InputBoxColumn"
+				Width="Auto" />
 		</Grid.ColumnDefinitions>
 
 		<Border
@@ -52,9 +54,7 @@
 
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition
-						Width="Auto"
-						MinWidth="45" />
+					<ColumnDefinition MinWidth="45" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
@@ -86,6 +86,7 @@
 					Click="OnDownClick"
 					Content="-"
 					Style="{StaticResource TransparentRepeatButton}" />
+
 				<RepeatButton
 					x:Name="UpButton"
 					Grid.Column="3"
