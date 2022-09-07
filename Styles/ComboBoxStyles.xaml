@@ -4,28 +4,17 @@
 	xmlns:controls="clr-namespace:XivToolsWpf.Controls"
 	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-	<ControlTemplate
-		x:Key="XivToolsWpfComboBoxTemplate"
-		TargetType="{x:Type ComboBox}">
+	<Style
+		x:Key="XivToolsComboBoxButton"
+		BasedOn="{StaticResource TransparentIconToggleButton}"
+		TargetType="{x:Type ToggleButton}">
 
-		<Grid>
-			<Border
-				x:Name="templateRoot"
-				Style="{StaticResource XivToolsControlBorder}">
-				<ToggleButton
-					Name="toggleButton"
-					Margin="-2"
-					Padding="{TemplateBinding Padding}"
-					HorizontalContentAlignment="Stretch"
-					IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-					Style="{StaticResource TransparentIconToggleButton}">
+		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
 
-					<Grid
-						HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-						VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-						SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-						UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
-
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="Auto" />
@@ -34,10 +23,9 @@
 						<ContentPresenter
 							Name="contentPresenter"
 							Margin="0,4,0,2"
-							Content="{TemplateBinding SelectionBoxItem}"
-							ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
-							ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-							ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+							Content="{TemplateBinding Content}"
+							ContentStringFormat="{TemplateBinding ContentStringFormat}"
+							ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
 							IsHitTestVisible="False" />
 
 						<controls:IconBlock
@@ -47,22 +35,47 @@
 							Icon="ChevronDown" />
 
 					</Grid>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
 
-				</ToggleButton>
-			</Border>
+	</Style>
 
+	<ControlTemplate
+		x:Key="XivToolsWpfComboBoxTemplate"
+		TargetType="{x:Type ComboBox}">
+
+		<Grid>
+
+			<ToggleButton
+				Name="toggleButton"
+				Margin="-2"
+				Padding="{TemplateBinding Padding}"
+				HorizontalContentAlignment="Stretch"
+				IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				Style="{StaticResource XivToolsComboBoxButton}">
+
+				<ContentPresenter
+					Name="contentPresenter"
+					Content="{TemplateBinding SelectionBoxItem}"
+					ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+					ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+					ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+					IsHitTestVisible="False" />
+
+			</ToggleButton>
 
 			<Popup
 				Name="PART_Popup"
 				Grid.Column="0"
-				Width="{Binding ElementName=templateRoot, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
+				Width="{Binding ElementName=toggleButton, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
 				Margin="-16"
 				AllowsTransparency="True"
 				Focusable="False"
 				HorizontalOffset="0"
 				IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 				Placement="Bottom"
-				PlacementTarget="{Binding ElementName=templateRoot}"
+				PlacementTarget="{Binding ElementName=toggleButton}"
 				PopupAnimation="Fade"
 				SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 				UseLayoutRounding="{TemplateBinding UseLayoutRounding}"

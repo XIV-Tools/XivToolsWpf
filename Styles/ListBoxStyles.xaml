@@ -45,9 +45,11 @@
 
 								<ToggleButton
 									x:Name="Button"
+									Margin="0"
+									Background="Transparent"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
 									IsEnabled="{TemplateBinding IsEnabled}"
-									Style="{StaticResource TransparentIconToggleButton}">
+									Style="{StaticResource XivToolsToggleButton}">
 
 									<ContentPresenter
 										x:Name="Content"

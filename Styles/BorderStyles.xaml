@@ -24,13 +24,17 @@
 		<Setter Property="ClipToBounds" Value="True" />
 	</Style>
 
+	<SolidColorBrush
+		x:Key="XivToolsControlBorderBackground"
+		Color="#33000000" />
+
 	<Style
 		x:Key="XivToolsControlBorder"
 		TargetType="{x:Type Border}">
-		<Setter Property="Background" Value="#33000000" />
+		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
-		<Setter Property="BorderBrush" Value="#33000000" />
+		<Setter Property="BorderBrush" Value="{StaticResource XivToolsControlBorderBackground}" />
 		<Setter Property="CornerRadius" Value="6" />
 		<Setter Property="ClipToBounds" Value="True" />
 		<Setter Property="Padding" Value="3" />
