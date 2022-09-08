@@ -106,7 +106,7 @@ public class Reorderable : Behaviour
 			Task.Run(async () =>
 			{
 				await Task.Delay(250);
-				await Dispatch.MainThread();
+				await senderElement.Dispatcher.MainThread();
 
 				if (e.LeftButton != MouseButtonState.Pressed)
 					return;

@@ -186,7 +186,7 @@ public class ScrollInfoAdapter : UIElement, IScrollInfo
 			this.original.SetVerticalOffset(Lerp(this.original.VerticalOffset, (double)this.targetVerticalOffset));
 			this.original.SetHorizontalOffset(Lerp(this.original.HorizontalOffset, (double)this.targetHorizontalOffset));
 			await Task.Delay(1);
-			await Dispatch.MainThread();
+			await this.Dispatcher.MainThread();
 		}
 		while (this.original.VerticalOffset != this.targetVerticalOffset ||
 			this.original.HorizontalOffset != this.targetHorizontalOffset);
