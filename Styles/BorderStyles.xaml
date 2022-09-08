@@ -37,7 +37,7 @@
 		<Setter Property="BorderBrush" Value="{StaticResource XivToolsControlBorderBackground}" />
 		<Setter Property="CornerRadius" Value="6" />
 		<Setter Property="ClipToBounds" Value="True" />
-		<Setter Property="Padding" Value="3" />
+		<Setter Property="Padding" Value="0" />
 	</Style>
 
 </ResourceDictionary>

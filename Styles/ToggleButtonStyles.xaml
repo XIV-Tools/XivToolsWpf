@@ -40,14 +40,7 @@
 							BorderBrush="{DynamicResource MaterialDesignCardBackground}"
 							BorderThickness="1"
 							CornerRadius="3"
-							Opacity="0">
-							<Border.Effect>
-								<DropShadowEffect
-									BlurRadius="5"
-									Opacity="0.5"
-									ShadowDepth="0" />
-							</Border.Effect>
-						</Border>
+							Opacity="0" />
 
 						<Border
 							x:Name="Border"
@@ -129,14 +122,7 @@
 							BorderBrush="{DynamicResource MaterialDesignCardBackground}"
 							BorderThickness="1"
 							CornerRadius="3"
-							Opacity="0">
-							<Border.Effect>
-								<DropShadowEffect
-									BlurRadius="5"
-									Opacity="0.5"
-									ShadowDepth="0" />
-							</Border.Effect>
-						</Border>
+							Opacity="0" />
 
 						<Border
 							x:Name="Border"
