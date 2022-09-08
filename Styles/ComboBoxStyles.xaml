@@ -71,14 +71,12 @@
 				Margin="-16"
 				AllowsTransparency="True"
 				Focusable="False"
-				HorizontalOffset="0"
 				IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 				Placement="Bottom"
 				PlacementTarget="{Binding ElementName=toggleButton}"
 				PopupAnimation="Fade"
 				SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-				UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
-				VerticalOffset="0">
+				UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
 
 				<Grid Margin="16">
 					<Border
