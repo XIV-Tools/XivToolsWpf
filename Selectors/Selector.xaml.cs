@@ -248,7 +248,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		{
 			Task.Run(async () =>
 			{
-				await Dispatch.MainThread();
+				await this.Dispatcher.MainThread();
 				this.ClearItems();
 
 				await Dispatch.NonUiThread();
@@ -256,7 +256,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 				await this.FilterItemsAsync();
 
-				await Dispatch.MainThread();
+				await this.Dispatcher.MainThread();
 				this.ProgressBar.Visibility = Visibility.Collapsed;
 
 				this.ListBox.ScrollIntoView(this.Value);
@@ -371,7 +371,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 		if (!this.SearchEnabled)
 			this.searchQuery = null;
 
-		await Dispatch.MainThread();
+		await this.Dispatcher.MainThread();
 
 		ConcurrentQueue<ItemEntry> entries;
 		lock (this.entries)
@@ -428,18 +428,15 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 			sortedFilteredEntries = sortedFilteredEntries.OrderBy(cc => cc.Item, filter);
 		}
 
-		await Application.Current.Dispatcher.InvokeAsync(() =>
+		await this.Dispatcher.MainThread();
+		this.FilteredItems.Clear();
+
+		foreach (ItemEntry obj in sortedFilteredEntries)
 		{
-			this.FilteredItems.Clear();
+			this.FilteredItems.Add(obj.Item);
+		}
 
-			foreach (ItemEntry obj in sortedFilteredEntries)
-			{
-				this.FilteredItems.Add(obj.Item);
-			}
-
-			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.FilteredItems)));
-		});
-
+		this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.FilteredItems)));
 		this.idle = true;
 		this.isFiltering = false;
 	}

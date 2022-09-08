@@ -155,7 +155,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 	{
 		while (this.keyHeld != Key.None)
 		{
-			await Dispatch.MainThread();
+			await this.Dispatcher.MainThread();
 			this.TickKey(this.keyHeld);
 			await Task.Delay(10);
 		}
