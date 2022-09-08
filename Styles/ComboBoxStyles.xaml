@@ -10,6 +10,7 @@
 		TargetType="{x:Type ToggleButton}">
 
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
