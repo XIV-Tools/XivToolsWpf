@@ -373,7 +373,7 @@
 		x:Key="XivToolsToggleButton"
 		TargetType="{x:Type ToggleButton}">
 		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
-		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
