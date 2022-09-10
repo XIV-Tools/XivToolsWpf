@@ -13,11 +13,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
-					<ScrollViewer
-						Padding="{TemplateBinding Padding}"
-						Focusable="false">
-						<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-					</ScrollViewer>
+					<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

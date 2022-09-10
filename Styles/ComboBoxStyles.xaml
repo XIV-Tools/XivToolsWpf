@@ -1,15 +1,17 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:behaviours="clr-namespace:XivToolsWpf.Behaviours"
 	xmlns:controls="clr-namespace:XivToolsWpf.Controls"
 	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
 
 	<Style
 		x:Key="XivToolsComboBoxButton"
-		BasedOn="{StaticResource TransparentIconToggleButton}"
+		BasedOn="{StaticResource XivToolsToggleButton}"
 		TargetType="{x:Type ToggleButton}">
 
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 
 		<Setter Property="ContentTemplate">
@@ -33,7 +35,9 @@
 							Grid.Column="1"
 							Margin="3"
 							FontSize="10"
+							Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}"
 							Icon="ChevronDown" />
+
 
 					</Grid>
 				</DataTemplate>
@@ -53,6 +57,7 @@
 				Padding="{TemplateBinding Padding}"
 				HorizontalContentAlignment="Stretch"
 				Background="{TemplateBinding Background}"
+				Foreground="{TemplateBinding Foreground}"
 				IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 				Style="{StaticResource XivToolsComboBoxButton}">
 
@@ -96,7 +101,8 @@
 						CornerRadius="6">
 						<ScrollViewer
 							MinHeight="1"
-							MaxHeight="{TemplateBinding MaxDropDownHeight}">
+							MaxHeight="{TemplateBinding MaxDropDownHeight}"
+							behaviours:SmoothScrollBehaviour.SmoothScroll="True">
 							<ItemsPresenter Name="ItemsPresenter" />
 						</ScrollViewer>
 					</Border>
@@ -113,19 +119,17 @@
 		BasedOn="{StaticResource MaterialDesignComboBox}"
 		TargetType="{x:Type ComboBox}">
 		<Setter Property="Height" Value="28" />
-		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
 		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />
 	</Style>
 
 	<Style
 		x:Key="XivToolsComboBoxNoBorder"
-		BasedOn="{StaticResource MaterialDesignComboBox}"
+		BasedOn="{StaticResource XivToolsComboBox}"
 		TargetType="{x:Type ComboBox}">
-		<Setter Property="Height" Value="28" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
-		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />
 	</Style>
 
 </ResourceDictionary>

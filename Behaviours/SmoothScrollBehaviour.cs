@@ -23,6 +23,11 @@ public class SmoothScrollBehaviour : Behaviour
 	{
 	}
 
+	public static void SetSmoothScroll(DependencyObject host, bool enable)
+	{
+		host.AttachHandler<SmoothScrollBehaviour>(enable);
+	}
+
 	public override void OnLoaded()
 	{
 		base.OnLoaded();
