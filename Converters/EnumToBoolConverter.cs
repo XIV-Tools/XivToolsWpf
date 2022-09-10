@@ -10,7 +10,13 @@ using System.Windows.Data;
 [ValueConversion(typeof(Enum), typeof(bool))]
 public class EnumToBoolConverter : IValueConverter
 {
-	public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+	private enum AdditionMode
+	{
+		Or,
+		And,
+	}
+
+	public static bool Convert(object? value, Type targetType, object parameter)
 	{
 		if (value == null)
 			return false;
@@ -20,11 +26,53 @@ public class EnumToBoolConverter : IValueConverter
 		if (!enumType.IsEnum)
 			throw new Exception("Enum converter can only be used on an enum type");
 
-		Enum parameterValue = (Enum)Enum.Parse(enumType, (string)parameter);
 		Enum currentValue = (Enum)value;
 
-		bool val = Enum.Equals(currentValue, parameterValue);
-		return val;
+		string enumValueString = (string)parameter;
+
+		AdditionMode mode = AdditionMode.Or;
+
+		if (enumValueString.Contains("|") && enumValueString.Contains("&"))
+		{
+			throw new NotSupportedException("Cannot mix or (|) with and (&) in enum converter parameter");
+		}
+		else if (enumValueString.Contains("|"))
+		{
+			mode = AdditionMode.Or;
+		}
+		else if (enumValueString.Contains("&"))
+		{
+			mode = AdditionMode.And;
+		}
+
+		string[] values = enumValueString.Split('|', '?', StringSplitOptions.RemoveEmptyEntries);
+		bool returnvalue = false;
+
+		foreach (string enumValueStringPart in values)
+		{
+			Enum parameterValue = (Enum)Enum.Parse(enumType, enumValueStringPart.Trim(' ', '!'));
+
+			bool isEnumValue = Enum.Equals(currentValue, parameterValue);
+
+			if (enumValueString.StartsWith('!'))
+				isEnumValue = !isEnumValue;
+
+			if (mode == AdditionMode.Or)
+			{
+				returnvalue |= isEnumValue;
+			}
+			else
+			{
+				returnvalue &= isEnumValue;
+			}
+		}
+
+		return returnvalue;
+	}
+
+	public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+	{
+		return Convert(value, targetType, parameter);
 	}
 
 	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
