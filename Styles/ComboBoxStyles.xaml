@@ -52,6 +52,7 @@
 				Name="toggleButton"
 				Padding="{TemplateBinding Padding}"
 				HorizontalContentAlignment="Stretch"
+				Background="{TemplateBinding Background}"
 				IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 				Style="{StaticResource XivToolsComboBoxButton}">
 
@@ -112,6 +113,17 @@
 		BasedOn="{StaticResource MaterialDesignComboBox}"
 		TargetType="{x:Type ComboBox}">
 		<Setter Property="Height" Value="28" />
+		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
+		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />
+	</Style>
+
+	<Style
+		x:Key="XivToolsComboBoxNoBorder"
+		BasedOn="{StaticResource MaterialDesignComboBox}"
+		TargetType="{x:Type ComboBox}">
+		<Setter Property="Height" Value="28" />
+		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
 		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />
 	</Style>
