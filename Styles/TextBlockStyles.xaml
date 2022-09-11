@@ -22,10 +22,10 @@
 		TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
-		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="TextAlignment" Value="Right" />
-		<Setter Property="Margin" Value="3,0,6,0" />
+		<Setter Property="TextAlignment" Value="Left" />
+		<Setter Property="Margin" Value="3,3,6,1" />
 	</Style>
 
 	<Style
