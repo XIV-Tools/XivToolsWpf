@@ -158,7 +158,7 @@
 		TargetType="{x:Type Slider}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignSwitchToggleButton}"
+		BasedOn="{StaticResource XivToolsToggleButton}"
 		TargetType="{x:Type ToggleButton}" />
 
 	<Style
@@ -214,6 +214,7 @@
 	<converters:ListToStringConverter x:Key="ListToStringConverter" />
 	<converters:ColorToBrushConverter x:Key="ColorToBrush" />
 	<converters:EnumToBoolConverter x:Key="EnumToBool" />
+	<converters:EnumToVisibilityConverter x:Key="EnumToVisibility" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />
