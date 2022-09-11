@@ -1,10 +1,6 @@
-﻿<ResourceDictionary
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<Style
-		x:Key="Body"
-		TargetType="TextBlock">
+	<Style x:Key="Body" TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
 		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
@@ -17,20 +13,16 @@
 
 	</Style>
 
-	<Style
-		x:Key="Label"
-		TargetType="TextBlock">
+	<Style x:Key="Label" TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="HorizontalAlignment" Value="Right" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="TextAlignment" Value="Right" />
 		<Setter Property="Margin" Value="3,0,6,0" />
 	</Style>
 
-	<Style
-		x:Key="Header"
-		TargetType="TextBlock">
+	<Style x:Key="Header" TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
 		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
