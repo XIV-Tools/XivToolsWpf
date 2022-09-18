@@ -21,12 +21,6 @@ public partial class InfoControl : UserControl
 		this.IsError = false;
 	}
 
-	public string? Key
-	{
-		get => this.TextBlock.Key;
-		set => this.TextBlock.Key = value;
-	}
-
 	public string? Text
 	{
 		get => this.TextBlock.Text;

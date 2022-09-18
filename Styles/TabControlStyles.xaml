@@ -83,9 +83,9 @@
 									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
 									Style="{StaticResource XivToolsToggleButton}">
 
-									<XivtoolsWpf:TextBlock
-										Key="{Binding Header, RelativeSource={RelativeSource AncestorType=TabItem}}"
-										Margin="6" />
+									<TextBlock
+										Margin="6"
+										Text="{Binding Header, RelativeSource={RelativeSource AncestorType=TabItem}}" />
 								</ToggleButton>
 
 							</ControlTemplate>

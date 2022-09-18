@@ -11,7 +11,6 @@ using XivToolsWpf.DependencyProperties;
 public partial class FlagCheckbox : UserControl
 {
 	public static readonly IBind<string?> LabelDp = Binder.Register<string?, FlagCheckbox>(nameof(Label));
-	public static readonly IBind<string?> LabelKeyDp = Binder.Register<string?, FlagCheckbox>(nameof(LabelKey));
 	public static readonly IBind<string?> FlagDp = Binder.Register<string?, FlagCheckbox>(nameof(Flag));
 	public static readonly IBind<Enum?> ValueDp = Binder.Register<Enum?, FlagCheckbox>(nameof(Value), OnValueChanged);
 
@@ -25,12 +24,6 @@ public partial class FlagCheckbox : UserControl
 	{
 		get => LabelDp.Get(this);
 		set => LabelDp.Set(this, value);
-	}
-
-	public string? LabelKey
-	{
-		get => LabelKeyDp.Get(this);
-		set => LabelKeyDp.Set(this, value);
 	}
 
 	public Enum? Value

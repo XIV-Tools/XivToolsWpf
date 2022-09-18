@@ -34,12 +34,6 @@ public partial class IconButton : UserControl
 		remove => this.RemoveHandler(ClickEvent, value);
 	}
 
-	public string? Key
-	{
-		get => this.TextBlock.Key;
-		set => this.TextBlock.Key = value;
-	}
-
 	public string? Text
 	{
 		get => this.TextBlock.Text;

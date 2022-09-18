@@ -14,9 +14,7 @@
 		Checked="OnChecked"
 		Unchecked="OnUnchecked">
 
-		<local:TextBlock
-			Key="{Binding LabelKey}"
-			Text="{Binding Label}" />
+		<TextBlock Text="{Binding Label}" />
 
 	</CheckBox>
 
