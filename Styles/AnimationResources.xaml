@@ -14,4 +14,16 @@
 		x:Key="SinEaseInOut"
 		EasingMode="EaseInOut" />
 
+	<ExponentialEase
+		x:Key="ExponentailEaseIn"
+		EasingMode="EaseIn" />
+
+	<ExponentialEase
+		x:Key="ExponentailEaseOut"
+		EasingMode="EaseOut" />
+
+	<ExponentialEase
+		x:Key="ExponentailEaseInOut"
+		EasingMode="EaseInOut" />
+
 </ResourceDictionary>
