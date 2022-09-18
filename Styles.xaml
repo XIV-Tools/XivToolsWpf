@@ -191,6 +191,10 @@
 		BasedOn="{StaticResource ScrollViewerStyle}"
 		TargetType="{x:Type ScrollViewer}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsTabControl}"
+		TargetType="{x:Type TabControl}" />
+
 	<converters:MaterialDesignBorderClipConverter x:Key="MdBorderClipConverter" />
 
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />

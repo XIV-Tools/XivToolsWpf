@@ -130,9 +130,9 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 				return border.Child as ScrollViewer;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Log.Error(ex, "Failed to get scrollviewer in selector");
+				////Log.Error(ex, "Failed to get scrollviewer in selector");
 				return null;
 			}
 		}
