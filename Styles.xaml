@@ -223,6 +223,8 @@
 	<converters:ColorToBrushConverter x:Key="ColorToBrush" />
 	<converters:EnumToBoolConverter x:Key="EnumToBool" />
 	<converters:EnumToVisibilityConverter x:Key="EnumToVisibility" />
+	<converters:LessThanToVisibilityConverter x:Key="LessThanToVisibility" />
+	<converters:GreaterThanToVisibilityConverter x:Key="GreaterThanToVisibility" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />

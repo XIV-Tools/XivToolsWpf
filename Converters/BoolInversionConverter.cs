@@ -3,22 +3,15 @@
 
 namespace XivToolsWpf.Converters;
 
-using System;
-using System.Globalization;
-using System.Windows.Data;
-
-[ValueConversion(typeof(bool), typeof(bool))]
-public class BoolInversionConverter : IValueConverter
+public class BoolInversionConverter : ConverterBase<bool, bool>
 {
-	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+	protected override bool Convert(bool value)
 	{
-		bool v = (bool)value;
-		return !v;
+		return !value;
 	}
 
-	public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+	protected override bool ConvertBack(bool value)
 	{
-		bool v = (bool)value;
-		return !v;
+		return !value;
 	}
 }
