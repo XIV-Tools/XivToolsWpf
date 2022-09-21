@@ -195,6 +195,10 @@
 		BasedOn="{StaticResource XivToolsTabControl}"
 		TargetType="{x:Type TabControl}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsTextBox}"
+		TargetType="{x:Type TextBox}" />
+
 	<converters:MaterialDesignBorderClipConverter x:Key="MdBorderClipConverter" />
 
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />

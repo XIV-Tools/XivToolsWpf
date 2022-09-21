@@ -10,9 +10,6 @@
 
 	<TextBox
 		x:Name="InputBox"
-		Padding="0,0,0,1"
-		VerticalContentAlignment="Bottom"
-		Style="{StaticResource MaterialDesignTextBox}"
 		Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}" />
 
 </UserControl>

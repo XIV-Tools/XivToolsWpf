@@ -1,8 +1,94 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
-		<Setter Property="Padding" Value="0, 0, 0, -4"/>
-		<Setter Property="Margin" Value="0, 0, 0, 0"/>
+	<Style
+		x:Key="XivToolsTextBox"
+		TargetType="{x:Type TextBox}">
+
+		<Setter Property="Margin" Value="0,2" />
+		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="TextBoxBase.CaretBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="VerticalContentAlignment" Value="Top" />
+		<Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="UIElement.AllowDrop" Value="true" />
+		<Setter Property="Padding" Value="3,2" />
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+		<Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource MaterialDesignDefaultContextMenu}" />
+		<Setter Property="FrameworkElement.Cursor" Value="IBeam" />
+		<Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+
+		<Setter Property="Template">
+			<Setter.Value>
+
+				<ControlTemplate TargetType="{x:Type TextBoxBase}">
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsFocused" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											EasingFunction="{StaticResource SinEaseInOut}"
+											Storyboard.TargetName="Underline"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											To="1"
+											Duration="0:0:0.250" />
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											EasingFunction="{StaticResource SinEaseInOut}"
+											Storyboard.TargetName="Underline"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											To="0"
+											Duration="0:0:0.250" />
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+					<Grid>
+
+						<Border
+							Background="{TemplateBinding Background}"
+							Style="{StaticResource XivToolsControlBorder}" />
+
+						<ScrollViewer
+							Name="PART_ContentHost"
+							Grid.Column="1"
+							Margin="{TemplateBinding Padding}"
+							Focusable="false"
+							ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+							ScrollViewer.VerticalScrollBarVisibility="Hidden"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+
+						<Border
+							Name="Underline"
+							Height="2"
+							Margin="4,3"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Bottom"
+							Background="{TemplateBinding BorderBrush}"
+							CornerRadius="2"
+							RenderTransformOrigin="0.5, 0.5"
+							SnapsToDevicePixels="True">
+							<Border.RenderTransform>
+								<ScaleTransform ScaleX="0" />
+							</Border.RenderTransform>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+
+			</Setter.Value>
+		</Setter>
 	</Style>
 </ResourceDictionary>
