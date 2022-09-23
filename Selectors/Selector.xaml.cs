@@ -34,7 +34,6 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 	private bool searching = false;
 	private bool idle = true;
-	private string[]? searchQuery;
 	private bool xamlLoading = false;
 	private bool abortSearch = false;
 	private bool isFiltering = false;
@@ -338,15 +337,8 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 				return;
 			}
 
-			if (string.IsNullOrEmpty(str))
-			{
-				this.searchQuery = null;
-			}
-			else
-			{
-				str = str.ToLower();
-				this.searchQuery = str.Split(' ');
-			}
+			if (this.Filter != null)
+				this.Filter.Search = currentInput;
 
 			this.abortSearch = false;
 			await Task.Run(this.DoFilter);
@@ -367,9 +359,6 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 		this.idle = false;
 		this.isFiltering = true;
-
-		if (!this.SearchEnabled)
-			this.searchQuery = null;
 
 		await this.Dispatcher.MainThread();
 
@@ -399,7 +388,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 
 					try
 					{
-						if (filter != null && !filter.FilterItem(entry.Item, this.searchQuery))
+						if (filter != null && !filter.FilterItem(entry.Item))
 							continue;
 					}
 					catch (Exception ex)
@@ -486,7 +475,29 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 	[AddINotifyPropertyChangedInterface]
 	public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 	{
+		private string? search;
+
 		public event PropertyChangedEventHandler? PropertyChanged;
+
+		public string[]? SearchQuery { get; private set; }
+
+		public string? Search
+		{
+			get => this.search;
+			set
+			{
+				this.search = value;
+
+				if (string.IsNullOrEmpty(value))
+				{
+					this.SearchQuery = null;
+				}
+				else
+				{
+					this.SearchQuery = value.ToLower().Split(' ');
+				}
+			}
+		}
 
 		public int Compare(object? x, object? y)
 		{
@@ -496,16 +507,21 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 			return this.CompareItems(x, y);
 		}
 
-		public abstract bool FilterItem(object obj, string[]? search);
+		public abstract bool FilterItem(object obj);
 		public abstract int CompareItems(object a, object b);
+
+		protected virtual void NotifyChanged(string propertyName)
+		{
+			this.PropertyChanged?.Invoke(this, new(propertyName));
+		}
 	}
 
 	public abstract class FilterBase<T> : FilterBase
 	{
-		public sealed override bool FilterItem(object obj, string[]? search)
+		public sealed override bool FilterItem(object obj)
 		{
 			if (obj is T tObj)
-				return this.FilterItem(tObj, search);
+				return this.FilterItem(tObj);
 
 			return false;
 		}
@@ -518,7 +534,12 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 			return 0;
 		}
 
-		public abstract bool FilterItem(T obj, string[]? search);
+		public abstract bool FilterItem(T obj);
 		public abstract int CompareItems(T a, T b);
 	}
+}
+
+public interface ISearchable
+{
+	bool Search(string[] query);
 }
