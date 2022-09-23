@@ -35,6 +35,20 @@ public class FastObservableCollection<T> : ObservableCollection<T>
 		this.OnPropertyChanged(new(nameof(this.Count)));
 	}
 
+	public void SortAndReplace(IEnumerable<T> other, IComparer<T> comparer)
+	{
+		List<T> values = new(other);
+		values.Sort(comparer);
+		this.Replace(values);
+	}
+
+	public void Sort(IComparer<T> comparer)
+	{
+		List<T> values = new(this);
+		values.Sort(comparer);
+		this.Replace(values);
+	}
+
 	protected override void OnPropertyChanged(PropertyChangedEventArgs e)
 	{
 		if (this.suppressChangedEvent)
