@@ -27,7 +27,7 @@
 
 				<ControlTemplate TargetType="{x:Type TextBoxBase}">
 					<ControlTemplate.Triggers>
-						<Trigger Property="IsFocused" Value="True">
+						<Trigger Property="IsKeyboardFocused" Value="True">
 							<Trigger.EnterActions>
 								<BeginStoryboard>
 									<Storyboard>
