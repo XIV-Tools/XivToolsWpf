@@ -325,7 +325,7 @@ public partial class Selector : UserControl, INotifyPropertyChanged
 				await Task.Delay(100);
 
 			this.searching = true;
-			string currentInput = await Application.Current.Dispatcher.InvokeAsync<string>(() =>
+			string currentInput = await this.Dispatcher.InvokeAsync<string>(() =>
 			{
 				return this.SearchBox.Text;
 			});
