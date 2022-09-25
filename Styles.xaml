@@ -126,11 +126,11 @@
 		TargetType="{x:Type Label}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignListBox}"
+		BasedOn="{StaticResource XivToolsListBox}"
 		TargetType="{x:Type ListBox}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignListBoxItem}"
+		BasedOn="{StaticResource XivToolsListBoxItem}"
 		TargetType="{x:Type ListBoxItem}" />
 
 	<Style
