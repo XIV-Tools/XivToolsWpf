@@ -3,12 +3,13 @@
 
 namespace XivToolsWpf.Extensions;
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-public class FastObservableCollection<T> : ObservableCollection<T>
+public class FastObservableCollection<T> : ObservableCollection<T>, IFastObservableCollection
 {
 	private bool suppressChangedEvent = false;
 
@@ -18,6 +19,23 @@ public class FastObservableCollection<T> : ObservableCollection<T>
 
 		this.Clear();
 		this.AddRange(other);
+	}
+
+	public void Replace(IEnumerable other)
+	{
+		this.suppressChangedEvent = true;
+
+		this.Clear();
+
+		foreach (T item in other)
+		{
+			this.Add(item);
+		}
+
+		this.suppressChangedEvent = false;
+
+		this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+		this.OnPropertyChanged(new(nameof(this.Count)));
 	}
 
 	public void AddRange(IEnumerable<T> other)
@@ -64,4 +82,9 @@ public class FastObservableCollection<T> : ObservableCollection<T>
 
 		base.OnCollectionChanged(e);
 	}
+}
+
+public interface IFastObservableCollection
+{
+	public void Replace(IEnumerable other);
 }
