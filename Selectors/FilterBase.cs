@@ -3,10 +3,12 @@
 
 namespace XivToolsWpf.Selectors;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using PropertyChanged;
@@ -23,7 +25,7 @@ public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 
 	public FilterBase()
 	{
-		this.filterQueue = new(this.Filter, 250);
+		this.filterQueue = new(this.DoFilter, 50);
 	}
 
 	public event PropertyChangedEventHandler? PropertyChanged;
@@ -56,7 +58,7 @@ public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 	}
 
 	// Status
-	public bool IsFiltering { get; protected set; }
+	public bool IsFiltering { get; private set; }
 
 	protected ILogger Log => Serilog.Log.ForContext(this.GetType());
 
@@ -98,7 +100,37 @@ public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 		this.filterQueue.Invoke();
 	}
 
-	protected abstract Task Filter();
+	protected abstract Task<IEnumerable<object>?> Filter();
+
+	private async Task DoFilter()
+	{
+		await Dispatch.NonUiThread();
+
+		while (this.IsFiltering)
+			await Task.Delay(100);
+
+		if (this.Filterable == null)
+			return;
+
+		this.IsFiltering = true;
+
+		try
+		{
+			IEnumerable<object>? filterResults = await this.Filter();
+
+			if (filterResults == null)
+				return;
+
+			IOrderedEnumerable<object> sortedResults = filterResults.OrderBy(cc => cc, this);
+			await this.Filterable.SetFilteredItems(sortedResults);
+		}
+		catch (Exception ex)
+		{
+			this.Log.Error(ex, "Error running filter");
+		}
+
+		this.IsFiltering = false;
+	}
 }
 
 public abstract class FilterBase<T> : MultiThreadedFilterBase

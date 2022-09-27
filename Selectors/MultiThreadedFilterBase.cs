@@ -4,10 +4,8 @@
 namespace XivToolsWpf.Selectors;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 using System.Threading.Tasks;
-using System.Collections;
 
 /// <summary>
 /// A multithreaded implementation of filter that uses multiple concurrent tasks
@@ -17,77 +15,52 @@ public abstract class MultiThreadedFilterBase : FilterBase
 {
 	public int ThreadCount = 1;
 
-	protected override async Task Filter()
+	protected override async Task<IEnumerable<object>?> Filter()
 	{
-		await Dispatch.NonUiThread();
-
-		while (this.IsFiltering)
-			await Task.Delay(100);
-
 		if (this.Filterable == null)
-			return;
+			return null;
 
-		this.IsFiltering = true;
+		IFilterable filterable = this.Filterable;
+		ConcurrentQueue<object> itemsToFilter = new(await filterable.GetAllItems());
 
-		try
+		ConcurrentBag<object> filteredEntries = new();
+
+		List<Task> tasks = new List<Task>();
+		for (int i = 0; i < this.ThreadCount; i++)
 		{
-			IFilterable filterable = this.Filterable;
-			IEnumerable<object> allItems = await filterable.GetAllItems();
-
-			ConcurrentQueue<object> itemsToFilter;
-			lock (filterable)
+			Task t = Task.Run(() =>
 			{
-				itemsToFilter = new(allItems);
-			}
-
-			ConcurrentBag<object> filteredEntries = new();
-
-			List<Task> tasks = new List<Task>();
-			for (int i = 0; i < this.ThreadCount; i++)
-			{
-				Task t = Task.Run(() =>
+				while (!itemsToFilter.IsEmpty)
 				{
-					while (!itemsToFilter.IsEmpty)
+					object? item;
+					if (!itemsToFilter.TryDequeue(out item) || item == null)
+						continue;
+
+					try
 					{
-						object? item;
-						if (!itemsToFilter.TryDequeue(out item) || item == null)
+						if (!this.FilterItem(item))
+						{
 							continue;
-
-						try
-						{
-							if (!this.FilterItem(item))
-							{
-								continue;
-							}
-						}
-						catch (Exception ex)
-						{
-							this.Log.Error(ex, $"Failed to filter item: {item}");
-						}
-
-						filteredEntries.Add(item);
-
-						if (this.abort)
-						{
-							itemsToFilter.Clear();
 						}
 					}
-				});
+					catch (Exception ex)
+					{
+						this.Log.Error(ex, $"Failed to filter item: {item}");
+					}
 
-				tasks.Add(t);
-			}
+					filteredEntries.Add(item);
 
-			await Task.WhenAll(tasks.ToArray());
+					if (this.abort)
+					{
+						itemsToFilter.Clear();
+					}
+				}
+			});
 
-			IOrderedEnumerable<object>? sortedFilteredEntries = filteredEntries.OrderBy(cc => cc, this);
-
-			await filterable.SetFilteredItems(sortedFilteredEntries);
+			tasks.Add(t);
 		}
-		catch (Exception ex)
-		{
-			this.Log.Error(ex, "Error running filter");
-		}
 
-		this.IsFiltering = false;
+		await Task.WhenAll(tasks.ToArray());
+		return filteredEntries;
 	}
 }
