@@ -84,11 +84,6 @@ public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 	public abstract bool FilterItem(object obj);
 	public abstract int CompareItems(object a, object b);
 
-	protected virtual void OnPropertyChanged(string propertyName)
-	{
-		this.PropertyChanged?.Invoke(this, new(propertyName));
-	}
-
 	protected void OnPropertyChanged(PropertyChangedEventArgs eventArgs)
 	{
 		this.PropertyChanged?.Invoke(this, eventArgs);
