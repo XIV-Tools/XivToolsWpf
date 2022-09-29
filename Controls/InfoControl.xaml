@@ -60,7 +60,7 @@
 				x:Name="TextBlock"
 				Grid.Column="1"
 				VerticalAlignment="Center"
-				Foreground="{DynamicResource MaterialDesignBody}"
+				Foreground="{DynamicResource ForegroundBrush}"
 				TextAlignment="Left"
 				TextWrapping="Wrap" />
 		</Grid>

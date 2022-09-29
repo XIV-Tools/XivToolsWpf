@@ -1,26 +1,17 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converters="clr-namespace:XivToolsWpf.Converters"
-	xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-
-	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-		<ResourceDictionary>
-			<converters:MaterialDesignBorderClipConverter x:Key="BorderClipConverter" />
-		</ResourceDictionary>
-	</ResourceDictionary.MergedDictionaries>
+	xmlns:converters="clr-namespace:XivToolsWpf.Converters">
 
 	<Style
 		x:Key="TransparentButton"
 		TargetType="Button">
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Margin" Value="1" />
 		<Setter Property="Padding" Value="0" />
 		<Setter Property="MinWidth" Value="20" />
@@ -34,7 +25,7 @@
 					<Grid
 						x:Name="Content"
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
@@ -47,32 +38,15 @@
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="3" />
 
-						<md:Ripple
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						<ContentPresenter
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
 							Focusable="False"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-							<md:Ripple.Clip>
-								<MultiBinding Converter="{StaticResource BorderClipConverter}">
-									<Binding
-										ElementName="Border"
-										Path="ActualWidth" />
-									<Binding
-										ElementName="Border"
-										Path="ActualHeight" />
-									<Binding
-										ElementName="Border"
-										Path="CornerRadius" />
-									<Binding
-										ElementName="Border"
-										Path="BorderThickness" />
-								</MultiBinding>
-							</md:Ripple.Clip>
-						</md:Ripple>
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
 					</Grid>
 
@@ -105,7 +79,7 @@
 						Margin="0,-6,-6,-6"
 						ClipToBounds="True"
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 						<Border
 							x:Name="Border"
 							Margin="0,6,6,6"
@@ -119,11 +93,10 @@
 							Opacity="0"
 							Style="{DynamicResource Panel}" />
 
-						<md:Ripple
+						<ContentPresenter
 							Margin="0,6,6,6"
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -158,7 +131,7 @@
 
 					<Grid
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
@@ -171,10 +144,10 @@
 							BorderThickness="{TemplateBinding BorderThickness}"
 							CornerRadius="3, 0, 0, 3" />
 
-						<md:Ripple
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						<ContentPresenter
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -199,12 +172,11 @@
 	<Style
 		x:Key="LinkButton"
 		TargetType="Button">
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Left" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Padding" Value="0" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
 
@@ -214,14 +186,12 @@
 
 					<Grid
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 
-
-
-						<md:Ripple
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						<ContentPresenter
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -254,13 +224,12 @@
 	<Style
 		x:Key="XivToolsRepeatButton"
 		TargetType="{x:Type RepeatButton}">
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Stretch" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Margin" Value="1" />
 		<Setter Property="Padding" Value="0" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
@@ -271,32 +240,24 @@
 
 					<Grid
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
 							Style="{DynamicResource Panel}" />
 
-						<md:Ripple
+						<ContentPresenter
 							x:Name="ContentRipple"
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
 							Focusable="False"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-							<!--<md:Ripple.Clip>
-								<MultiBinding Converter="{DynamicResource BorderClipConverter}">
-									<Binding ElementName="border" Path="ActualWidth" />
-									<Binding ElementName="border" Path="ActualHeight" />
-									<Binding ElementName="border" Path="CornerRadius" />
-									<Binding ElementName="border" Path="BorderThickness" />
-								</MultiBinding>
-							</md:Ripple.Clip>-->
-						</md:Ripple>
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
 
 					</Grid>
 
@@ -321,13 +282,12 @@
 	<Style
 		x:Key="XivToolsButton"
 		TargetType="{x:Type Button}">
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignBody}" />
 		<Setter Property="Margin" Value="1" />
 		<Setter Property="Padding" Value="6,0" />
 		<Setter Property="MinWidth" Value="18" />
@@ -341,7 +301,7 @@
 
 					<Grid
 						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}">
+						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 
 						<Border
 							Background="{TemplateBinding Background}"
@@ -355,34 +315,16 @@
 
 						<!--<Line X1="0" X2="1" Stretch="Fill" x:Name="Border" StrokeThickness="{TemplateBinding BorderThickness}" Stroke="{TemplateBinding BorderBrush}" VerticalAlignment="Bottom" Margin="3, 0, 3, 0"/>-->
 
-						<md:Ripple
+						<ContentPresenter
 							x:Name="Content"
-							Padding="{TemplateBinding Padding}"
-							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplate="{TemplateBinding ContentTemplate}"
 							Focusable="False"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-
-							<md:Ripple.Clip>
-								<MultiBinding Converter="{StaticResource BorderClipConverter}">
-									<Binding
-										ElementName="HoverBorder"
-										Path="ActualWidth" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="ActualHeight" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="CornerRadius" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="BorderThickness" />
-								</MultiBinding>
-							</md:Ripple.Clip>
-						</md:Ripple>
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
 					</Grid>
 

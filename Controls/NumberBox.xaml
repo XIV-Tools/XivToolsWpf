@@ -69,11 +69,11 @@
 					Grid.Column="0"
 					Margin="0"
 					Padding="1"
+					Background="Transparent"
 					BorderThickness="0"
-					Foreground="{DynamicResource MaterialDesignBody}"
+					Foreground="{DynamicResource ForegroundBrush}"
 					LostFocus="OnLostFocus"
 					LostKeyboardFocus="OnLostFocus"
-					Style="{StaticResource MaterialDesignTextBox}"
 					Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}" />
 
 				<ContentPresenter
@@ -89,7 +89,7 @@
 					HorizontalContentAlignment="Center"
 					Click="OnDownClick"
 					Content="-"
-					Foreground="{DynamicResource PrimaryHueMidBrush}"
+					Foreground="{DynamicResource TrimBrush}"
 					Style="{StaticResource XivToolsRepeatButton}" />
 
 				<RepeatButton
@@ -101,7 +101,7 @@
 					HorizontalContentAlignment="Center"
 					Click="OnUpClick"
 					Content="+"
-					Foreground="{DynamicResource PrimaryHueMidBrush}"
+					Foreground="{DynamicResource TrimBrush}"
 					Style="{StaticResource XivToolsRepeatButton}" />
 			</Grid>
 

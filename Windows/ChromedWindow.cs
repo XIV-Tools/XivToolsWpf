@@ -12,7 +12,6 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using MaterialDesignThemes.Wpf;
 using PropertyChanged;
 
 [AddINotifyPropertyChangedInterface]
@@ -36,12 +35,6 @@ public class ChromedWindow : Window
 		this.Loaded += this.OnLoaded;
 
 		this.TitlebarForeground = new SolidColorBrush(Colors.Black);
-
-		IThemeManager? themeManager = new PaletteHelper().GetThemeManager();
-		if (themeManager != null)
-		{
-			themeManager.ThemeChanged += this.OnThemeChanged;
-		}
 	}
 
 	private enum AccentState
@@ -157,12 +150,6 @@ public class ChromedWindow : Window
 		}
 	}
 
-	private void OnThemeChanged(object? sender, ThemeChangedEventArgs e)
-	{
-		this.SetChrome();
-		this.SetTranslucency();
-	}
-
 	private void SetChrome()
 	{
 		WindowChrome? chrome = WindowChrome.GetWindowChrome(this);
@@ -206,7 +193,7 @@ public class ChromedWindow : Window
 		blurBehind.Enable = false;
 		blurBehind.RgnBlur = IntPtr.Zero;
 
-		this.isDarkTheme = new PaletteHelper().GetTheme().GetBaseTheme() == BaseTheme.Dark;
+		this.isDarkTheme = true; //// new PaletteHelper().GetTheme().GetBaseTheme() == BaseTheme.Dark;
 
 		int blurOpacity = 0;
 		int blurBackgroundColor = 0x000000;
@@ -250,7 +237,7 @@ public class ChromedWindow : Window
 			blurBackgroundColor = 0x000000;
 			backgroundRect.Visibility = Visibility.Visible;
 			backgroundRect.Opacity = 0.75;
-			titlebarRect.Fill = Application.Current.FindResource("MaterialDesignPaper") as SolidColorBrush;
+			titlebarRect.Fill = Application.Current.FindResource("BackgroundLightBrush") as SolidColorBrush;
 			titlebarRect.Opacity = 0.75;
 			blurBehind.Enable = true;
 		}

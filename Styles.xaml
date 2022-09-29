@@ -7,44 +7,7 @@
 
 		<ResourceDictionary Source="Styles/AnimationResources.xaml" />
 
-		<!--  Material Design  -->
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Indigo.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Indigo.xaml" />
-
-		<!--  Material Design:Controls  -->
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Button.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Calendar.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.CheckBox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.ComboBox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Expander.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Font.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GridSplitter.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Hyperlink.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Label.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Listbox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListView.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Menu.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ScrollBar.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ScrollViewer.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.Slider.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TimePicker.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.ToggleButton.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.PopupBox.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToolBar.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToolBarTray.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToolTip.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TreeView.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Thumb.xaml" />
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ValidationErrorTemplate.xaml" />
+		<ResourceDictionary Source="Themes/Dark.xaml" />
 
 		<!--  Custom  -->
 		<ResourceDictionary Source="Styles/BorderStyles.xaml" />
@@ -61,10 +24,10 @@
 		<ResourceDictionary Source="Styles/WindowStyles.xaml" />
 		<ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
 		<ResourceDictionary Source="Styles/SliderStyles.xaml" />
+		<ResourceDictionary Source="Styles/ProgressBarStyles.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 
-	<!--  Material Design:Styles  -->
 	<Style
 		BasedOn="{StaticResource XivToolsButton}"
 		TargetType="{x:Type Button}" />
@@ -72,58 +35,6 @@
 	<Style
 		BasedOn="{StaticResource XivToolsComboBox}"
 		TargetType="{x:Type ComboBox}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignCalendarPortrait}"
-		TargetType="{x:Type Calendar}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignCheckBox}"
-		TargetType="{x:Type CheckBox}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignContextMenu}"
-		TargetType="{x:Type ContextMenu}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignThumb}"
-		TargetType="{x:Type Thumb}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDataGrid}"
-		TargetType="{x:Type DataGrid}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDataGridCell}"
-		TargetType="{x:Type DataGridCell}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
-		TargetType="{x:Type DataGridColumnHeader}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDataGridRow}"
-		TargetType="{x:Type DataGridRow}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDataGridRowHeader}"
-		TargetType="{x:Type DataGridRowHeader}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignDatePicker}"
-		TargetType="{x:Type DatePicker}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignExpander}"
-		TargetType="{x:Type Expander}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignGridSplitter}"
-		TargetType="{x:Type GridSplitter}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignLabel}"
-		TargetType="{x:Type Label}" />
 
 	<Style
 		BasedOn="{StaticResource XivToolsListBox}"
@@ -134,58 +45,12 @@
 		TargetType="{x:Type ListBoxItem}" />
 
 	<Style
-		BasedOn="{StaticResource MaterialDesignPasswordBox}"
-		TargetType="{x:Type PasswordBox}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignLinearProgressBar}"
-		TargetType="{x:Type ProgressBar}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignRadioButton}"
-		TargetType="{x:Type RadioButton}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignRaisedButton}"
-		TargetType="{x:Type RepeatButton}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignScrollBar}"
-		TargetType="{x:Type ScrollBar}" />
-
-	<Style
-		BasedOn="{StaticResource InsetSlider}"
+		BasedOn="{StaticResource XivToolsSlider}"
 		TargetType="{x:Type Slider}" />
 
 	<Style
 		BasedOn="{StaticResource XivToolsToggleButton}"
 		TargetType="{x:Type ToggleButton}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignToolBar}"
-		TargetType="{x:Type ToolBar}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignToolBarTray}"
-		TargetType="{x:Type ToolBarTray}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignToolTip}"
-		TargetType="{x:Type ToolTip}" />
-
-	<!--<Style BasedOn="{StaticResource MaterialDesignTreeView}" TargetType="{x:Type TreeView}" />
-	<Style BasedOn="{StaticResource MaterialDesignTreeViewItem}" TargetType="{x:Type TreeViewItem}" />-->
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignListView}"
-		TargetType="{x:Type ListView}" />
-
-	<Style
-		BasedOn="{StaticResource MaterialDesignListBoxItem}"
-		TargetType="{x:Type ListViewItem}" />
-
-	<!--<Style BasedOn="{StaticResource MaterialDesignMenu}" TargetType="{x:Type Menu}" />
-	<Style BasedOn="{StaticResource MaterialDesignMenuItem}" TargetType="{x:Type MenuItem}" />-->
 
 	<Style
 		BasedOn="{StaticResource ScrollViewerStyle}"
@@ -198,8 +63,6 @@
 	<Style
 		BasedOn="{StaticResource XivToolsTextBox}"
 		TargetType="{x:Type TextBox}" />
-
-	<converters:MaterialDesignBorderClipConverter x:Key="MdBorderClipConverter" />
 
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 

@@ -78,7 +78,7 @@
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center"
 			IsIndeterminate="True"
-			Style="{StaticResource MaterialDesignCircularProgressBar}" />
+			Style="{StaticResource XivToolsWaiter}" />
 
 	</Grid>
 </UserControl>

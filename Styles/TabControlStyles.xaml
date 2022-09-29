@@ -2,16 +2,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:XivtoolsWpf="clr-namespace:XivToolsWpf.Controls"
-	xmlns:converters="clr-namespace:XivToolsWpf.Converters"
-	xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
-
-	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-		<ResourceDictionary>
-			<converters:MaterialDesignBorderClipConverter x:Key="BorderClipConverter" />
-		</ResourceDictionary>
-	</ResourceDictionary.MergedDictionaries>
-
+	xmlns:converters="clr-namespace:XivToolsWpf.Converters">
 
 	<Style
 		x:Key="XivToolsTabControl"
@@ -101,12 +92,11 @@
 	<Style
 		x:Key="XivToolsSideTabs"
 		TargetType="TabControl">
-		<Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+		<Setter Property="Background" Value="{DynamicResource BackgroundLightBrush}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="BorderBrush" Value="Transparent" />
 		<Setter Property="Margin" Value="0" />
 		<Setter Property="Padding" Value="0" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignFlatButtonRipple}" />
 	</Style>
 
 	<Style
@@ -115,10 +105,9 @@
 		<Setter Property="Margin" Value="0,1,0,1" />
 		<Setter Property="Height" Value="42" />
 		<Setter Property="Width" Value="42" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-		<Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
-		<Setter Property="md:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignFlatButtonRipple}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+		<Setter Property="Background" Value="{DynamicResource BackgroundLightBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 
@@ -143,27 +132,6 @@
 							VerticalAlignment="Center"
 							ContentSource="Header"
 							Opacity="0.5" />
-
-						<md:Ripple>
-
-							<md:Ripple.Clip>
-								<MultiBinding Converter="{StaticResource BorderClipConverter}">
-									<Binding
-										ElementName="HoverBorder"
-										Path="ActualWidth" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="ActualHeight" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="CornerRadius" />
-									<Binding
-										ElementName="HoverBorder"
-										Path="BorderThickness" />
-								</MultiBinding>
-							</md:Ripple.Clip>
-
-						</md:Ripple>
 
 						<Border
 							x:Name="Highlight"

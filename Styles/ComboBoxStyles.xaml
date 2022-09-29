@@ -11,7 +11,7 @@
 		TargetType="{x:Type ToggleButton}">
 
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 
 		<Setter Property="ContentTemplate">
@@ -74,7 +74,7 @@
 			<Popup
 				Name="PART_Popup"
 				Grid.Column="0"
-				MinWidth="{Binding ElementName=toggleButton, Path=ActualWidth, Converter={StaticResource MathAddConverter}, ConverterParameter=32}"
+				MinWidth="{Binding ElementName=toggleButton, Path=ActualWidth}"
 				Margin="-16"
 				AllowsTransparency="True"
 				Focusable="False"
@@ -97,7 +97,7 @@
 					</Border>
 
 					<Border
-						Background="{DynamicResource MaterialDesignBackground}"
+						Background="{DynamicResource BackgroundBrush}"
 						CornerRadius="6">
 						<ScrollViewer
 							MinHeight="1"
@@ -116,13 +116,12 @@
 
 	<Style
 		x:Key="XivToolsComboBox"
-		BasedOn="{StaticResource MaterialDesignComboBox}"
 		TargetType="{x:Type ComboBox}">
 		<Setter Property="Height" Value="28" />
 		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
-		<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />
+		<!--<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />-->
 	</Style>
 
 	<Style

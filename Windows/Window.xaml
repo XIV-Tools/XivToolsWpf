@@ -13,14 +13,14 @@
 	Deactivated="OnWindowDeactivated"
 	SizeToContent="WidthAndHeight"
 	TextBlock.FontSize="12"
-	TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+	TextBlock.Foreground="{DynamicResource ForegroundBrush}"
 	WindowStyle="None"
 	mc:Ignorable="d">
 
 	<Grid Margin="10">
 		<Border
 			x:Name="InActiveBorder"
-			Background="{DynamicResource MaterialDesignPaper}"
+			Background="{DynamicResource BackgroundLightBrush}"
 			BorderBrush="#50000000"
 			BorderThickness="1"
 			CornerRadius="3">
@@ -34,8 +34,8 @@
 
 		<Border
 			x:Name="ActiveBorder"
-			Background="{DynamicResource MaterialDesignPaper}"
-			BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+			Background="{DynamicResource BackgroundLightBrush}"
+			BorderBrush="{DynamicResource TrimBrush}"
 			BorderThickness="1"
 			CornerRadius="3">
 			<Border.Effect>

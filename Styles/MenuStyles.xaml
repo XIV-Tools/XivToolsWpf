@@ -4,11 +4,9 @@
 	xmlns:ana="clr-namespace:XivToolsWpf.Controls"
 	xmlns:converters="clr-namespace:XivToolsWpf.Converters"
 	xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-	xmlns:local="clr-namespace:XivToolsWpf"
-	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
+	xmlns:local="clr-namespace:XivToolsWpf">
 
 	<converters:IconConverter x:Key="StringToIconConveter" />
-	<wpf:BrushRoundConverter x:Key="BrushRoundConverter" />
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentConverter" />
 
 	<Style
@@ -39,108 +37,102 @@
 							BorderThickness="{TemplateBinding BorderThickness}"
 							Opacity="0"
 							SnapsToDevicePixels="True" />
-						<wpf:Ripple
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Stretch"
-							Background="Transparent"
-							Feedback="{TemplateBinding Foreground,
-													   Converter={StaticResource BrushRoundConverter}}"
-							Focusable="False">
-							<Grid Background="Transparent">
+
+
+						<Grid Background="Transparent">
+							<Grid
+								Margin="{TemplateBinding Padding}"
+								VerticalAlignment="Center"
+								Background="Transparent">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition
+										Width="Auto"
+										SharedSizeGroup="IconGroup" />
+									<ColumnDefinition
+										Width="*"
+										SharedSizeGroup="HeaderGroup" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!--  TODO  -->
 								<Grid
-									Margin="{TemplateBinding Padding}"
-									VerticalAlignment="Center"
-									Background="Transparent">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition
-											Width="Auto"
-											SharedSizeGroup="IconGroup" />
-										<ColumnDefinition
-											Width="*"
-											SharedSizeGroup="HeaderGroup" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
+									x:Name="IconWrapper"
+									Width="40"
+									Visibility="Visible">
+									<fa:IconBlock
+										Width="16"
+										Height="16"
+										Icon="{Binding Icon}" />
+								</Grid>
 
-									<!--  TODO  -->
-									<Grid
-										x:Name="IconWrapper"
-										Width="40"
-										Visibility="Visible">
-										<fa:IconBlock
-											Width="16"
-											Height="16"
-											Icon="{Binding Icon}" />
-									</Grid>
-
-									<Grid
-										x:Name="GlyphWrapper"
-										Width="40"
+								<Grid
+									x:Name="GlyphWrapper"
+									Width="40"
+									Visibility="Collapsed">
+									<Viewbox
+										x:Name="GlyphPanel"
+										Width="16"
+										Height="16"
+										Margin="0"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										FlowDirection="LeftToRight"
 										Visibility="Collapsed">
-										<Viewbox
-											x:Name="GlyphPanel"
-											Width="16"
-											Height="16"
-											Margin="0"
-											HorizontalAlignment="Left"
-											VerticalAlignment="Center"
-											FlowDirection="LeftToRight"
-											Visibility="Collapsed">
-											<Canvas
-												Width="24"
-												Height="24">
-												<Path
-													x:Name="Glyph"
-													Data="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
-													Fill="{TemplateBinding Foreground}"
-													FlowDirection="LeftToRight" />
-											</Canvas>
-										</Viewbox>
-									</Grid>
-									<Grid Grid.Column="1">
-										<TextBlock
-											x:Name="HeaderText"
-											Grid.Column="0"
-											Margin="0,4,0,4"
-											FontSize="14"
-											FontWeight="Light"
-											Text="{TemplateBinding Header}" />
-									</Grid>
-									<Grid
-										x:Name="InputGestureTextWrapper"
-										Grid.Column="2"
-										Visibility="Collapsed">
-										<TextBlock
-											Margin="16,0,0,0"
-											HorizontalAlignment="Right"
-											VerticalAlignment="Center"
-											Foreground="{TemplateBinding Foreground}"
-											SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-											Text="{TemplateBinding InputGestureText}"
-											Visibility="{TemplateBinding InputGestureText,
-																		 Converter={StaticResource StringHasContentConverter}}" />
-									</Grid>
-									<Grid
-										x:Name="SubBlock"
-										Grid.Column="2"
+										<Canvas
+											Width="24"
+											Height="24">
+											<Path
+												x:Name="Glyph"
+												Data="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+												Fill="{TemplateBinding Foreground}"
+												FlowDirection="LeftToRight" />
+										</Canvas>
+									</Viewbox>
+								</Grid>
+								<Grid Grid.Column="1">
+									<TextBlock
+										x:Name="HeaderText"
+										Grid.Column="0"
+										Margin="0,4,0,4"
+										FontSize="14"
+										FontWeight="Light"
+										Text="{TemplateBinding Header}" />
+								</Grid>
+								<Grid
+									x:Name="InputGestureTextWrapper"
+									Grid.Column="2"
+									Visibility="Collapsed">
+									<TextBlock
 										Margin="16,0,0,0"
-										Visibility="Collapsed">
-										<Path
-											Width="5"
-											Height="10"
-											HorizontalAlignment="Right"
-											VerticalAlignment="Center"
-											Data="M0,16 L8,8 L0,0 Z"
-											Fill="{TemplateBinding Foreground}"
-											SnapsToDevicePixels="False"
-											Stretch="Uniform" />
-									</Grid>
+										HorizontalAlignment="Right"
+										VerticalAlignment="Center"
+										Foreground="{TemplateBinding Foreground}"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Text="{TemplateBinding InputGestureText}"
+										Visibility="{TemplateBinding InputGestureText,
+																	 Converter={StaticResource StringHasContentConverter}}" />
+								</Grid>
+								<Grid
+									x:Name="SubBlock"
+									Grid.Column="2"
+									Margin="16,0,0,0"
+									Visibility="Collapsed">
+									<Path
+										Width="5"
+										Height="10"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Center"
+										Data="M0,16 L8,8 L0,0 Z"
+										Fill="{TemplateBinding Foreground}"
+										SnapsToDevicePixels="False"
+										Stretch="Uniform" />
 								</Grid>
 							</Grid>
-						</wpf:Ripple>
+						</Grid>
+
 						<Popup
 							x:Name="PART_Popup"
 							AllowsTransparency="True"
-							CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"
 							Focusable="False"
 							IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
 							Placement="Bottom"
@@ -148,7 +140,7 @@
 							VerticalOffset="0">
 							<Border
 								x:Name="SubMenuBorder"
-								Background="{DynamicResource MaterialDesignPaper}"
+								Background="{DynamicResource BackgroundLightBrush}"
 								BorderThickness="0"
 								CornerRadius="3"
 								Effect="{DynamicResource MaterialDesignShadowDepth1}">
@@ -250,8 +242,8 @@
 		x:Key="ButtonMenuItem"
 		BasedOn="{StaticResource AnaMenuItem}"
 		TargetType="{x:Type MenuItem}">
-		<Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Background" Value="{DynamicResource TrimBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Padding" Value="6,0,6,0" />
 		<Setter Property="Margin" Value="0" />
 		<Setter Property="MinWidth" Value="10" />
@@ -274,75 +266,70 @@
 							CornerRadius="{TemplateBinding Border.CornerRadius}"
 							SnapsToDevicePixels="True" />
 
-						<wpf:Ripple
-							HorizontalContentAlignment="Stretch"
-							VerticalContentAlignment="Stretch"
-							Background="Transparent"
-							Feedback="{TemplateBinding Foreground,
-													   Converter={StaticResource BrushRoundConverter}}"
-							Focusable="False">
+
+						<Grid
+							Height="{TemplateBinding Height}"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							Background="Transparent">
+
+							<Line
+								x:Name="Line"
+								Margin="0,3,0,3"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Stretch"
+								Stretch="Fill"
+								Stroke="{DynamicResource MaterialDesignCardBackground}"
+								Visibility="Collapsed"
+								Y1="0"
+								Y2="1" />
+
 							<Grid
-								Height="{TemplateBinding Height}"
+								Margin="{TemplateBinding Padding}"
+								VerticalAlignment="Center"
 								Background="Transparent">
 
-								<Line
-									x:Name="Line"
-									Margin="0,3,0,3"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Stretch"
-									Stretch="Fill"
-									Stroke="{DynamicResource MaterialDesignCardBackground}"
-									Visibility="Collapsed"
-									Y1="0"
-									Y2="1" />
+								<Grid Grid.Column="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
 
-								<Grid
-									Margin="{TemplateBinding Padding}"
-									VerticalAlignment="Center"
-									Background="Transparent">
+									<ana:IconBlock
+										x:Name="IconArea"
+										Grid.Column="0"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										FontSize="12"
+										Foreground="Black"
+										Icon="{TemplateBinding Icon,
+															   Converter={StaticResource StringToIconConveter}}" />
 
-									<Grid Grid.Column="1">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition />
-											<ColumnDefinition Width="Auto" />
-										</Grid.ColumnDefinitions>
-
-										<ana:IconBlock
-											x:Name="IconArea"
-											Grid.Column="0"
-											HorizontalAlignment="Center"
-											VerticalAlignment="Center"
-											FontSize="12"
-											Foreground="Black"
-											Icon="{TemplateBinding Icon,
-																   Converter={StaticResource StringToIconConveter}}" />
-
-										<TextBlock
-											x:Name="HeaderText"
-											Grid.Column="1"
-											Margin="4,2,0,2"
-											FontSize="14"
-											FontWeight="Light"
-											Foreground="Black"
-											Text="{TemplateBinding Header}" />
-										<fa:IconBlock
-											x:Name="Chevron"
-											Grid.Column="3"
-											Margin="-2,2,2,2"
-											FontSize="14"
-											Foreground="Black"
-											Icon="ChevronDown" />
-									</Grid>
+									<TextBlock
+										x:Name="HeaderText"
+										Grid.Column="1"
+										Margin="4,2,0,2"
+										FontSize="14"
+										FontWeight="Light"
+										Foreground="Black"
+										Text="{TemplateBinding Header}" />
+									<fa:IconBlock
+										x:Name="Chevron"
+										Grid.Column="3"
+										Margin="-2,2,2,2"
+										FontSize="14"
+										Foreground="Black"
+										Icon="ChevronDown" />
 								</Grid>
 							</Grid>
-						</wpf:Ripple>
+						</Grid>
+
 
 						<Popup
 							x:Name="PART_Popup"
 							AllowsTransparency="True"
-							CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"
 							Focusable="False"
 							HorizontalOffset="{TemplateBinding Popup.HorizontalOffset}"
 							IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
@@ -352,7 +339,7 @@
 
 							<Border
 								x:Name="SubMenuBorder"
-								Background="{DynamicResource MaterialDesignPaper}"
+								Background="{DynamicResource BackgroundLightBrush}"
 								BorderThickness="0"
 								CornerRadius="6"
 								Effect="{DynamicResource MaterialDesignShadowDepth1}">
@@ -454,7 +441,7 @@
 		<Setter Property="Margin" Value="0" />
 		<Setter Property="Padding" Value="0" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 	</Style>
 
 </ResourceDictionary>

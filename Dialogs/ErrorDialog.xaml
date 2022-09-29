@@ -33,7 +33,7 @@
 			Padding="0"
 			VerticalAlignment="Stretch"
 			VerticalContentAlignment="Stretch"
-			Foreground="{DynamicResource MaterialDesignBody}">
+			Foreground="{DynamicResource ForegroundBrush}">
 
 			<Expander.Header>
 				<TextBlock x:Name="HeaderTextBlock" Text="Details" FontSize="14" TextWrapping="Wrap" Margin="-6"/>
@@ -49,7 +49,7 @@
 				<TextBlock
 					x:Name="StackTraceBlock"
 					Margin="10"
-					Foreground="{DynamicResource MaterialDesignBody}"
+					Foreground="{DynamicResource ForegroundBrush}"
 					TextWrapping="NoWrap" />
 			</ScrollViewer>
 		</Expander>

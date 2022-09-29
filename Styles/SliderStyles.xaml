@@ -11,7 +11,7 @@
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="OverridesDefaultStyle" Value="True" />
-		<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -83,7 +83,7 @@
 		x:Key="XivToolsSlider"
 		TargetType="{x:Type Slider}">
 
-		<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -148,7 +148,7 @@
 		x:Key="XivToolsSliderNoBorder"
 		TargetType="{x:Type Slider}">
 
-		<Setter Property="Foreground" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
 
 		<Setter Property="Template">
 			<Setter.Value>

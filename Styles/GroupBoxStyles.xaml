@@ -1,17 +1,12 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:XivToolsWpf"
-	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
-
-	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.GroupBox.xaml" />
-	</ResourceDictionary.MergedDictionaries>
+	xmlns:local="clr-namespace:XivToolsWpf">
 
 	<Style
 		x:Key="Cm3GroupBox"
 		TargetType="{x:Type GroupBox}">
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Margin" Value="3,3,3,0" />
@@ -41,7 +36,7 @@
 							ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
 							RecognizesAccessKey="True"
 							TextBlock.FontWeight="Normal"
-							TextBlock.Foreground="{DynamicResource MaterialDesignBodyLight}" />
+							TextBlock.Foreground="{DynamicResource ForegroundLightBrush}" />
 
 						<Line
 							Grid.Row="0"
@@ -50,7 +45,7 @@
 							VerticalAlignment="Center"
 							Opacity="0.25"
 							Stretch="Fill"
-							Stroke="{DynamicResource MaterialDesignBodyLight}"
+							Stroke="{DynamicResource ForegroundLightBrush}"
 							StrokeThickness="1"
 							X1="0"
 							X2="1" />

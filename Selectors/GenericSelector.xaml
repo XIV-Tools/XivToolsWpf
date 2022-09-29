@@ -27,7 +27,7 @@
 					<TextBlock
 						Grid.Row="0"
 						Margin="3,0"
-						Foreground="{DynamicResource MaterialDesignBody}"
+						Foreground="{DynamicResource ForegroundBrush}"
 						FontWeight="DemiBold"
 						Text="{Binding Name}" />
 
@@ -35,7 +35,7 @@
 						Grid.Row="1"
 						Margin="3,0"
 						Text="{Binding Description}" 
-						Foreground="{DynamicResource MaterialDesignBodyLight}"
+						Foreground="{DynamicResource ForegroundLightBrush}"
 						Visibility="{Binding Description, Converter={StaticResource StringHasContentToVisibility}}"/>
 
 					<Rectangle

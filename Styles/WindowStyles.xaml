@@ -13,7 +13,7 @@
 							</Grid.RowDefinitions>
 							
 							<Rectangle Grid.Row="0" Fill="Transparent" x:Name="TitleBarArea"/>
-							<Rectangle Grid.Row="1" Fill="{DynamicResource MaterialDesignPaper}" x:Name="BackgroundArea"/>
+							<Rectangle Grid.Row="1" Fill="{DynamicResource BackgroundLightBrush}" x:Name="BackgroundArea"/>
 						</Grid>
 
 						<ContentPresenter Content="{TemplateBinding Content}"/>

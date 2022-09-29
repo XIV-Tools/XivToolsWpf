@@ -7,10 +7,10 @@
 		TargetType="{x:Type TextBox}">
 
 		<Setter Property="Margin" Value="0,2" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-		<Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
-		<Setter Property="TextBoxBase.CaretBrush" Value="{DynamicResource PrimaryHueMidBrush}" />
+		<Setter Property="TextBoxBase.CaretBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Top" />
 		<Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}" />

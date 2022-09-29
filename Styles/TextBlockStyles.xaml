@@ -7,7 +7,7 @@
 		TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 
 		<Style.Resources>
 			<Style TargetType="Hyperlink">
@@ -21,7 +21,7 @@
 		x:Key="Label"
 		TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="TextAlignment" Value="Left" />
@@ -33,7 +33,7 @@
 		TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
-		<Setter Property="Foreground" Value="{DynamicResource MaterialDesignBodyLight}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="Margin" Value="0" />

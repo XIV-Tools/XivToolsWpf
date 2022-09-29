@@ -5,7 +5,6 @@
 
 	<Style
 		x:Key="XivToolsSwitchSelectorNoBorder"
-		BasedOn="{StaticResource MaterialDesignListBox}"
 		TargetType="{x:Type ListBox}">
 
 		<Setter Property="Height" Value="28" />
@@ -77,7 +76,6 @@
 
 	<Style
 		x:Key="XivToolsListBoxItem"
-		BasedOn="{StaticResource MaterialDesignListBoxItem}"
 		TargetType="{x:Type ListBoxItem}">
 
 		<Setter Property="Template">
@@ -110,37 +108,16 @@
 								CornerRadius="3"
 								Opacity="0" />
 
-							<wpf:Ripple
-								Padding="{TemplateBinding Padding}"
-								HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-								VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							<ContentPresenter
+								Margin="{TemplateBinding Padding}"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 								Content="{TemplateBinding Content}"
 								ContentTemplate="{TemplateBinding ContentTemplate}"
 								ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-								Feedback="{TemplateBinding Foreground,
-														   Converter={StaticResource BrushRoundConverter}}"
 								Focusable="False"
 								RecognizesAccessKey="False"
-								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-
-								<wpf:Ripple.Clip>
-									<MultiBinding Converter="{StaticResource BorderClipConverter}">
-										<Binding
-											ElementName="HoverBorder"
-											Path="ActualWidth" />
-										<Binding
-											ElementName="HoverBorder"
-											Path="ActualHeight" />
-										<Binding
-											ElementName="HoverBorder"
-											Path="CornerRadius" />
-										<Binding
-											ElementName="HoverBorder"
-											Path="BorderThickness" />
-									</MultiBinding>
-								</wpf:Ripple.Clip>
-							</wpf:Ripple>
-
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</Grid>
 					</Border>
 
@@ -212,9 +189,9 @@
 
 	<Style
 		x:Key="XivToolsListBox"
-		BasedOn="{StaticResource MaterialDesignListBox}"
 		TargetType="{x:Type ListBox}">
 		<Setter Property="ItemContainerStyle" Value="{StaticResource XivToolsListBoxItem}" />
+		<Setter Property="Background" Value="Transparent" />
 	</Style>
 
 </ResourceDictionary>
