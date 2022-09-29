@@ -64,6 +64,10 @@
 		BasedOn="{StaticResource XivToolsTextBox}"
 		TargetType="{x:Type TextBox}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsProgressBar}"
+		TargetType="{x:Type ProgressBar}" />
+
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
 	<!--  Custom converters  -->

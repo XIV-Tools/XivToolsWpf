@@ -17,7 +17,7 @@
 				<ControlTemplate>
 					<Border
 						Margin="2"
-						Background="{DynamicResource MaterialDesignCardBackground}"
+						Background="{DynamicResource BackgroundLightBrush}"
 						CornerRadius="4" />
 				</ControlTemplate>
 			</Setter.Value>

@@ -27,8 +27,8 @@
 						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 						<Border
 							x:Name="HoverBorder"
-							Background="{DynamicResource MaterialDesignCardBackground}"
-							BorderBrush="{DynamicResource MaterialDesignCardBackground}"
+							Background="{DynamicResource BackgroundLightBrush}"
+							BorderBrush="{DynamicResource BackgroundLightBrush}"
 							BorderThickness="1"
 							CornerRadius="3"
 							Opacity="0" />
@@ -89,8 +89,8 @@
 						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 						<Border
 							x:Name="HoverBorder"
-							Background="{DynamicResource MaterialDesignCardBackground}"
-							BorderBrush="{DynamicResource MaterialDesignCardBackground}"
+							Background="{DynamicResource BackgroundLightBrush}"
+							BorderBrush="{DynamicResource BackgroundLightBrush}"
 							BorderThickness="1"
 							CornerRadius="3"
 							Opacity="0" />

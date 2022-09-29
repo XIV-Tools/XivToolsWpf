@@ -279,7 +279,7 @@
 								HorizontalAlignment="Left"
 								VerticalAlignment="Stretch"
 								Stretch="Fill"
-								Stroke="{DynamicResource MaterialDesignCardBackground}"
+								Stroke="{DynamicResource BackgroundLightBrush}"
 								Visibility="Collapsed"
 								Y1="0"
 								Y2="1" />
