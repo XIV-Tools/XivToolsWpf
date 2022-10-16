@@ -25,6 +25,7 @@
 		<ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
 		<ResourceDictionary Source="Styles/SliderStyles.xaml" />
 		<ResourceDictionary Source="Styles/ProgressBarStyles.xaml" />
+		<ResourceDictionary Source="Styles/CheckBoxStyles.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 
@@ -67,6 +68,10 @@
 	<Style
 		BasedOn="{StaticResource XivToolsProgressBar}"
 		TargetType="{x:Type ProgressBar}" />
+
+	<Style
+		BasedOn="{StaticResource XivToolsCheckBox}"
+		TargetType="{x:Type CheckBox}" />
 
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
