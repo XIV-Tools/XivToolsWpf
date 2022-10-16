@@ -37,7 +37,7 @@
 					x:Name="CheckMark"
 					Grid.Column="0"
 					Margin="0,2,0,0"
-					Foreground="{TemplateBinding Background}"
+					Foreground="{DynamicResource XivToolsControlBorderBackground}"
 					Icon="Check">
 					<controls:IconBlock.RenderTransform>
 						<TranslateTransform />
