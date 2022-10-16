@@ -13,12 +13,11 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using PropertyChanged;
 using Serilog;
 using XivToolsWpf.Windows;
 
-/// <summary>
-/// Interaction logic for ErrorDialog.xaml.
-/// </summary>
+[AddINotifyPropertyChangedInterface]
 public partial class ErrorDialog : UserControl
 {
 	private Window? window;
@@ -26,14 +25,12 @@ public partial class ErrorDialog : UserControl
 	public ErrorDialog(Window? host, ExceptionDispatchInfo exDispatch, bool isCritical)
 	{
 		this.InitializeComponent();
+		this.ContentArea.DataContext = this;
 
 		this.window = host;
 
 		this.OkButton.Visibility = isCritical ? Visibility.Collapsed : Visibility.Visible;
 		this.QuitButton.Visibility = !isCritical ? Visibility.Collapsed : Visibility.Visible;
-
-		this.Message.Text = isCritical ? "Critical Error" : "Error";
-		this.Subtitle.Visibility = isCritical ? Visibility.Visible : Visibility.Collapsed;
 
 		Exception? ex = exDispatch.SourceException;
 		if (exDispatch.SourceException is AggregateException aggEx && aggEx.InnerException != null)
@@ -63,11 +60,10 @@ public partial class ErrorDialog : UserControl
 			ex = ex.InnerException;
 		}
 
-		if (Debugger.IsAttached)
-		{
-			this.DetailsExpander.IsExpanded = true;
-		}
+		this.DetailsExpanded = Debugger.IsAttached;
 	}
+
+	public bool DetailsExpanded { get; set; }
 
 	public static void ShowError(ExceptionDispatchInfo ex, bool isCriticial)
 	{
@@ -119,7 +115,7 @@ public partial class ErrorDialog : UserControl
 		if (parts.Length == 2)
 		{
 			this.StackTraceBlock.Inlines.Add(new Run(parts[0]));
-			this.StackTraceBlock.Inlines.Add(new Run(" @ ") { Foreground = Brushes.LightGray });
+			this.StackTraceBlock.Inlines.Add(new Run("\n    @ ") { Foreground = Brushes.LightGray });
 
 			string? path;
 			if (this.GetPath(parts[1], out path, out _) && File.Exists(path))

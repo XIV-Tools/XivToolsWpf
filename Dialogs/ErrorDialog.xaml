@@ -4,47 +4,33 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	Width="650"
 	mc:Ignorable="d">
 
 	<Grid x:Name="ContentArea">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
+			<RowDefinition />
 			<RowDefinition />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<StackPanel Margin="12, 6, 6, 6">
-			<TextBlock
-				x:Name="Message"
-				FontSize="18"
-				Text="Critical Error"
-				TextWrapping="Wrap" />
-			<TextBlock
-				x:Name="Subtitle"
-				FontSize="14"
-				Text="The tool was unable to recover from this error, and must close."
-				TextWrapping="Wrap" />
-		</StackPanel>
+		<TextBlock
+			x:Name="HeaderTextBlock"
+			Grid.Row="0"
+			Margin="12,0"
+			FontSize="14"
+			Foreground="{DynamicResource ForegroundLightBrush}"
+			Text="Details"
+			TextWrapping="Wrap" />
 
-		<Expander
-			x:Name="DetailsExpander"
+		<Border
 			Grid.Row="1"
-			Padding="0"
-			VerticalAlignment="Stretch"
-			VerticalContentAlignment="Stretch"
-			Foreground="{DynamicResource ForegroundBrush}">
-
-			<Expander.Header>
-				<TextBlock x:Name="HeaderTextBlock" Text="Details" FontSize="14" TextWrapping="Wrap" Margin="-6"/>
-			</Expander.Header>
-
+			MaxHeight="256"
+			Margin="3,6,3,0"
+			Style="{StaticResource XivToolsControlBorder}"
+			Visibility="{Binding DetailsExpanded, Converter={StaticResource B2V}}">
 			<ScrollViewer
-				Grid.Row="1"
-				MaxHeight="256"
 				VerticalAlignment="Stretch"
-				HorizontalScrollBarVisibility="Auto"
-				Style="{DynamicResource MetroScrollViewer}">
+				HorizontalScrollBarVisibility="Auto">
 
 				<TextBlock
 					x:Name="StackTraceBlock"
@@ -52,30 +38,45 @@
 					Foreground="{DynamicResource ForegroundBrush}"
 					TextWrapping="NoWrap" />
 			</ScrollViewer>
-		</Expander>
+		</Border>
 
-		<Grid Grid.Row="2" Margin="0,3,0,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition />
-				<ColumnDefinition Width="Auto" />
-			</Grid.ColumnDefinitions>
+		<Border
+			Grid.Row="2"
+			Margin="3"
+			Style="{StaticResource XivToolsControlBorder}">
 
-			<Button
-				x:Name="QuitButton"
-				Grid.Column="1"
-				Width="75"
-				Margin="3"
-				Background="#DD2020"
-				BorderBrush="#CC1010"
-				Click="OnQuitClick"
-				Content="Quit" />
-			<Button
-				x:Name="OkButton"
-				Grid.Column="1"
-				Width="75"
-				Margin="3"
-				Click="OnOkClick"
-				Content="OK" />
-		</Grid>
+			<Grid>
+				<ToggleButton
+					Width="75"
+					Margin="3"
+					HorizontalAlignment="Left"
+					Background="Transparent"
+					Content="Details"
+					IsChecked="{Binding DetailsExpanded}" />
+
+				<StackPanel
+					HorizontalAlignment="Right"
+					Orientation="Horizontal">
+
+					<Button
+						x:Name="QuitButton"
+						Width="75"
+						Margin="3"
+						Background="Transparent"
+						BorderBrush="#DD2020"
+						Click="OnQuitClick"
+						Content="Quit"
+						Foreground="#DD2020" />
+
+					<Button
+						x:Name="OkButton"
+						Width="75"
+						Margin="3"
+						Background="Transparent"
+						Click="OnOkClick"
+						Content="OK" />
+				</StackPanel>
+			</Grid>
+		</Border>
 	</Grid>
 </UserControl>
