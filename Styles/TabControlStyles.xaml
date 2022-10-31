@@ -8,6 +8,7 @@
 		x:Key="XivToolsTabControl"
 		TargetType="{x:Type TabControl}">
 		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Padding" Value="3" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabControl}">
@@ -22,7 +23,7 @@
 						</Grid.RowDefinitions>
 
 						<Border
-							Margin="3"
+							Margin="{TemplateBinding Padding}"
 							Background="{TemplateBinding Background}"
 							Style="{StaticResource XivToolsControlBorder}">
 
