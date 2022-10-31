@@ -10,7 +10,7 @@
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentConverter" />
 
 	<Style
-		x:Key="AnaMenuItem"
+		x:Key="XivToolsMenuItem"
 		BasedOn="{x:Null}"
 		TargetType="{x:Type MenuItem}">
 		<Setter Property="Background" Value="Transparent" />
@@ -31,8 +31,7 @@
 							SnapsToDevicePixels="True" />
 						<Border
 							x:Name="BackgroundRoot"
-							Background="{TemplateBinding Foreground,
-														 Converter={StaticResource BrushRoundConverter}}"
+							Background="{TemplateBinding Foreground}"
 							BorderBrush="{TemplateBinding BorderBrush}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							Opacity="0"
@@ -240,7 +239,7 @@
 
 	<Style
 		x:Key="ButtonMenuItem"
-		BasedOn="{StaticResource AnaMenuItem}"
+		BasedOn="{StaticResource XivToolsMenuItem}"
 		TargetType="{x:Type MenuItem}">
 		<Setter Property="Background" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />

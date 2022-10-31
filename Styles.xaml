@@ -73,6 +73,10 @@
 		BasedOn="{StaticResource XivToolsCheckBox}"
 		TargetType="{x:Type CheckBox}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsMenuItem}"
+		TargetType="{x:Type MenuItem}" />
+
 	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
 	<!--  Custom converters  -->
