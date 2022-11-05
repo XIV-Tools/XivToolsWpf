@@ -318,8 +318,12 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		sender.SliderArea.Visibility = mode != SliderModes.None ? Visibility.Visible : Visibility.Collapsed;
 		sender.BoxBorder.CornerRadius = mode != SliderModes.None ? new(0, 6, 6, 0) : new(6);
 
+		int inputColumnWidth = 64;
+		if (sender.Buttons)
+			inputColumnWidth += 48;
+
 		sender.SliderColumn.Width = mode != SliderModes.None ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
-		sender.InputBoxColumn.Width = mode != SliderModes.None ? new GridLength(42) : new GridLength(1, GridUnitType.Star);
+		sender.InputBoxColumn.Width = mode != SliderModes.None ? new GridLength(inputColumnWidth) : new GridLength(1, GridUnitType.Star);
 
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
