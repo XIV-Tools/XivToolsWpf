@@ -22,7 +22,7 @@
 		TargetType="TextBlock">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
-		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="TextAlignment" Value="Left" />
 		<Setter Property="Margin" Value="3,3,6,1" />
