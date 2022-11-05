@@ -152,4 +152,150 @@
 		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
 	</Style>
 
+
+	<ControlTemplate
+		x:Key="XivToolsLockCheckBoxTemplate"
+		TargetType="{x:Type CheckBox}">
+
+		<Border
+			Background="{TemplateBinding Background}"
+			Style="{StaticResource XivToolsControlBorder}">
+			<Grid x:Name="Content">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Border
+					x:Name="CheckBorder"
+					Grid.Column="0"
+					Width="25"
+					CornerRadius="6,0,0,6"
+					Style="{StaticResource XivToolsControlBorder}" />
+
+				<Border
+					x:Name="HoverBorder"
+					Grid.Column="0"
+					Width="25"
+					BorderThickness="1"
+					CornerRadius="6,0,0,6"
+					Opacity="0"
+					Style="{StaticResource XivToolsControlHoverBorder}" />
+
+				<controls:IconBlock
+					x:Name="CheckMark"
+					Grid.Column="0"
+					Margin="0,2,0,0"
+					FontSize="10"
+					Foreground="{DynamicResource ForegroundLightBrush}"
+					Icon="LockOpen">
+					<controls:IconBlock.RenderTransform>
+						<TranslateTransform />
+					</controls:IconBlock.RenderTransform>
+				</controls:IconBlock>
+			</Grid>
+		</Border>
+
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsChecked" Value="true">
+				<Setter TargetName="CheckMark" Property="Foreground" Value="{DynamicResource TrimBrush}" />
+				<Setter TargetName="CheckMark" Property="Icon" Value="Lock" />
+
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimationUsingKeyFrames
+								BeginTime="00:00:00"
+								Storyboard.TargetName="CheckMark"
+								Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+								<SplineDoubleKeyFrame
+									KeyTime="00:00:00.00"
+									Value="0" />
+								<SplineDoubleKeyFrame
+									KeyTime="00:00:00.10"
+									Value="-3" />
+								<SplineDoubleKeyFrame
+									KeyTime="00:00:00.15"
+									Value="-2" />
+								<SplineDoubleKeyFrame
+									KeyTime="00:00:00.18"
+									Value="0" />
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="false">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="Content"
+								Storyboard.TargetProperty="Opacity"
+								From="1"
+								To="0.25"
+								Duration="00:00:00.1" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="Content"
+								Storyboard.TargetProperty="Opacity"
+								From="0.25"
+								To="1"
+								Duration="00:00:00.2" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+
+			<Trigger Property="IsMouseOver" Value="true">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="HoverBorder"
+								Storyboard.TargetProperty="Opacity"
+								From="0"
+								To="1"
+								Duration="00:00:00.1" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="HoverBorder"
+								Storyboard.TargetProperty="Opacity"
+								From="1"
+								To="0"
+								Duration="00:00:00.2" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+
+			</Trigger>
+
+		</ControlTemplate.Triggers>
+
+	</ControlTemplate>
+
+	<Style
+		x:Key="XivToolsLockCheckBox"
+		TargetType="{x:Type CheckBox}">
+
+		<Setter Property="Margin" Value="0,1,1,1" />
+		<Setter Property="SnapsToDevicePixels" Value="true" />
+		<Setter Property="OverridesDefaultStyle" Value="true" />
+		<Setter Property="Template" Value="{StaticResource XivToolsLockCheckBoxTemplate}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+	</Style>
+
 </ResourceDictionary>
