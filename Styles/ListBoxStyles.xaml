@@ -8,7 +8,7 @@
 		TargetType="{x:Type ListBox}">
 
 		<Setter Property="Height" Value="28" />
-		<Setter Property="Margin" Value="0" />
+		<Setter Property="Margin" Value="0,1" />
 
 		<Setter Property="Template">
 			<Setter.Value>

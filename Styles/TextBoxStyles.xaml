@@ -18,7 +18,6 @@
 		<Setter Property="Padding" Value="3,2" />
 		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
 		<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-		<Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource MaterialDesignDefaultContextMenu}" />
 		<Setter Property="FrameworkElement.Cursor" Value="IBeam" />
 		<Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
 

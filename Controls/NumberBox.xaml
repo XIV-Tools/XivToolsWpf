@@ -7,6 +7,7 @@
 	xmlns:local="clr-namespace:XivToolsWpf.Controls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	Height="24"
+	Margin="0,1"
 	HorizontalAlignment="Stretch"
 	d:DesignWidth="128"
 	BorderBrush="{StaticResource XivToolsControlBorderBackground}"
@@ -58,15 +59,21 @@
 
 			<Grid>
 				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition MinWidth="45" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
+				<ContentPresenter
+					Grid.Column="0"
+					VerticalAlignment="Stretch"
+					Content="{Binding Prefix}" />
+
 				<TextBox
 					x:Name="InputBox"
-					Grid.Column="0"
+					Grid.Column="1"
 					Margin="0"
 					Padding="1"
 					Background="Transparent"
@@ -77,12 +84,12 @@
 					Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, FallbackValue=000.000}" />
 
 				<ContentPresenter
-					Grid.Column="1"
+					Grid.Column="2"
 					Content="{Binding Suffix}" />
 
 				<RepeatButton
 					x:Name="DownButton"
-					Grid.Column="2"
+					Grid.Column="3"
 					Width="22"
 					Margin="0"
 					Padding="1,3,1,1"
@@ -94,7 +101,7 @@
 
 				<RepeatButton
 					x:Name="UpButton"
-					Grid.Column="3"
+					Grid.Column="4"
 					Width="22"
 					Margin="0"
 					Padding="1,3,1,1"

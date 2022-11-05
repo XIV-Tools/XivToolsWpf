@@ -32,7 +32,9 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	public static readonly IBind<bool> WrapDp = Binder.Register<bool, NumberBox>(nameof(Wrap), BindMode.OneWay);
 	public static readonly IBind<double> OffsetDp = Binder.Register<double, NumberBox>(nameof(ValueOffset), BindMode.OneWay);
 	public static readonly IBind<bool> UncapTextInputDp = Binder.Register<bool, NumberBox>(nameof(UncapTextInput), BindMode.OneWay);
+	public static readonly IBind<object> PrefixDp = Binder.Register<object, NumberBox>(nameof(Prefix), BindMode.OneWay);
 	public static readonly IBind<object> SuffixDp = Binder.Register<object, NumberBox>(nameof(Suffix), BindMode.OneWay);
+	public static readonly IBind<CornerRadius> CornerRadiusDp = Binder.Register<CornerRadius, NumberBox>(nameof(CornerRadius), OnCornerRadiusChanged, BindMode.OneWay);
 
 	private string? inputString;
 	private Key keyHeld = Key.None;
@@ -50,6 +52,7 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		this.Text = this.DisplayValue.ToString();
 		this.Slider = SliderModes.None;
 		this.Buttons = false;
+		this.CornerRadius = new(6, 6, 6, 6);
 
 		this.ContentArea.DataContext = this;
 	}
@@ -117,10 +120,22 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		set => UncapTextInputDp.Set(this, value);
 	}
 
+	public object Prefix
+	{
+		get => PrefixDp.Get(this);
+		set => PrefixDp.Set(this, value);
+	}
+
 	public object Suffix
 	{
 		get => SuffixDp.Get(this);
 		set => SuffixDp.Set(this, value);
+	}
+
+	public CornerRadius CornerRadius
+	{
+		get => CornerRadiusDp.Get(this);
+		set => CornerRadiusDp.Set(this, value);
 	}
 
 	public double DisplayValue
@@ -316,7 +331,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 	private static void OnSliderChanged(NumberBox sender, SliderModes mode)
 	{
 		sender.SliderArea.Visibility = mode != SliderModes.None ? Visibility.Visible : Visibility.Collapsed;
-		sender.BoxBorder.CornerRadius = mode != SliderModes.None ? new(0, 6, 6, 0) : new(6);
+		sender.BoxBorder.CornerRadius = mode != SliderModes.None ? new(0, sender.CornerRadius.TopRight, sender.CornerRadius.BottomRight, 0) : sender.CornerRadius;
+		sender.SliderArea.CornerRadius = new(sender.CornerRadius.TopLeft, 0, 0, sender.CornerRadius.BottomLeft);
 
 		int inputColumnWidth = 64;
 		if (sender.Buttons)
@@ -328,6 +344,12 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMaximum)));
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderMinimum)));
 		sender.PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(nameof(NumberBox.SliderValue)));
+	}
+
+	private static void OnCornerRadiusChanged(NumberBox sender, CornerRadius value)
+	{
+		sender.BoxBorder.CornerRadius = sender.Slider != SliderModes.None ? new(0, sender.CornerRadius.TopRight, sender.CornerRadius.BottomRight, 0) : sender.CornerRadius;
+		sender.SliderArea.CornerRadius = new(sender.CornerRadius.TopLeft, 0, 0, sender.CornerRadius.BottomLeft);
 	}
 
 	private static void OnButtonsChanged(NumberBox sender, bool v)
