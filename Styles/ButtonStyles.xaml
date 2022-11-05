@@ -29,7 +29,7 @@
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<Border
 							x:Name="Border"
@@ -91,7 +91,7 @@
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<ContentPresenter
 							Margin="0,6,6,6"
@@ -135,7 +135,7 @@
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<Border
 							x:Name="Border"
@@ -245,7 +245,7 @@
 						<Border
 							x:Name="HoverBorder"
 							Opacity="0"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<ContentPresenter
 							x:Name="ContentRipple"
@@ -311,7 +311,7 @@
 							x:Name="HoverBorder"
 							Margin="1"
 							Opacity="0"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<!--<Line X1="0" X2="1" Stretch="Fill" x:Name="Border" StrokeThickness="{TemplateBinding BorderThickness}" Stroke="{TemplateBinding BorderBrush}" VerticalAlignment="Bottom" Margin="3, 0, 3, 0"/>-->
 

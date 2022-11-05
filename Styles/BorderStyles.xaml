@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<Style
-		x:Key="Panel"
+		x:Key="XivToolsControlHoverBorder"
 		TargetType="{x:Type Border}">
 		<Setter Property="Background" Value="#11FFFFFF" />
 		<Setter Property="BorderThickness" Value="1" />

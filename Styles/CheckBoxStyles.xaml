@@ -31,7 +31,7 @@
 					BorderThickness="1"
 					CornerRadius="6,0,0,6"
 					Opacity="0"
-					Style="{DynamicResource Panel}" />
+					Style="{StaticResource XivToolsControlHoverBorder}" />
 
 				<controls:IconBlock
 					x:Name="CheckMark"

@@ -124,7 +124,7 @@
 							x:Name="HoverBorder"
 							Opacity="0"
 							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-							Style="{DynamicResource Panel}" />
+							Style="{StaticResource XivToolsControlHoverBorder}" />
 
 						<ContentPresenter
 							x:Name="ContentSite"
