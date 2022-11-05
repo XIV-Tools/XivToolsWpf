@@ -10,6 +10,9 @@
 
 	<TextBox
 		x:Name="InputBox"
+		Margin="0"
+		Padding="2,1,2,2"
+		VerticalAlignment="Center"
 		Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}" />
 
 </UserControl>

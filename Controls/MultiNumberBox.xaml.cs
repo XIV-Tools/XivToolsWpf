@@ -85,7 +85,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 	{
 		get
 		{
-			return $"{this.X}, {this.Y}, {this.Z}";
+			return $"{Math.Round(this.X, 3)}, {Math.Round(this.Y, 3)}, {Math.Round(this.Z, 3)}";
 		}
 		set
 		{
