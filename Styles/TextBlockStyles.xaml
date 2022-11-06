@@ -4,7 +4,7 @@
 
 	<Style
 		x:Key="Body"
-		TargetType="TextBlock">
+		TargetType="{x:Type TextBlock}">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -19,7 +19,7 @@
 
 	<Style
 		x:Key="Label"
-		TargetType="TextBlock">
+		TargetType="{x:Type TextBlock}">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
 		<Setter Property="HorizontalAlignment" Value="Right" />
@@ -30,7 +30,7 @@
 
 	<Style
 		x:Key="Header"
-		TargetType="TextBlock">
+		TargetType="{x:Type TextBlock}">
 		<Setter Property="FontWeight" Value="Normal" />
 		<Setter Property="FontSize" Value="12" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />

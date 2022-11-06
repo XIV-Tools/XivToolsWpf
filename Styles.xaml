@@ -81,8 +81,6 @@
 		BasedOn="{StaticResource XivToolsGroupBox}"
 		TargetType="{x:Type GroupBox}" />
 
-	<BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
 	<!--  Custom converters  -->
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />
 	<converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />

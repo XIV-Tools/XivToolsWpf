@@ -20,7 +20,7 @@
 					x:Name="CheckBorder"
 					Grid.Column="0"
 					Width="25"
-					Background="{DynamicResource BackgroundBrush}"
+					Background="{DynamicResource XivToolsControlBorderBackground}"
 					BorderThickness="1"
 					CornerRadius="6,0,0,6" />
 
@@ -37,7 +37,7 @@
 					x:Name="CheckMark"
 					Grid.Column="0"
 					Margin="0,2,0,0"
-					Foreground="{DynamicResource XivToolsControlBorderBackground}"
+					Foreground="{DynamicResource ForegroundLightBrush}"
 					Icon="Check">
 					<controls:IconBlock.RenderTransform>
 						<TranslateTransform />
@@ -144,7 +144,7 @@
 		x:Key="XivToolsCheckBox"
 		TargetType="{x:Type CheckBox}">
 
-
+		<Setter Property="Height" Value="22" />
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />
 		<Setter Property="Template" Value="{StaticResource XivToolsCheckBoxTemplate}" />
@@ -290,6 +290,7 @@
 		x:Key="XivToolsLockCheckBox"
 		TargetType="{x:Type CheckBox}">
 
+		<Setter Property="Height" Value="22" />
 		<Setter Property="Margin" Value="0,1,1,1" />
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />
