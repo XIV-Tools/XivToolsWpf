@@ -12,11 +12,11 @@
 
 	<SolidColorBrush
 		x:Key="BackgroundBrush"
-		Color="#FF202020" />
+		Color="#FF222222" />
 
 	<SolidColorBrush
 		x:Key="BackgroundLightBrush"
-		Color="#FF303030" />
+		Color="#FF333333" />
 
 	<SolidColorBrush
 		x:Key="TrimBrush"
