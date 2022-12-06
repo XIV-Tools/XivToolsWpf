@@ -50,7 +50,7 @@ public abstract class ConverterBase<TFrom, TTo, TParameter> : ConverterBase<TFro
 
 			if (typeof(TParameter) == typeof(double))
 			{
-				double val = System.Convert.ToDouble(base.Parameter);
+				double val = System.Convert.ToDouble(base.Parameter, CultureInfo.InvariantCulture);
 
 				if (val is TParameter tParameterVal)
 					return tParameterVal;
