@@ -20,7 +20,7 @@
 					x:Name="CheckBorder"
 					Grid.Column="0"
 					Width="25"
-					Background="{DynamicResource XivToolsControlBorderBackground}"
+					Background="{TemplateBinding Background}"
 					BorderThickness="1"
 					CornerRadius="6,0,0,6" />
 
