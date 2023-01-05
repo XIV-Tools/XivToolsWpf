@@ -38,7 +38,8 @@
 					Grid.Column="0"
 					Margin="0,2,0,0"
 					Foreground="{DynamicResource ForegroundLightBrush}"
-					Icon="Check">
+					Icon="Check"
+					Opacity="0.25">
 					<controls:IconBlock.RenderTransform>
 						<TranslateTransform />
 					</controls:IconBlock.RenderTransform>
@@ -77,9 +78,26 @@
 									KeyTime="00:00:00.18"
 									Value="0" />
 							</DoubleAnimationUsingKeyFrames>
+
+							<DoubleAnimation
+								Storyboard.TargetName="CheckMark"
+								Storyboard.TargetProperty="Opacity"
+								To="1"
+								Duration="00:00:00.25" />
 						</Storyboard>
 					</BeginStoryboard>
 				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetName="CheckMark"
+								Storyboard.TargetProperty="Opacity"
+								To="0.25"
+								Duration="00:00:00.25" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="false">
 				<Trigger.EnterActions>
