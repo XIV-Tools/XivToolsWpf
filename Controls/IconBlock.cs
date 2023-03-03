@@ -3,45 +3,111 @@
 
 namespace XivToolsWpf.Controls;
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 using FontAwesome.Sharp;
+using FontAwesome.Sharp.Pro;
 
-public class IconBlock : IconBlockBase<IconChar>
+public class IconBlock : IconBlockBase<ProIcons>
 {
+	public static readonly DependencyProperty IconStyleProperty = DependencyProperty.Register(
+		"IconStyle",
+		typeof(IconStyles),
+		typeof(IconBlock),
+		new PropertyMetadata(IconStyles.Solid, OnIconStylePropertyChanged));
+
 	private static readonly FontFamily NoneFont = new();
-	private static Typeface[]? typefaces;
+	private static readonly Typeface? SolidFont;
+	private static readonly Typeface? OutlineFont;
+	private static readonly Typeface? OutlineThinFont;
+	private static readonly Typeface? BrandsFont;
+
+	static IconBlock()
+	{
+		Assembly assembly = typeof(IconBlock).Assembly;
+
+		IconBlock.SolidFont = new Typeface(assembly.LoadFont("fonts", "Font Awesome 5 Pro Solid"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+		IconBlock.OutlineFont = new Typeface(assembly.LoadFont("fonts", "Font Awesome 5 Pro Regular"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+		IconBlock.OutlineThinFont = new Typeface(assembly.LoadFont("fonts", "Font Awesome 5 Pro Light"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+		IconBlock.BrandsFont = new Typeface(assembly.LoadFont("fonts", "Font Awesome 5 Brands Regular"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal);
+	}
 
 	public IconBlock()
 		: base(NoneFont)
 	{
 	}
 
-	protected override FontFamily FontFor(IconChar icon)
+	public IconStyles IconStyle
 	{
-		if (typefaces == null)
-			Load();
+		get => (IconStyles)this.GetValue(IconStyleProperty);
+		set => this.SetValue(IconStyleProperty, value);
+	}
 
-		GlyphTypeface gt;
-		ushort glyphIndex;
-		FontFamily? font = typefaces.Find(icon, out gt, out glyphIndex)?.FontFamily;
+	protected override FontFamily FontFor(ProIcons icon)
+	{
+		FontFamily? font = this.FontFor(icon, this.IconStyle);
 
 		if (font == null)
-			return typefaces![0].FontFamily;
+			font = this.FontFor(icon, IconStyles.Solid);
+
+		if (font == null)
+			font = this.FontFor(icon, IconStyles.Brand);
+
+		if (font == null)
+			return IconBlock.NoneFont;
 
 		return font;
 	}
 
-	private static void Load()
+	protected virtual FontFamily? FontFor(ProIcons icon, IconStyles style)
 	{
-		string path = "fonts";
+		Typeface? typeface = this.IconStyle switch
+		{
+			IconStyles.Solid => IconBlock.SolidFont,
+			IconStyles.Outline => IconBlock.OutlineFont,
+			IconStyles.OutlineThin => IconBlock.OutlineThinFont,
+			IconStyles.Brand => IconBlock.BrandsFont,
+			_ => throw new NotSupportedException(),
+		};
 
-		string[] names = new string[2];
-		names[0] = "Font Awesome 5 Pro Solid";
-		names[1] = "Font Awesome 5 Brands Regular";
+		if (typeface == null)
+			throw new NotSupportedException();
 
-		typefaces = typeof(IconBlock).Assembly.LoadTypefaces(path, names);
+		int iconCode = (int)icon;
+		ushort glyphIndex;
+		GlyphTypeface gt;
+
+		bool glyphFound = false;
+		if (typeface.TryGetGlyphTypeface(out gt))
+		{
+			glyphFound = gt.CharacterToGlyphMap.TryGetValue(iconCode, out glyphIndex);
+		}
+
+		if (glyphFound)
+			return typeface.FontFamily;
+
+		return null;
 	}
+
+	private static void OnIconStylePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+	{
+		if (d is IconBlock iconBlock)
+		{
+			ProIcons icon = iconBlock.Icon;
+			iconBlock.Icon = ProIcons.None;
+			iconBlock.Icon = icon;
+		}
+	}
+}
+
+public enum IconStyles
+{
+	Solid,
+	Outline,
+	OutlineThin,
+	Brand,
 }
