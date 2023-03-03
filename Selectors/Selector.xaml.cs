@@ -198,6 +198,9 @@ public partial class Selector : UserControl, IFilterable, INotifyPropertyChanged
 
 	private void OnLoaded(object sender, RoutedEventArgs e)
 	{
+		if (!this.IsVisible)
+			return;
+
 		if (this.ObjectType != null)
 		{
 			if (SearchInputs.ContainsKey(this.ObjectType))
