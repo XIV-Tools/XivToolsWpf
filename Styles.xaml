@@ -83,6 +83,7 @@
 
 	<!--  Custom converters  -->
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />
+	<converters:StringHasContentToBoolConverter x:Key="StringHasContentToBool" />
 	<converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
 	<converters:NotEmptyToVisibilityConverter x:Key="NotEmptyToVisibilityConverter" />
 	<converters:IsEmptyToVisibilityConverter x:Key="IsEmptyToVisibilityConverter" />

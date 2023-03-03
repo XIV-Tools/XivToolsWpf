@@ -7,7 +7,6 @@
 	xmlns:local="clr-namespace:XivToolsWpf">
 
 	<converters:IconConverter x:Key="StringToIconConveter" />
-	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentConverter" />
 
 	<Style
 		x:Key="XivToolsMenuItem"
@@ -109,7 +108,7 @@
 										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 										Text="{TemplateBinding InputGestureText}"
 										Visibility="{TemplateBinding InputGestureText,
-																	 Converter={StaticResource StringHasContentConverter}}" />
+																	 Converter={StaticResource StringHasContentToVisibility}}" />
 								</Grid>
 								<Grid
 									x:Name="SubBlock"
