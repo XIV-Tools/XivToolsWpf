@@ -21,12 +21,14 @@ public static class SearchUtility
 		bool matchesSearch = true;
 		foreach (string str in querry)
 		{
+			string strB = str.ToLower();
+
 			// ignore 'the'
-			if (str == "the")
+			if (strB == "the")
 				continue;
 
 			// ignore all symbols
-			string strB = Regex.Replace(str, @"[^\w\d\s]", string.Empty);
+			strB = Regex.Replace(strB, @"[^\w\d\s]", string.Empty);
 
 			// Parse integers as numbers instead of strings
 			if (int.TryParse(str, out int v))
