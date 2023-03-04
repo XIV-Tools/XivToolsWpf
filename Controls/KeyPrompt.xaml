@@ -10,7 +10,18 @@
 	<Grid
 		x:Name="ContentArea"
 		MinWidth="28"
-		Margin="1">
+		Margin="1"
+		Opacity="1">
+
+		<Grid.Style>
+			<Style TargetType="{x:Type Grid}">
+				<Style.Triggers>
+					<Trigger Property="IsEnabled" Value="False">
+						<Setter Property="Opacity" Value="0.25" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+		</Grid.Style>
 
 		<Border
 			Background="{DynamicResource BackgroundBrush}"
