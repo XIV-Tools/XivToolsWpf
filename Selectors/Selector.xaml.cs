@@ -33,6 +33,7 @@ public partial class Selector : UserControl, IFilterable, INotifyPropertyChanged
 	private static readonly Dictionary<Type, string?> SearchInputs = new Dictionary<Type, string?>();
 	private static readonly Dictionary<Type, double> ScrollPositions = new Dictionary<Type, double>();
 	private readonly List<object> entries = new List<object>();
+	private ScrollViewer? scrollViewer;
 
 	public Selector()
 	{
@@ -77,49 +78,11 @@ public partial class Selector : UserControl, IFilterable, INotifyPropertyChanged
 
 	public double ScrollPosition
 	{
-		get
-		{
-			ScrollViewer? scroll = this.ScrollViewer;
-			if (scroll == null)
-				return 0;
-
-			return scroll.VerticalOffset;
-		}
-
-		set
-		{
-			ScrollViewer? scroll = this.ScrollViewer;
-			if (scroll == null)
-				return;
-
-			scroll.ScrollToVerticalOffset(value);
-		}
+		get => this.scrollViewer?.VerticalOffset ?? 0;
+		set => this.scrollViewer?.ScrollToVerticalOffset(value);
 	}
 
 	private static ILogger Log => Serilog.Log.ForContext<Selector>();
-
-	private ScrollViewer? ScrollViewer
-	{
-		get
-		{
-			try
-			{
-				if (!this.IsLoaded)
-					return null;
-
-				Decorator? border = VisualTreeHelper.GetChild(this.ListBox, 0) as Decorator;
-				if (border == null)
-					return null;
-
-				return border.Child as ScrollViewer;
-			}
-			catch (Exception)
-			{
-				////Log.Error(ex, "Failed to get scrollviewer in selector");
-				return null;
-			}
-		}
-	}
 
 	public void OnClosed()
 	{
@@ -200,6 +163,8 @@ public partial class Selector : UserControl, IFilterable, INotifyPropertyChanged
 	{
 		if (!this.IsVisible)
 			return;
+
+		this.scrollViewer = this.ListBox.FindChild<ScrollViewer>();
 
 		if (this.ObjectType != null)
 		{
