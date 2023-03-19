@@ -10,7 +10,7 @@
 	Margin="0,1"
 	HorizontalAlignment="Stretch"
 	d:DesignWidth="128"
-	BorderBrush="{StaticResource XivToolsControlBorderBackground}"
+	BorderBrush="{DynamicResource ControlBackgroundBrush}"
 	Loaded="UserControl_Loaded"
 	mc:Ignorable="d">
 

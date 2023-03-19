@@ -10,7 +10,7 @@
 		BasedOn="{StaticResource XivToolsToggleButton}"
 		TargetType="{x:Type ToggleButton}">
 
-		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 
@@ -118,7 +118,7 @@
 		x:Key="XivToolsComboBox"
 		TargetType="{x:Type ComboBox}">
 		<Setter Property="Height" Value="28" />
-		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
 		<!--<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />-->

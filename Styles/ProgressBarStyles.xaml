@@ -26,7 +26,7 @@
 		TargetType="{x:Type ProgressBar}">
 
 		<Setter Property="Height" Value="5" />
-		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="BorderBrush" Value="Transparent" />
 		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />

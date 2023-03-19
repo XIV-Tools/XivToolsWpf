@@ -305,7 +305,7 @@
 		x:Key="XivToolsToggleButton"
 		TargetType="{x:Type ToggleButton}">
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
-		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />

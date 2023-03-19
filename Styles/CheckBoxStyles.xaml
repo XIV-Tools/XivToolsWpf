@@ -169,7 +169,7 @@
 		<Setter Property="OverridesDefaultStyle" Value="true" />
 		<Setter Property="Template" Value="{StaticResource XivToolsCheckBoxTemplate}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 	</Style>
 
 
@@ -316,7 +316,7 @@
 		<Setter Property="OverridesDefaultStyle" Value="true" />
 		<Setter Property="Template" Value="{StaticResource XivToolsLockCheckBoxTemplate}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-		<Setter Property="Background" Value="{DynamicResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 	</Style>
 
 </ResourceDictionary>

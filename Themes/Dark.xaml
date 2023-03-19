@@ -22,4 +22,8 @@
 		x:Key="TrimBrush"
 		Color="DeepPink" />
 
+	<SolidColorBrush
+		x:Key="ControlBackgroundBrush"
+		Color="#1A1A1A" />
+
 </ResourceDictionary>

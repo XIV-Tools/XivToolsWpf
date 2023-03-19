@@ -178,7 +178,7 @@
 		x:Key="XivToolsButton"
 		TargetType="{x:Type Button}">
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
-		<Setter Property="Background" Value="{StaticResource XivToolsControlBorderBackground}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
