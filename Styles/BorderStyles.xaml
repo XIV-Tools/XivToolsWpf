@@ -5,7 +5,7 @@
 	<Style
 		x:Key="XivToolsControlHoverBorder"
 		TargetType="{x:Type Border}">
-		<Setter Property="Background" Value="#11FFFFFF" />
+		<Setter Property="Background" Value="{DynamicResource ControlHighlightBrush}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="SnapsToDevicePixels" Value="True" />
 		<Setter Property="BorderBrush" Value="#11000000" />
