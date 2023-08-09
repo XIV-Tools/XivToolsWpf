@@ -13,14 +13,15 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using Serilog;
 using XivToolsWpf.Windows;
 
-[AddINotifyPropertyChangedInterface]
 public partial class ErrorDialog : UserControl
 {
 	private Window? window;
+
+	[Notify] private bool detailsExpanded;
 
 	public ErrorDialog(Window? host, ExceptionDispatchInfo exDispatch, bool isCritical)
 	{
@@ -62,8 +63,6 @@ public partial class ErrorDialog : UserControl
 
 		this.DetailsExpanded = Debugger.IsAttached;
 	}
-
-	public bool DetailsExpanded { get; set; }
 
 	public static void ShowError(ExceptionDispatchInfo ex, bool isCriticial)
 	{

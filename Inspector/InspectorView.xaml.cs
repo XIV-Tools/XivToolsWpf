@@ -8,13 +8,12 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows.Controls;
 using XivToolsWpf.DependencyProperties;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 
 using Binder = XivToolsWpf.DependencyProperties.Binder;
 using System.ComponentModel;
 using System.Windows;
 
-[AddINotifyPropertyChangedInterface]
 public partial class InspectorView : UserControl
 {
 	public static readonly IBind<object?> TargetDp = Binder.Register<object?, InspectorView>(nameof(Target), OnTargetChanged, BindMode.OneWay);
@@ -51,13 +50,15 @@ public partial class InspectorView : UserControl
 		}
 	}
 
-	[AddINotifyPropertyChangedInterface]
-	public class Entry : INotifyPropertyChanged
+	public partial class Entry : INotifyPropertyChanged
 	{
+		[Notify] private object target;
+		[Notify] private PropertyInfo property;
+
 		public Entry(object target, PropertyInfo property)
 		{
-			this.Property = property;
-			this.Target = target;
+			this.property = property;
+			this.target = target;
 
 			if (this.Target is INotifyPropertyChanged changed)
 			{
@@ -66,9 +67,6 @@ public partial class InspectorView : UserControl
 		}
 
 		public event PropertyChangedEventHandler? PropertyChanged;
-
-		public object Target { get; private set; }
-		public PropertyInfo Property { get; private set; }
 
 		public string Name => this.Property.Name;
 		public Type Type => this.Property.PropertyType;

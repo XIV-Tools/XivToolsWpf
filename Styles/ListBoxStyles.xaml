@@ -66,7 +66,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
-					<Border Style="{StaticResource XivToolsControlBorder}">
+					<Border Style="{DynamicResource XivToolsControlBorder}">
 						<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 					</Border>
 				</ControlTemplate>

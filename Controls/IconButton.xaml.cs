@@ -8,13 +8,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using FontAwesome.Sharp;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using XivToolsWpf.DependencyProperties;
 
-/// <summary>
-/// Interaction logic for IconButton.xaml.
-/// </summary>
-[AddINotifyPropertyChangedInterface]
 public partial class IconButton : UserControl
 {
 	public static readonly IBind<IconChar> IconDp = Binder.Register<IconChar, IconButton>(nameof(Icon));

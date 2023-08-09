@@ -143,14 +143,14 @@
 			<Border
 				x:Name="BackgroundBorder"
 				Background="{TemplateBinding Background}"
-				Style="{StaticResource XivToolsControlBorder}" />
+				Style="{DynamicResource XivToolsControlBorder}" />
 
 			<Border
 				x:Name="HoverBorder"
 				Margin="1"
 				Opacity="0"
 				SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-				Style="{StaticResource XivToolsControlHoverBorder}" />
+				Style="{DynamicResource XivToolsControlHoverBorder}" />
 
 			<Border
 				x:Name="Border"

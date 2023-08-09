@@ -11,17 +11,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Threading;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using Serilog;
 using XivToolsWpf.Utils;
 
-[AddINotifyPropertyChangedInterface]
-public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
+public abstract partial class FilterBase : IComparer<object>, INotifyPropertyChanged
 {
 	protected bool abort = false;
 
 	private readonly FuncQueue filterQueue;
 	private string? search;
+
+	[Notify] private bool isFiltering;
 
 	public FilterBase()
 	{
@@ -54,11 +55,10 @@ public abstract class FilterBase : IComparer<object>, INotifyPropertyChanged
 			{
 				this.SearchQuery = value.ToLower().Split(' ');
 			}
+
+			this.PropertyChanged?.Invoke(this, new(nameof(FilterBase.Search)));
 		}
 	}
-
-	// Status
-	public bool IsFiltering { get; private set; }
 
 	protected ILogger Log => Serilog.Log.ForContext(this.GetType());
 

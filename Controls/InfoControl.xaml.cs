@@ -3,15 +3,13 @@
 
 namespace XivToolsWpf.Controls;
 
+using System.ComponentModel;
 using System.Windows.Controls;
-using PropertyChanged;
 
-/// <summary>
-/// Interaction logic for InfoControl.xaml.
-/// </summary>
-[AddINotifyPropertyChangedInterface]
-public partial class InfoControl : UserControl
+public partial class InfoControl : UserControl, INotifyPropertyChanged
 {
+	private bool isError;
+
 	public InfoControl()
 	{
 		this.InitializeComponent();
@@ -21,6 +19,8 @@ public partial class InfoControl : UserControl
 		this.IsError = false;
 	}
 
+	public event PropertyChangedEventHandler? PropertyChanged;
+
 	public string? Text
 	{
 		get => this.TextBlock.Text;
@@ -29,7 +29,11 @@ public partial class InfoControl : UserControl
 
 	public bool IsError
 	{
-		get;
-		set;
+		get => this.isError;
+		set
+		{
+			this.isError = value;
+			this.PropertyChanged?.Invoke(this, new(nameof(InfoControl.IsError)));
+		}
 	}
 }

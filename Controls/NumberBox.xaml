@@ -30,7 +30,7 @@
 			Margin="0,0,2,0"
 			Background="{Binding BorderBrush}"
 			CornerRadius="6,0,0,6"
-			Style="{StaticResource XivToolsControlBorder}">
+			Style="{DynamicResource XivToolsControlBorder}">
 			<Slider
 				x:Name="InputSlider"
 				Margin="3,0,3,0"
@@ -55,7 +55,7 @@
 			Padding="1"
 			Background="{Binding BorderBrush}"
 			CornerRadius="0, 6, 6, 0"
-			Style="{StaticResource XivToolsControlBorder}">
+			Style="{DynamicResource XivToolsControlBorder}">
 
 			<Grid>
 				<Grid.ColumnDefinitions>

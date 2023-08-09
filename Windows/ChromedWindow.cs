@@ -12,9 +12,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 
-[AddINotifyPropertyChangedInterface]
 public class ChromedWindow : Window
 {
 	private static readonly IntPtr InvisibleRegion = CreateRectRgn(0, 0, -1, -1);

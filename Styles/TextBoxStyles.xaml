@@ -58,7 +58,7 @@
 
 						<Border
 							Background="{TemplateBinding Background}"
-							Style="{StaticResource XivToolsControlBorder}" />
+							Style="{DynamicResource XivToolsControlBorder}" />
 
 						<ScrollViewer
 							Name="PART_ContentHost"

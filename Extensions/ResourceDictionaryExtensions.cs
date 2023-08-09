@@ -3,6 +3,7 @@
 
 namespace XivToolsWpf.Extensions;
 
+using System;
 using System.Windows;
 
 public static class ResourceDictionaryExtensions

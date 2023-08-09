@@ -3,7 +3,7 @@
 
 namespace XivToolsWpf.Controls;
 
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -12,7 +12,6 @@ using System.Windows.Input;
 using XivToolsWpf;
 using XivToolsWpf.DependencyProperties;
 
-[AddINotifyPropertyChangedInterface]
 public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 {
 	public static readonly IBind<double> XDp = Binder.Register<double, MultiNumberBox>(nameof(X), OnValueChanged);
@@ -87,6 +86,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 		{
 			return $"{Math.Round(this.X, 3)}, {Math.Round(this.Y, 3)}, {Math.Round(this.Z, 3)}";
 		}
+
 		set
 		{
 			string[] parts = value.Split(',');
@@ -101,6 +101,8 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 				if (double.TryParse(parts[2], out var z))
 					this.Z = z;
 			}
+
+			this.PropertyChanged?.Invoke(this, new(nameof(MultiNumberBox.Display)));
 		}
 	}
 

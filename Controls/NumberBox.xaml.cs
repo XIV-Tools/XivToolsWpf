@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using XivToolsWpf.DependencyProperties;
 using DrawPoint = System.Drawing.Point;
 using WinCur = System.Windows.Forms.Cursor;
@@ -20,7 +20,6 @@ using WinPoint = System.Windows.Point;
 /// <summary>
 /// Interaction logic for NumberBox.xaml.
 /// </summary>
-[AddINotifyPropertyChangedInterface]
 public partial class NumberBox : UserControl, INotifyPropertyChanged
 {
 	public static readonly IBind<double> ValueDp = Binder.Register<double, NumberBox>(nameof(Value), OnValueChanged);
@@ -165,6 +164,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 				this.Value = Math.Max(this.Minimum, this.Value);
 				this.Value = Math.Min(this.Maximum, this.Value);
 			}
+
+			this.PropertyChanged?.Invoke(this, new(nameof(NumberBox.DisplayValue)));
 		}
 	}
 

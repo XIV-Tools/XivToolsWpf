@@ -20,7 +20,6 @@
 		<ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/ComboBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/MenuStyles.xaml" />
-		<ResourceDictionary Source="Styles/MarkdownStyles.xaml" />
 		<ResourceDictionary Source="Styles/WindowStyles.xaml" />
 		<ResourceDictionary Source="Styles/ScrollBarStyles.xaml" />
 		<ResourceDictionary Source="Styles/SliderStyles.xaml" />

@@ -5,15 +5,19 @@ namespace XivToolsWpf.Controls;
 
 using FontAwesome.Sharp;
 using FontAwesome.Sharp.Pro;
-using PropertyChanged;
+using PropertyChanged.SourceGenerator;
 using System.Windows.Controls;
 using System.Windows.Input;
 using XivToolsWpf.DependencyProperties;
 
-[AddINotifyPropertyChangedInterface]
 public partial class KeyPrompt : UserControl
 {
 	public static readonly IBind<Key> KeyDp = Binder.Register<Key, KeyPrompt>(nameof(Key), OnKeyChanged);
+
+	[Notify] private string? label;
+	[Notify] private ProIcons? icon;
+	[Notify] private int iconRotation;
+	[Notify] private IconStyles iconStyle;
 
 	public KeyPrompt()
 	{
@@ -27,11 +31,6 @@ public partial class KeyPrompt : UserControl
 		get => KeyDp.Get(this);
 		set => KeyDp.Set(this, value);
 	}
-
-	public string? Label { get; private set; }
-	public ProIcons? Icon { get; private set; }
-	public int IconRotation { get; private set; }
-	public IconStyles IconStyle { get; private set; }
 
 	private static void OnKeyChanged(KeyPrompt sender, Key key)
 	{

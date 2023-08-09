@@ -42,7 +42,7 @@ public static class Dispatch
 
 	public struct SwitchFromUiAwaitable : INotifyCompletion
 	{
-		private readonly Dispatcher dispatch;
+		private readonly Dispatcher? dispatch;
 
 		public SwitchFromUiAwaitable()
 		{
@@ -50,7 +50,7 @@ public static class Dispatch
 
 			if (this.dispatch == null)
 			{
-				this.dispatch = Application.Current.Dispatcher;
+				this.dispatch = Application.Current?.Dispatcher;
 			}
 		}
 

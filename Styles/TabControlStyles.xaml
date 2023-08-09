@@ -25,7 +25,7 @@
 						<Border
 							Margin="{TemplateBinding Padding}"
 							Background="{TemplateBinding Background}"
-							Style="{StaticResource XivToolsControlBorder}">
+							Style="{DynamicResource XivToolsControlBorder}">
 
 							<UniformGrid
 								Margin="3"
@@ -124,7 +124,7 @@
 							x:Name="HoverBorder"
 							Opacity="0"
 							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-							Style="{StaticResource XivToolsControlHoverBorder}" />
+							Style="{DynamicResource XivToolsControlHoverBorder}" />
 
 						<ContentPresenter
 							x:Name="ContentSite"
