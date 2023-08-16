@@ -93,11 +93,90 @@
 	<Style
 		x:Key="XivToolsSideTabs"
 		TargetType="TabControl">
-		<Setter Property="Background" Value="{DynamicResource BackgroundLightBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="BorderBrush" Value="Transparent" />
-		<Setter Property="Margin" Value="0" />
-		<Setter Property="Padding" Value="0" />
+		<Setter Property="Padding" Value="3" />
+
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type TabControl}">
+					<Grid
+						ClipToBounds="True"
+						KeyboardNavigation.TabNavigation="Local"
+						SnapsToDevicePixels="True">
+
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+
+						<Border
+							Grid.Column="0"
+							Margin="{TemplateBinding Padding}"
+							Background="{TemplateBinding Background}"
+							Style="{DynamicResource XivToolsControlBorder}">
+
+							<UniformGrid
+								Margin="3"
+								Columns="1"
+								IsItemsHost="True"
+								KeyboardNavigation.TabIndex="1" />
+						</Border>
+
+						<Grid
+							Name="ContentPanel"
+							Grid.Column="1"
+							Margin="{TemplateBinding Padding}"
+							KeyboardNavigation.DirectionalNavigation="Contained"
+							KeyboardNavigation.TabIndex="2"
+							KeyboardNavigation.TabNavigation="Local">
+
+							<ContentPresenter
+								Name="PART_SelectedContentHost"
+								Margin="0"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
+								Content="{TemplateBinding SelectedContent}"
+								ContentSource="SelectedContent"
+								ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
+								ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+								SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+
+						</Grid>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="TabItem">
+					<Setter Property="Background" Value="Transparent" />
+					<Setter Property="VerticalContentAlignment" Value="Stretch" />
+					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="{x:Type TabItem}">
+
+								<ToggleButton
+									Margin="-2,-1"
+									Background="Transparent"
+									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
+									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
+									Style="{StaticResource XivToolsToggleButton}">
+
+									<TextBlock
+										Margin="6"
+										Text="{Binding Header, RelativeSource={RelativeSource AncestorType=TabItem}}" />
+								</ToggleButton>
+
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 	<Style
