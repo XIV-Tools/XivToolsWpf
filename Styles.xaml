@@ -25,6 +25,7 @@
 		<ResourceDictionary Source="Styles/SliderStyles.xaml" />
 		<ResourceDictionary Source="Styles/ProgressBarStyles.xaml" />
 		<ResourceDictionary Source="Styles/CheckBoxStyles.xaml" />
+		<ResourceDictionary Source="Styles/ListBoxStyles.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 
@@ -102,7 +103,9 @@
 	<converters:EnumToBoolConverter x:Key="EnumToBool" />
 	<converters:EnumToVisibilityConverter x:Key="EnumToVisibility" />
 	<converters:LessThanToVisibilityConverter x:Key="LessThanToVisibility" />
+	<converters:LessThanToBoolConverter x:Key="LessThanToBool" />
 	<converters:GreaterThanToVisibilityConverter x:Key="GreaterThanToVisibility" />
+	<converters:AbsoluteNumberConverter x:Key="AbsoluteNumber" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />

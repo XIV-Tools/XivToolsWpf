@@ -56,6 +56,14 @@ public abstract class ConverterBase<TFrom, TTo, TParameter> : ConverterBase<TFro
 					return tParameterVal;
 			}
 
+			if (typeof(TParameter) == typeof(int))
+			{
+				int val = System.Convert.ToInt32(base.Parameter, CultureInfo.InvariantCulture);
+
+				if (val is TParameter tParameterVal)
+					return tParameterVal;
+			}
+
 			throw new InvalidCastException();
 		}
 	}
