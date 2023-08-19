@@ -14,7 +14,9 @@
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<ContentPresenter Margin="-6" Content="{Binding}" />
+					<ContentPresenter
+						Margin="-6"
+						Content="{Binding}" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
