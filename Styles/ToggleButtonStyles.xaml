@@ -241,11 +241,14 @@
 							</DoubleAnimationUsingKeyFrames>
 
 							<DoubleAnimation
-								EasingFunction="{StaticResource SinEaseOut}"
 								Storyboard.TargetName="Border"
 								Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
 								To="1"
-								Duration="00:00:00.30" />
+								Duration="00:00:00.30">
+								<DoubleAnimation.EasingFunction>
+									<SineEase EasingMode="EaseOut" />
+								</DoubleAnimation.EasingFunction>
+							</DoubleAnimation>
 
 						</Storyboard>
 					</BeginStoryboard>
@@ -255,17 +258,23 @@
 					<BeginStoryboard>
 						<Storyboard>
 							<DoubleAnimation
-								EasingFunction="{StaticResource SinEaseOut}"
 								Storyboard.TargetName="Content"
 								Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
 								To="0"
-								Duration="00:00:00.30" />
+								Duration="00:00:00.30">
+								<DoubleAnimation.EasingFunction>
+									<SineEase EasingMode="EaseOut" />
+								</DoubleAnimation.EasingFunction>
+							</DoubleAnimation>
 							<DoubleAnimation
-								EasingFunction="{StaticResource SinEaseOut}"
 								Storyboard.TargetName="Border"
 								Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
 								To="0"
-								Duration="00:00:00.30" />
+								Duration="00:00:00.30">
+								<DoubleAnimation.EasingFunction>
+									<SineEase EasingMode="EaseOut" />
+								</DoubleAnimation.EasingFunction>
+							</DoubleAnimation>
 						</Storyboard>
 					</BeginStoryboard>
 				</Trigger.ExitActions>

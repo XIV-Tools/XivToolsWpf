@@ -8,7 +8,7 @@
 		TargetType="{x:Type ListBox}">
 
 		<Setter Property="Height" Value="24" />
-		<Setter Property="Margin" Value="0,1" />
+		<Setter Property="Margin" Value="1" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -41,7 +41,7 @@
 									Background="Transparent"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}"
 									IsEnabled="{TemplateBinding IsEnabled}"
-									Style="{StaticResource XivToolsToggleButton}">
+									Style="{DynamicResource XivToolsToggleButton}">
 
 									<ContentPresenter
 										x:Name="Content"

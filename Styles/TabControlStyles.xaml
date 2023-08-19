@@ -73,7 +73,7 @@
 									Background="Transparent"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
 									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
-									Style="{StaticResource XivToolsToggleButton}">
+									Style="{DynamicResource XivToolsToggleButton}">
 
 									<TextBlock
 										Margin="6"
@@ -164,7 +164,7 @@
 									Background="Transparent"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
 									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
-									Style="{StaticResource XivToolsToggleButton}">
+									Style="{DynamicResource XivToolsToggleButton}">
 
 									<TextBlock
 										Margin="6"
