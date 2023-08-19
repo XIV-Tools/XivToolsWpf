@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net6.0-windows</TargetFramework>
+	<TargetFramework>net7.0-windows</TargetFramework>
 	<UseWPF>true</UseWPF>
 	<AppendTargetFramework>False</AppendTargetFramework>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -63,9 +63,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	<Page Update="Dialogs\ErrorDialog.xaml">
-	  <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-	</Page>
 	<Page Update="Styles.xaml">
 	  <SubType>Designer</SubType>
 	</Page>
