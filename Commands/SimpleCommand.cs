@@ -17,6 +17,12 @@ public class SimpleCommand : ICommand
 		this.canExecute = canExecute;
 	}
 
+	public SimpleCommand(Action action)
+	{
+		this.action = action;
+		this.canExecute = () => true;
+	}
+
 	public event EventHandler? CanExecuteChanged
 	{
 		add { CommandManager.RequerySuggested += value; }
