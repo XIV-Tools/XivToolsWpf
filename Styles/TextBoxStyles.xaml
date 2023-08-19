@@ -31,11 +31,14 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation
-											EasingFunction="{StaticResource SinEaseInOut}"
 											Storyboard.TargetName="Underline"
 											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
 											To="1"
-											Duration="0:0:0.250" />
+											Duration="0:0:0.250">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseInOut" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.EnterActions>
@@ -43,11 +46,14 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation
-											EasingFunction="{StaticResource SinEaseInOut}"
 											Storyboard.TargetName="Underline"
 											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
 											To="0"
-											Duration="0:0:0.250" />
+											Duration="0:0:0.250">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseInOut" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
 									</Storyboard>
 								</BeginStoryboard>
 							</Trigger.ExitActions>
