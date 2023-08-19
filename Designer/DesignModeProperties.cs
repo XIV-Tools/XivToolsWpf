@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using XivToolsWpf.Localization;
 
 public class DesignModeProperties : DependencyObject
 {
@@ -33,10 +32,5 @@ public class DesignModeProperties : DependencyObject
 	public static void SetBackground(DependencyObject dependencyObject, Brush value)
 	{
 		dependencyObject.SetValue(BackgroundProperty, value);
-	}
-
-	public static void SetLocalization(DependencyObject host, bool enable)
-	{
-		TextBlockHook.Attach();
 	}
 }
