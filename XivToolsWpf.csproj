@@ -45,9 +45,6 @@
 	<Compile Update="Controls\Header.xaml.cs">
 	  <DependentUpon>Header.xaml</DependentUpon>
 	</Compile>
-	<Compile Update="Controls\IconButton.xaml.cs">
-	  <DependentUpon>IconButton.xaml</DependentUpon>
-	</Compile>
 	<Compile Update="Controls\NumberBox.xaml.cs">
 	  <DependentUpon>NumberBox.xaml</DependentUpon>
 	</Compile>
@@ -70,9 +67,6 @@
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Controls\Header.xaml">
-	  <SubType>Designer</SubType>
-	</Page>
-	<Page Update="Controls\IconButton.xaml">
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Controls\NumberBox.xaml">

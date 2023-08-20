@@ -38,13 +38,34 @@ public class FastObservableCollection<T> : ObservableCollection<T>, IFastObserva
 		this.OnPropertyChanged(new(nameof(this.Count)));
 	}
 
-	public void AddRange(IEnumerable<T> other)
+	public void AddRange(IEnumerable other)
 	{
 		this.suppressChangedEvent = true;
 
-		foreach (T item in other)
+		foreach (object item in other)
 		{
-			this.Add(item);
+			if (item is T tItem)
+			{
+				this.Add(tItem);
+			}
+		}
+
+		this.suppressChangedEvent = false;
+
+		this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+		this.OnPropertyChanged(new(nameof(this.Count)));
+	}
+
+	public void RemoveRange(IEnumerable other)
+	{
+		this.suppressChangedEvent = true;
+
+		foreach (object item in other)
+		{
+			if (item is T tItem)
+			{
+				this.Remove(tItem);
+			}
 		}
 
 		this.suppressChangedEvent = false;
@@ -65,6 +86,22 @@ public class FastObservableCollection<T> : ObservableCollection<T>, IFastObserva
 		List<T> values = new(this);
 		values.Sort(comparer);
 		this.Replace(values);
+	}
+
+	public void Synchronize(NotifyCollectionChangedEventArgs args)
+	{
+		if (args.Action == NotifyCollectionChangedAction.Add && args.NewItems != null)
+		{
+			this.AddRange(args.NewItems);
+		}
+		else if (args.Action == NotifyCollectionChangedAction.Remove && args.OldItems != null)
+		{
+			this.RemoveRange(args.OldItems);
+		}
+		else if (args.Action == NotifyCollectionChangedAction.Reset)
+		{
+			this.Clear();
+		}
 	}
 
 	protected override void OnPropertyChanged(PropertyChangedEventArgs e)

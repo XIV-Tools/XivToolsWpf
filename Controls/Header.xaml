@@ -17,9 +17,9 @@
 			Margin="2,2,6,0"
 			FontSize="10"
 			Icon="{Binding Icon}"
-			Style="{StaticResource Header}" />
+			Style="{DynamicResource Header}" />
 		<TextBlock
-			Style="{StaticResource Header}"
+			Style="{DynamicResource Header}"
 			Text="{Binding Text}" />
 	</StackPanel>
 </UserControl>
