@@ -5,6 +5,10 @@
 	xmlns:controls="clr-namespace:XivToolsWpf.Controls"
 	xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes">
 
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="ToggleButtonStyles.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
 	<Style
 		x:Key="XivToolsComboBoxButton"
 		BasedOn="{StaticResource XivToolsToggleButton}"
@@ -17,7 +21,7 @@
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Grid>
+					<Grid Margin="0,0,3,0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition />
 							<ColumnDefinition Width="Auto" />
@@ -25,7 +29,7 @@
 
 						<ContentPresenter
 							Name="contentPresenter"
-							Margin="3"
+							Margin="3,0"
 							Content="{TemplateBinding Content}"
 							ContentStringFormat="{TemplateBinding ContentStringFormat}"
 							ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"

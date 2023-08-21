@@ -6,7 +6,7 @@
 		x:Key="XivToolsTextBox"
 		TargetType="{x:Type TextBox}">
 
-		<Setter Property="Margin" Value="0,2" />
+		<Setter Property="Margin" Value="0,1" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
@@ -20,6 +20,7 @@
 		<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
 		<Setter Property="FrameworkElement.Cursor" Value="IBeam" />
 		<Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+		<Setter Property="Height" Value="24" />
 
 		<Setter Property="Template">
 			<Setter.Value>
