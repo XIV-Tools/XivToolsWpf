@@ -6,13 +6,11 @@ namespace XivToolsWpf.Selectors;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using PropertyChanged.SourceGenerator;
-using Serilog;
+using XivToolsWpf.Logging;
 using XivToolsWpf.Utils;
 
 public abstract partial class FilterBase : IComparer<object>, INotifyPropertyChanged
@@ -59,8 +57,6 @@ public abstract partial class FilterBase : IComparer<object>, INotifyPropertyCha
 			this.PropertyChanged?.Invoke(this, new(nameof(FilterBase.Search)));
 		}
 	}
-
-	protected ILogger Log => Serilog.Log.ForContext(this.GetType());
 
 	public void Run()
 	{
@@ -121,7 +117,7 @@ public abstract partial class FilterBase : IComparer<object>, INotifyPropertyCha
 		}
 		catch (Exception ex)
 		{
-			this.Log.Error(ex, "Error running filter");
+			Log.Error(ex, "Error running filter");
 		}
 
 		this.IsFiltering = false;

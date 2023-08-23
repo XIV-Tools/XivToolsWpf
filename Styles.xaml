@@ -104,6 +104,7 @@
 	<converters:LessThanToBoolConverter x:Key="LessThanToBool" />
 	<converters:GreaterThanToVisibilityConverter x:Key="GreaterThanToVisibility" />
 	<converters:AbsoluteNumberConverter x:Key="AbsoluteNumber" />
+	<converters:NumberConverter x:Key="NumberConverter" />
 
 	<!--  Multi converters  -->
 	<converters:MultiBoolAndConverter x:Key="MultiBoolAnd" />

@@ -30,6 +30,9 @@ public class NumberConverter : IValueConverter
 
 			if (target == typeof(long))
 				return System.Convert.ToInt64(value);
+
+			if (target == typeof(float))
+				return System.Convert.ToSingle(value);
 		}
 
 		return value;

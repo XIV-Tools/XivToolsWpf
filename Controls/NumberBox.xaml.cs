@@ -7,12 +7,14 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PropertyChanged.SourceGenerator;
 using XivToolsWpf.DependencyProperties;
+using XivToolsWpf.Logging;
 using DrawPoint = System.Drawing.Point;
 using WinCur = System.Windows.Forms.Cursor;
 using WinPoint = System.Windows.Point;
@@ -199,6 +201,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 					this.ErrorDisplay.Visibility = Visibility.Visible;
 				}
 			}
+
+			this.PropertyChanged?.Invoke(this, new(nameof(NumberBox.Text)));
 		}
 	}
 
@@ -237,6 +241,8 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 			}
 
 			this.bypassFocusLock = false;
+
+			this.PropertyChanged?.Invoke(this, new(nameof(NumberBox.SliderValue)));
 		}
 	}
 

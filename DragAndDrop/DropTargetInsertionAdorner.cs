@@ -6,7 +6,6 @@ namespace XivToolsWpf.DragAndDrop;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
-using Serilog;
 
 public class DropTargetInsertionAdorner : DropTargetAdorner
 {

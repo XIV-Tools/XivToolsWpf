@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using XivToolsWpf.Logging;
 
 /// <summary>
 /// A multithreaded implementation of filter that uses multiple concurrent tasks
@@ -45,7 +46,7 @@ public abstract class MultiThreadedFilterBase : FilterBase
 					}
 					catch (Exception ex)
 					{
-						this.Log.Error(ex, $"Failed to filter item: {item}");
+						Log.Error(ex, $"Failed to filter item: {item}");
 					}
 
 					filteredEntries.Add(item);

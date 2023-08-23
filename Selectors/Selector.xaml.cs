@@ -16,7 +16,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using PropertyChanged.SourceGenerator;
-using Serilog;
 using XivToolsWpf;
 using XivToolsWpf.Extensions;
 
@@ -77,8 +76,6 @@ public partial class Selector : UserControl, IFilterable, INotifyPropertyChanged
 		get => this.scrollViewer?.VerticalOffset ?? 0;
 		set => this.scrollViewer?.ScrollToVerticalOffset(value);
 	}
-
-	private static ILogger Log => Serilog.Log.ForContext<Selector>();
 
 	public void OnClosed()
 	{

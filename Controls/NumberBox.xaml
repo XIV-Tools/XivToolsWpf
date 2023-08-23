@@ -43,7 +43,7 @@
 				PreviewMouseDown="OnSliderPreviewMouseDown"
 				PreviewMouseMove="OnSliderMouseMove"
 				PreviewMouseUp="OnSliderPreviewMouseUp"
-				Style="{StaticResource XivToolsSliderNoBorder}"
+				Style="{DynamicResource XivToolsSliderNoBorder}"
 				TickFrequency="{Binding TickFrequency}"
 				Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		</Border>
@@ -97,7 +97,7 @@
 					Click="OnDownClick"
 					Content="-"
 					Foreground="{DynamicResource TrimBrush}"
-					Style="{StaticResource XivToolsRepeatButton}" />
+					Style="{DynamicResource XivToolsRepeatButton}" />
 
 				<RepeatButton
 					x:Name="UpButton"
@@ -109,7 +109,7 @@
 					Click="OnUpClick"
 					Content="+"
 					Foreground="{DynamicResource TrimBrush}"
-					Style="{StaticResource XivToolsRepeatButton}" />
+					Style="{DynamicResource XivToolsRepeatButton}" />
 			</Grid>
 
 

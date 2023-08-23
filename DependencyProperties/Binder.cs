@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
+using XivToolsWpf.Logging;
 
 public class Binder
 {
