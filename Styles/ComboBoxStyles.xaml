@@ -35,13 +35,14 @@
 							ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
 							IsHitTestVisible="False" />
 
-						<controls:IconBlock
+						<Path
 							Grid.Column="1"
 							Margin="3"
-							FontSize="10"
-							Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ToggleButton}}}"
-							Icon="ChevronDown" />
-
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Data="M 0,0 5,3 10,0"
+							Stroke="{DynamicResource ForegroundLightBrush}"
+							StrokeThickness="1" />
 
 					</Grid>
 				</DataTemplate>
