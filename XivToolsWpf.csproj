@@ -50,12 +50,6 @@
 	<Compile Update="Controls\TextBlock.xaml.cs">
 	  <DependentUpon>TextBlock.xaml</DependentUpon>
 	</Compile>
-	<Compile Update="Selectors\GenericSelector.xaml.cs">
-	  <DependentUpon>GenericSelector.xaml</DependentUpon>
-	</Compile>
-	<Compile Update="Selectors\Selector.xaml.cs">
-	  <DependentUpon>Selector.xaml</DependentUpon>
-	</Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,12 +66,6 @@
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Controls\TextBlock.xaml">
-	  <SubType>Designer</SubType>
-	</Page>
-	<Page Update="Selectors\GenericSelector.xaml">
-	  <SubType>Designer</SubType>
-	</Page>
-	<Page Update="Selectors\Selector.xaml">
 	  <SubType>Designer</SubType>
 	</Page>
 	<Page Update="Styles\ExpanderStyles.xaml">
