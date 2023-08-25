@@ -7,19 +7,21 @@ using System.Text.RegularExpressions;
 
 public static class SearchUtility
 {
-	public static bool Matches(string? input, string[]? querry)
+	public static bool Matches(object input, string[]? query) => Matches(input.ToString(), query);
+
+	public static bool Matches(string? input, string[]? query)
 	{
 		if (input == null)
 			return false;
 
-		if (querry == null)
+		if (query == null)
 			return true;
 
 		input = input.ToLower();
 		input = Regex.Replace(input, @"[^\w\d\s]", string.Empty);
 
 		bool matchesSearch = true;
-		foreach (string str in querry)
+		foreach (string str in query)
 		{
 			string strB = str.ToLower();
 
