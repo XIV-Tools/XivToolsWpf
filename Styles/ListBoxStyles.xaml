@@ -194,7 +194,7 @@
 	<Style
 		x:Key="XivToolsListBox"
 		TargetType="{x:Type ListBox}">
-		<Setter Property="ItemContainerStyle" Value="{StaticResource XivToolsListBoxItem}" />
+		<Setter Property="ItemContainerStyle" Value="{DynamicResource XivToolsListBoxItem}" />
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="BorderBrush" Value="Transparent" />
@@ -214,7 +214,7 @@
 						BorderBrush="{TemplateBinding BorderBrush}"
 						BorderThickness="{TemplateBinding BorderThickness}"
 						SnapsToDevicePixels="true"
-						Style="{StaticResource XivToolsControlBorder}">
+						Style="{DynamicResource XivToolsControlBorder}">
 						<ScrollViewer
 							Padding="{TemplateBinding Padding}"
 							Focusable="false">
