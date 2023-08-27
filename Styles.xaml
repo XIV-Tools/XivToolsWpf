@@ -79,6 +79,10 @@
 		BasedOn="{StaticResource XivToolsGroupBox}"
 		TargetType="{x:Type GroupBox}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsTextBlock}"
+		TargetType="{x:Type TextBlock}" />
+
 	<!--  Custom converters  -->
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />
 	<converters:StringHasContentToBoolConverter x:Key="StringHasContentToBool" />
