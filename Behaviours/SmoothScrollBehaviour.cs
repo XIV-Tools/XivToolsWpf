@@ -10,9 +10,12 @@ using System.Windows.Media;
 using System.Reflection;
 using System.Windows.Controls;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 public class SmoothScrollBehaviour : Behaviour
 {
+	public static readonly PropertyInfo? ScrollInfoProperty = typeof(ScrollViewer).GetProperty("ScrollInfo", BindingFlags.NonPublic | BindingFlags.Instance);
+
 	public SmoothScrollBehaviour(DependencyObject host)
 		: base(host)
 	{
@@ -40,70 +43,79 @@ public class SmoothScrollBehaviour : Behaviour
 		if (scrollViewer == null)
 			return;
 
-		PropertyInfo? property = scrollViewer.GetType().GetProperty("ScrollInfo", BindingFlags.NonPublic | BindingFlags.Instance);
-
-		if (property == null)
-			return;
-
-		IScrollInfo? scrollInfo = property.GetValue(scrollViewer) as IScrollInfo;
+		IScrollInfo? scrollInfo = ScrollInfoProperty?.GetValue(scrollViewer) as IScrollInfo;
 
 		if (scrollInfo == null)
 			return;
 
-		property.SetValue(scrollViewer, new ScrollInfoAdapter(scrollInfo));
-		scrollViewer.SourceUpdated += this.OnSourceUpdated;
-	}
-
-	private void OnSourceUpdated(object? sender, System.Windows.Data.DataTransferEventArgs e)
-	{
+		ScrollInfoProperty?.SetValue(scrollViewer, new ScrollInfoAdapter(scrollInfo));
 	}
 }
 
 public class ScrollInfoAdapter : UIElement, IScrollInfo
 {
-	private const double ScrollLineDelta = 16.0;
-	private const double MouseWheelDelta = 160.0;
-	private const double MaxScrollDelta = 50;
-	private const double ScrollFalloff = 0.15;
+	public const double ScrollLineDelta = 16.0;
+	public const double MouseWheelDelta = 160.0;
+	public const double MaxScrollDelta = 50;
+	public const double ScrollFalloff = 0.15;
 
-	private readonly IScrollInfo original;
+	public readonly IScrollInfo Original;
+
 	private Task? animationTask;
 	private double? targetVerticalOffset;
 	private double? targetHorizontalOffset;
 
 	public ScrollInfoAdapter(IScrollInfo original)
 	{
-		this.original = original;
+		this.Original = original;
 	}
 
 	public ScrollViewer ScrollOwner
 	{
-		get => this.original.ScrollOwner;
-		set => this.original.ScrollOwner = value;
+		get => this.Original.ScrollOwner;
+		set => this.Original.ScrollOwner = value;
 	}
 
 	public bool CanVerticallyScroll
 	{
-		get => this.original.CanVerticallyScroll;
-		set => this.original.CanHorizontallyScroll = value;
+		get => this.Original.CanVerticallyScroll;
+		set => this.Original.CanHorizontallyScroll = value;
 	}
 
 	public bool CanHorizontallyScroll
 	{
-		get => this.original.CanHorizontallyScroll;
-		set => this.original.CanHorizontallyScroll = value;
+		get => this.Original.CanHorizontallyScroll;
+		set => this.Original.CanHorizontallyScroll = value;
 	}
 
-	public double ExtentWidth => this.original.ExtentWidth;
-	public double ExtentHeight => this.original.ExtentHeight;
-	public double ViewportWidth => this.original.ViewportWidth;
-	public double ViewportHeight => this.original.ViewportHeight;
-	public double HorizontalOffset => this.original.HorizontalOffset;
-	public double VerticalOffset => this.original.VerticalOffset;
+	public double ExtentWidth => this.Original.ExtentWidth;
+	public double ExtentHeight => this.Original.ExtentHeight;
+	public double ViewportWidth => this.Original.ViewportWidth;
+	public double ViewportHeight => this.Original.ViewportHeight;
+	public double HorizontalOffset => this.Original.HorizontalOffset;
+	public double VerticalOffset => this.Original.VerticalOffset;
+
+	public static double Lerp(double current, double to)
+	{
+		double delta = to - current;
+		delta *= ScrollFalloff;
+		delta = Math.Clamp(delta, -MaxScrollDelta, MaxScrollDelta);
+
+		current += delta;
+
+		if (delta < 1 && delta > -1)
+		{
+			return to;
+		}
+		else
+		{
+			return current;
+		}
+	}
 
 	public Rect MakeVisible(Visual visual, Rect rectangle)
 	{
-		return this.original.MakeVisible(visual, rectangle);
+		return this.Original.MakeVisible(visual, rectangle);
 	}
 
 	public void LineUp() => this.VerticalScroll(-ScrollLineDelta);
@@ -122,50 +134,32 @@ public class ScrollInfoAdapter : UIElement, IScrollInfo
 	public void SetVerticalOffset(double offset)
 	{
 		this.targetVerticalOffset = offset;
-		this.original.SetVerticalOffset(offset);
+		this.Original.SetVerticalOffset(offset);
 	}
 
 	public void SetHorizontalOffset(double offset)
 	{
 		this.targetHorizontalOffset = offset;
-		this.original.SetHorizontalOffset(offset);
-	}
-
-	private static double Lerp(double current, double to)
-	{
-		double delta = to - current;
-		delta *= ScrollFalloff;
-		delta = Math.Clamp(delta, -MaxScrollDelta, MaxScrollDelta);
-
-		current += delta;
-
-		if (delta < 1 && delta > -1)
-		{
-			return to;
-		}
-		else
-		{
-			return current;
-		}
+		this.Original.SetHorizontalOffset(offset);
 	}
 
 	private void VerticalScroll(double val)
 	{
 		if (this.targetVerticalOffset == null)
-			this.targetVerticalOffset = this.original.VerticalOffset;
+			this.targetVerticalOffset = this.Original.VerticalOffset;
 
 		this.targetVerticalOffset = this.targetVerticalOffset + val;
-		this.targetVerticalOffset = Math.Clamp((double)this.targetVerticalOffset, 0, this.original.ScrollOwner.ScrollableHeight);
+		this.targetVerticalOffset = Math.Clamp((double)this.targetVerticalOffset, 0, this.Original.ScrollOwner.ScrollableHeight);
 		this.Animate();
 	}
 
 	private void HorizontalScroll(double val)
 	{
 		if (this.targetHorizontalOffset == null)
-			this.targetHorizontalOffset = this.original.HorizontalOffset;
+			this.targetHorizontalOffset = this.Original.HorizontalOffset;
 
 		this.targetHorizontalOffset = this.targetHorizontalOffset + val;
-		this.targetHorizontalOffset = Math.Clamp((double)this.targetHorizontalOffset, 0, this.original.ScrollOwner.ScrollableWidth);
+		this.targetHorizontalOffset = Math.Clamp((double)this.targetHorizontalOffset, 0, this.Original.ScrollOwner.ScrollableWidth);
 
 		this.Animate();
 	}
@@ -181,20 +175,20 @@ public class ScrollInfoAdapter : UIElement, IScrollInfo
 	private async Task AnimateToTarget()
 	{
 		if (this.targetHorizontalOffset == null)
-			this.targetHorizontalOffset = this.original.HorizontalOffset;
+			this.targetHorizontalOffset = this.Original.HorizontalOffset;
 
 		if (this.targetVerticalOffset == null)
-			this.targetVerticalOffset = this.original.VerticalOffset;
+			this.targetVerticalOffset = this.Original.VerticalOffset;
 
 		do
 		{
-			this.original.SetVerticalOffset(Lerp(this.original.VerticalOffset, (double)this.targetVerticalOffset));
-			this.original.SetHorizontalOffset(Lerp(this.original.HorizontalOffset, (double)this.targetHorizontalOffset));
+			this.Original.SetVerticalOffset(Lerp(this.Original.VerticalOffset, (double)this.targetVerticalOffset));
+			this.Original.SetHorizontalOffset(Lerp(this.Original.HorizontalOffset, (double)this.targetHorizontalOffset));
 			await Task.Delay(1);
 			await this.Dispatcher.MainThread();
 		}
-		while (this.original.VerticalOffset != this.targetVerticalOffset ||
-			this.original.HorizontalOffset != this.targetHorizontalOffset);
+		while (this.Original.VerticalOffset != this.targetVerticalOffset ||
+			this.Original.HorizontalOffset != this.targetHorizontalOffset);
 
 		this.targetVerticalOffset = null;
 		this.targetHorizontalOffset = null;
