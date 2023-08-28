@@ -20,7 +20,7 @@
 		<Setter Property="Stylus.IsFlicksEnabled" Value="False" />
 		<Setter Property="FrameworkElement.Cursor" Value="IBeam" />
 		<Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
-		<Setter Property="Height" Value="24" />
+		<Setter Property="Height" Value="26" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -35,9 +35,9 @@
 											Storyboard.TargetName="SelectedHighlight"
 											Storyboard.TargetProperty="Opacity"
 											To="1"
-											Duration="0:0:0.250">
+											Duration="0:0:0.150">
 											<DoubleAnimation.EasingFunction>
-												<SineEase EasingMode="EaseInOut" />
+												<SineEase EasingMode="EaseOut" />
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
 									</Storyboard>
@@ -52,7 +52,7 @@
 											To="0"
 											Duration="0:0:0.250">
 											<DoubleAnimation.EasingFunction>
-												<SineEase EasingMode="EaseInOut" />
+												<SineEase EasingMode="EaseIn" />
 											</DoubleAnimation.EasingFunction>
 										</DoubleAnimation>
 									</Storyboard>
