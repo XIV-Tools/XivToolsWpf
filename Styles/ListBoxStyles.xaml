@@ -210,6 +210,14 @@
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
 
+		<Setter Property="ItemsPanel">
+			<Setter.Value>
+				<ItemsPanelTemplate>
+					<controls:SmoothScrollVirtualizingStackPanel />
+				</ItemsPanelTemplate>
+			</Setter.Value>
+		</Setter>
+
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ListBox}">
@@ -223,9 +231,7 @@
 						<ScrollViewer
 							Padding="{TemplateBinding Padding}"
 							Focusable="false">
-							<controls:SmoothScrollVirtualizingStackPanel
-								IsItemsHost="True"
-								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 						</ScrollViewer>
 					</Border>
 
