@@ -12,7 +12,7 @@
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="TextBoxBase.CaretBrush" Value="{DynamicResource TrimBrush}" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-		<Setter Property="VerticalContentAlignment" Value="Top" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}" />
 		<Setter Property="UIElement.AllowDrop" Value="true" />
 		<Setter Property="Padding" Value="3,2" />
@@ -32,8 +32,8 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation
-											Storyboard.TargetName="Underline"
-											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											Storyboard.TargetName="SelectedHighlight"
+											Storyboard.TargetProperty="Opacity"
 											To="1"
 											Duration="0:0:0.250">
 											<DoubleAnimation.EasingFunction>
@@ -47,8 +47,41 @@
 								<BeginStoryboard>
 									<Storyboard>
 										<DoubleAnimation
-											Storyboard.TargetName="Underline"
-											Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+											Storyboard.TargetName="SelectedHighlight"
+											Storyboard.TargetProperty="Opacity"
+											To="0"
+											Duration="0:0:0.250">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseInOut" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetName="HoverHighlight"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0:0:0.250">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseInOut" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetName="HoverHighlight"
+											Storyboard.TargetProperty="Opacity"
 											To="0"
 											Duration="0:0:0.250">
 											<DoubleAnimation.EasingFunction>
@@ -67,30 +100,39 @@
 							Background="{TemplateBinding Background}"
 							Style="{DynamicResource XivToolsControlBorder}" />
 
+						<Border
+							x:Name="HoverHighlight"
+							Grid.ColumnSpan="2"
+							Margin="2"
+							Background="Transparent"
+							BorderBrush="{DynamicResource ControlHighlightBrush}"
+							BorderThickness="1"
+							CornerRadius="4"
+							Opacity="0"
+							Style="{DynamicResource XivToolsControlBorder}" />
+
+						<Border
+							x:Name="SelectedHighlight"
+							Grid.ColumnSpan="2"
+							Margin="2"
+							Background="Transparent"
+							BorderBrush="{DynamicResource TrimBrush}"
+							BorderThickness="1"
+							CornerRadius="4"
+							Opacity="0"
+							Style="{DynamicResource XivToolsControlBorder}" />
+
 						<ScrollViewer
 							Name="PART_ContentHost"
 							Grid.Column="1"
-							Margin="{TemplateBinding Padding}"
+							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 							Focusable="false"
 							ScrollViewer.HorizontalScrollBarVisibility="Hidden"
 							ScrollViewer.VerticalScrollBarVisibility="Hidden"
 							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 							UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
 
-						<Border
-							Name="Underline"
-							Height="2"
-							Margin="4,3"
-							HorizontalAlignment="Stretch"
-							VerticalAlignment="Bottom"
-							Background="{TemplateBinding BorderBrush}"
-							CornerRadius="2"
-							RenderTransformOrigin="0.5, 0.5"
-							SnapsToDevicePixels="True">
-							<Border.RenderTransform>
-								<ScaleTransform ScaleX="0" />
-							</Border.RenderTransform>
-						</Border>
+
 					</Grid>
 				</ControlTemplate>
 
