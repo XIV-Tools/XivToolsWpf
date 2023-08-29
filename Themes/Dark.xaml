@@ -4,19 +4,19 @@
 
 	<SolidColorBrush
 		x:Key="ForegroundBrush"
-		Color="#DDFFFFFF" />
+		Color="#ECECEC" />
 
 	<SolidColorBrush
 		x:Key="ForegroundLightBrush"
-		Color="#89FFFFFF" />
+		Color="#838383" />
 
 	<SolidColorBrush
 		x:Key="BackgroundBrush"
-		Color="#FF222222" />
+		Color="#222222" />
 
 	<SolidColorBrush
 		x:Key="BackgroundLightBrush"
-		Color="#FF333333" />
+		Color="#333333" />
 
 	<SolidColorBrush
 		x:Key="TrimBrush"
@@ -28,6 +28,6 @@
 
 	<SolidColorBrush
 		x:Key="ControlHighlightBrush"
-		Color="#11FFFFFF" />
+		Color="#343434" />
 
 </ResourceDictionary>
