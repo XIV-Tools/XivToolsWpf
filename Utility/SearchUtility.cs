@@ -7,6 +7,11 @@ using System.Text.RegularExpressions;
 
 public static class SearchUtility
 {
+	public static string[] ToQuery(string input)
+	{
+		return input.Split(' ');
+	}
+
 	public static bool Matches(object input, string[]? query) => Matches(input.ToString(), query);
 
 	public static bool Matches(string? input, string[]? query)
