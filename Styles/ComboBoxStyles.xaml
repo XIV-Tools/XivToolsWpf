@@ -59,6 +59,9 @@
 
 			<ToggleButton
 				Name="toggleButton"
+				Height="{TemplateBinding Height}"
+				Margin="0"
+				Padding="{TemplateBinding Padding}"
 				HorizontalContentAlignment="Stretch"
 				Background="{TemplateBinding Background}"
 				Foreground="{TemplateBinding Foreground}"
@@ -197,11 +200,12 @@
 	<Style
 		x:Key="XivToolsComboBox"
 		TargetType="{x:Type ComboBox}">
-		<Setter Property="Height" Value="28" />
+		<Setter Property="Height" Value="26" />
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
 		<Setter Property="Padding" Value="3,0" />
+		<Setter Property="Margin" Value="1" />
 		<Setter Property="ItemContainerStyle" Value="{StaticResource XivToolsComboBoxItem}" />
 	</Style>
 

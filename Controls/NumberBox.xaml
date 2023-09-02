@@ -92,11 +92,11 @@
 					Grid.Column="3"
 					Width="26"
 					Margin="0"
-					Padding="1,0"
+					Padding="1"
 					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
 					Click="OnDownClick"
 					Content="-"
-					Foreground="{DynamicResource TrimBrush}"
 					Style="{DynamicResource XivToolsRepeatButton}" />
 
 				<RepeatButton
@@ -104,11 +104,11 @@
 					Grid.Column="4"
 					Width="26"
 					Margin="0"
-					Padding="1,0"
+					Padding="1"
 					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
 					Click="OnUpClick"
 					Content="+"
-					Foreground="{DynamicResource TrimBrush}"
 					Style="{DynamicResource XivToolsRepeatButton}" />
 			</Grid>
 
