@@ -59,7 +59,6 @@
 
 			<ToggleButton
 				Name="toggleButton"
-				Padding="{TemplateBinding Padding}"
 				HorizontalContentAlignment="Stretch"
 				Background="{TemplateBinding Background}"
 				Foreground="{TemplateBinding Foreground}"
@@ -68,6 +67,7 @@
 
 				<ContentPresenter
 					Name="contentPresenter"
+					Margin="{TemplateBinding Padding}"
 					Content="{TemplateBinding SelectionBoxItem}"
 					ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
 					ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -201,6 +201,7 @@
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
+		<Setter Property="Padding" Value="3,0" />
 		<Setter Property="ItemContainerStyle" Value="{StaticResource XivToolsComboBoxItem}" />
 	</Style>
 
