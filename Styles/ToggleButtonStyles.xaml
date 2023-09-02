@@ -352,6 +352,7 @@
 				<ControlTemplate TargetType="ToggleButton">
 
 					<Grid
+						Background="{TemplateBinding Background}"
 						Cursor="Hand"
 						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
 

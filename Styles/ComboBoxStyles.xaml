@@ -135,10 +135,13 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ComboBoxItem}">
-					<Grid Background="Transparent">
+					<Grid
+						Margin="0"
+						Background="Transparent">
 
 						<Border
 							x:Name="HoverBorder"
+							Margin="1"
 							Opacity="0"
 							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 							Style="{DynamicResource XivToolsControlHoverBorder}" />
