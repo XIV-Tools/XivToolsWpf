@@ -551,7 +551,10 @@ public partial class NumberBox : UserControl, INotifyPropertyChanged
 
 	private void OnSliderPreviewMouseUp(object? sender, MouseButtonEventArgs e)
 	{
-		this.relativeSliderStart = this.DisplayValue;
-		this.SliderValue = 0;
+		if (this.Slider == SliderModes.Relative)
+		{
+			this.relativeSliderStart = this.DisplayValue;
+			this.SliderValue = 0;
+		}
 	}
 }
