@@ -9,7 +9,7 @@
 		x:Key="XivToolsSwitchSelectorNoBorder"
 		TargetType="{x:Type ListBox}">
 
-		<Setter Property="Height" Value="24" />
+		<Setter Property="Height" Value="26" />
 		<Setter Property="Margin" Value="1" />
 
 		<Setter Property="Template">
