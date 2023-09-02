@@ -33,17 +33,14 @@
 					Opacity="0"
 					Style="{DynamicResource XivToolsControlHoverBorder}" />
 
-				<controls:IconBlock
+				<Ellipse
 					x:Name="CheckMark"
 					Grid.Column="0"
-					Margin="0,2,0,0"
-					Foreground="{DynamicResource ForegroundLightBrush}"
-					Icon="Check"
-					Opacity="0.25">
-					<controls:IconBlock.RenderTransform>
-						<TranslateTransform />
-					</controls:IconBlock.RenderTransform>
-				</controls:IconBlock>
+					Width="6"
+					Height="6"
+					Margin="4"
+					Fill="{DynamicResource ForegroundLightBrush}"
+					Opacity="0.25" />
 
 				<ContentPresenter
 					Grid.Column="1"
@@ -56,29 +53,10 @@
 
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsChecked" Value="true">
-				<Setter TargetName="CheckMark" Property="Foreground" Value="{DynamicResource TrimBrush}" />
-
+				<Setter TargetName="CheckMark" Property="Fill" Value="{DynamicResource TrimBrush}" />
 				<Trigger.EnterActions>
 					<BeginStoryboard>
 						<Storyboard>
-							<DoubleAnimationUsingKeyFrames
-								BeginTime="00:00:00"
-								Storyboard.TargetName="CheckMark"
-								Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
-								<SplineDoubleKeyFrame
-									KeyTime="00:00:00.00"
-									Value="0" />
-								<SplineDoubleKeyFrame
-									KeyTime="00:00:00.10"
-									Value="-3" />
-								<SplineDoubleKeyFrame
-									KeyTime="00:00:00.15"
-									Value="-2" />
-								<SplineDoubleKeyFrame
-									KeyTime="00:00:00.18"
-									Value="0" />
-							</DoubleAnimationUsingKeyFrames>
-
 							<DoubleAnimation
 								Storyboard.TargetName="CheckMark"
 								Storyboard.TargetProperty="Opacity"
@@ -107,7 +85,7 @@
 								Storyboard.TargetName="Content"
 								Storyboard.TargetProperty="Opacity"
 								From="1"
-								To="0.25"
+								To="0"
 								Duration="00:00:00.1" />
 						</Storyboard>
 					</BeginStoryboard>
@@ -164,7 +142,7 @@
 		x:Key="XivToolsCheckBox"
 		TargetType="{x:Type CheckBox}">
 
-		<Setter Property="Height" Value="22" />
+		<Setter Property="Height" Value="26" />
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />
 		<Setter Property="Template" Value="{StaticResource XivToolsCheckBoxTemplate}" />
