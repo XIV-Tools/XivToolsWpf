@@ -79,8 +79,6 @@
 			<Popup
 				Name="PART_Popup"
 				Grid.Column="0"
-				MinWidth="{Binding ElementName=toggleButton, Path=ActualWidth}"
-				Margin="-16"
 				AllowsTransparency="True"
 				Focusable="False"
 				IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -90,7 +88,10 @@
 				SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
 				UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
 
-				<Grid Margin="16">
+				<Grid
+					MinWidth="{TemplateBinding ActualWidth}"
+					MaxHeight="{TemplateBinding MaxDropDownHeight}"
+					Margin="16">
 					<Border
 						Background="Black"
 						CornerRadius="6">
@@ -104,12 +105,18 @@
 					<Border
 						Background="{DynamicResource BackgroundBrush}"
 						CornerRadius="6">
-						<ScrollViewer
-							MinHeight="1"
-							MaxHeight="{TemplateBinding MaxDropDownHeight}"
-							behaviours:SmoothScrollBehaviour.SmoothScroll="True">
-							<ItemsPresenter Name="ItemsPresenter" />
-						</ScrollViewer>
+						<Border
+							Margin="2"
+							Style="{DynamicResource XivToolsControlBorder}">
+							<ScrollViewer
+								MinHeight="1"
+								MaxHeight="{TemplateBinding MaxDropDownHeight}"
+								behaviours:SmoothScrollBehaviour.SmoothScroll="True">
+								<ItemsPresenter
+									Name="ItemsPresenter"
+									KeyboardNavigation.DirectionalNavigation="Contained" />
+							</ScrollViewer>
+						</Border>
 					</Border>
 				</Grid>
 
@@ -120,13 +127,81 @@
 	</ControlTemplate>
 
 	<Style
+		x:Key="XivToolsComboBoxItem"
+		TargetType="{x:Type ComboBoxItem}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ComboBoxItem}">
+					<Grid Background="Transparent">
+
+						<Border
+							x:Name="HoverBorder"
+							Opacity="0"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							Style="{DynamicResource XivToolsControlHoverBorder}" />
+
+						<Border
+							x:Name="SelectionBorder"
+							Opacity="0"
+							Style="{DynamicResource XivToolsSelectedBorder}" />
+
+						<ContentPresenter
+							Margin="10,4,4,4"
+							Content="{TemplateBinding Content}"
+							ContentTemplate="{TemplateBinding ContentTemplate}" />
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetName="HoverBorder"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0:00:00.150">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseOut" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+											Storyboard.TargetName="HoverBorder"
+											Storyboard.TargetProperty="Opacity"
+											To="0"
+											Duration="0:00:00.250">
+											<DoubleAnimation.EasingFunction>
+												<SineEase EasingMode="EaseIn" />
+											</DoubleAnimation.EasingFunction>
+										</DoubleAnimation>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter TargetName="SelectionBorder" Property="Opacity" Value="1" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style
 		x:Key="XivToolsComboBox"
 		TargetType="{x:Type ComboBox}">
 		<Setter Property="Height" Value="28" />
 		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 		<Setter Property="Template" Value="{StaticResource XivToolsWpfComboBoxTemplate}" />
-		<!--<Setter Property="ItemContainerStyle" Value="{StaticResource MaterialDesignComboBoxItemStyle}" />-->
+		<Setter Property="ItemContainerStyle" Value="{StaticResource XivToolsComboBoxItem}" />
 	</Style>
 
 	<Style
