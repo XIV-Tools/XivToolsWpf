@@ -83,6 +83,10 @@
 		BasedOn="{StaticResource XivToolsTextBlock}"
 		TargetType="{x:Type TextBlock}" />
 
+	<Style
+		BasedOn="{StaticResource XivToolsExpander}"
+		TargetType="{x:Type Expander}" />
+
 	<!--  Custom converters  -->
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />
 	<converters:StringHasContentToBoolConverter x:Key="StringHasContentToBool" />
