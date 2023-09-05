@@ -32,17 +32,6 @@
 	</Style>
 
 	<Style
-		x:Key="Label"
-		BasedOn="{StaticResource XivToolsTextBlock}"
-		TargetType="{x:Type TextBlock}">
-		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
-		<Setter Property="HorizontalAlignment" Value="Right" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="TextAlignment" Value="Left" />
-		<Setter Property="Margin" Value="3,3,6,1" />
-	</Style>
-
-	<Style
 		x:Key="Header"
 		BasedOn="{StaticResource XivToolsTextBlock}"
 		TargetType="{x:Type TextBlock}">
@@ -69,6 +58,26 @@
 		<Setter Property="FontSize" Value="10" />
 		<Setter Property="Opacity" Value="0.5" />
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+	</Style>
+
+	<Style
+		x:Key="RightLabel"
+		BasedOn="{StaticResource Subscript}"
+		TargetType="{x:Type TextBlock}">
+		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
+		<Setter Property="Margin" Value="0,2,2,0" />
+	</Style>
+
+	<Style
+		x:Key="LeftLabel"
+		BasedOn="{StaticResource Subscript}"
+		TargetType="{x:Type TextBlock}">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
+		<Setter Property="Margin" Value="2,2,0,0" />
 	</Style>
 
 </ResourceDictionary>
