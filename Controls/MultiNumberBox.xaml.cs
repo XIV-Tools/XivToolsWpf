@@ -24,6 +24,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 	public static readonly IBind<bool> WrapDp = Binder.Register<bool, MultiNumberBox>(nameof(Wrap), BindMode.OneWay);
 
 	private Key keyHeld = Key.None;
+	private string? currentEditString = null;
 
 	public MultiNumberBox()
 	{
@@ -84,25 +85,29 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 	{
 		get
 		{
+			if (this.currentEditString != null)
+				return this.currentEditString;
+
 			return $"{Math.Round(this.X, 3)}, {Math.Round(this.Y, 3)}, {Math.Round(this.Z, 3)}";
 		}
 
 		set
 		{
 			string[] parts = value.Split(',');
-			if (parts.Length == 3)
+			if (parts.Length == 3
+				&& double.TryParse(parts[0], out var x)
+				&& double.TryParse(parts[1], out var y)
+				&& double.TryParse(parts[2], out var z))
 			{
-				if (double.TryParse(parts[0], out var x))
-					this.X = x;
-
-				if (double.TryParse(parts[1], out var y))
-					this.Y = y;
-
-				if (double.TryParse(parts[2], out var z))
-					this.Z = z;
+				this.currentEditString = null;
+				this.X = x;
+				this.Y = y;
+				this.Z = z;
 			}
-
-			this.PropertyChanged?.Invoke(this, new(nameof(MultiNumberBox.Display)));
+			else
+			{
+				this.currentEditString = value;
+			}
 		}
 	}
 
