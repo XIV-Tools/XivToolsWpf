@@ -6,12 +6,13 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:XivToolsWpf.Controls"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	Height="27"
+	Height="26"
 	Margin="1"
 	HorizontalAlignment="Stretch"
 	d:DesignWidth="128"
-	BorderBrush="{DynamicResource ControlBackgroundBrush}"
 	Loaded="UserControl_Loaded"
+	SnapsToDevicePixels="True"
+	UseLayoutRounding="True"
 	mc:Ignorable="d">
 
 
@@ -28,7 +29,7 @@
 			Grid.Row="0"
 			Grid.Column="0"
 			Margin="0,0,2,0"
-			Background="{Binding BorderBrush}"
+			Background="{DynamicResource ControlBackgroundBrush}"
 			CornerRadius="6,0,0,6"
 			Style="{DynamicResource XivToolsControlBorder}">
 			<Slider
@@ -54,14 +55,14 @@
 			Grid.Column="1"
 			Margin="0"
 			Padding="0"
-			Background="{Binding BorderBrush}"
+			Background="{DynamicResource ControlBackgroundBrush}"
 			CornerRadius="0, 6, 6, 0"
 			Style="{DynamicResource XivToolsControlBorder}">
 
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition MinWidth="45" />
+					<ColumnDefinition MinWidth="40" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
@@ -75,7 +76,7 @@
 				<TextBox
 					x:Name="InputBox"
 					Grid.Column="1"
-					Margin="0"
+					Margin="0,0,0,-1"
 					Background="Transparent"
 					BorderThickness="0"
 					Foreground="{DynamicResource ForegroundBrush}"
@@ -109,24 +110,21 @@
 					VerticalContentAlignment="Center"
 					Click="OnUpClick"
 					Content="+"
-					Style="{DynamicResource XivToolsRepeatButton}" />
+					Style="{DynamicResource XivTooRepeatButton}" />
 			</Grid>
 
 
 		</Border>
 
-		<Line
+		<Border
 			x:Name="ErrorDisplay"
 			Grid.Column="1"
-			Margin="0,0,0,0"
-			HorizontalAlignment="Stretch"
-			VerticalAlignment="Bottom"
-			Stretch="Fill"
-			Stroke="Red"
-			StrokeThickness="1"
-			Visibility="Collapsed"
-			X1="0"
-			X2="1" />
+			Margin="2"
+			Background="Transparent"
+			BorderBrush="Red"
+			BorderThickness="1"
+			Style="{DynamicResource XivToolsControlHoverBorder}"
+			Visibility="Collapsed" />
 
 	</Grid>
 </UserControl>
