@@ -85,7 +85,7 @@
 								Storyboard.TargetName="Content"
 								Storyboard.TargetProperty="Opacity"
 								From="1"
-								To="0"
+								To="0.25"
 								Duration="00:00:00.1" />
 						</Storyboard>
 					</BeginStoryboard>
