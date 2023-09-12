@@ -64,6 +64,7 @@
 					<Setter Property="Background" Value="Transparent" />
 					<Setter Property="VerticalContentAlignment" Value="Stretch" />
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="{x:Type TabItem}">
@@ -71,14 +72,11 @@
 								<ToggleButton
 									Margin="-2"
 									Background="Transparent"
+									Content="{TemplateBinding Header}"
+									ContentTemplate="{TemplateBinding HeaderTemplate}"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
 									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
-									Style="{DynamicResource XivToolsToggleButton}">
-
-									<TextBlock
-										Margin="6"
-										Text="{Binding Header, RelativeSource={RelativeSource AncestorType=TabItem}}" />
-								</ToggleButton>
+									Style="{DynamicResource XivToolsToggleButton}" />
 
 							</ControlTemplate>
 						</Setter.Value>
@@ -155,21 +153,19 @@
 					<Setter Property="Background" Value="Transparent" />
 					<Setter Property="VerticalContentAlignment" Value="Stretch" />
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+					<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
 					<Setter Property="Template">
 						<Setter.Value>
 							<ControlTemplate TargetType="{x:Type TabItem}">
 
 								<ToggleButton
-									Margin="-2,-1"
+									Margin="-2"
 									Background="Transparent"
+									Content="{TemplateBinding Header}"
+									ContentTemplate="{TemplateBinding HeaderTemplate}"
 									IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
 									IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=TabItem}}"
-									Style="{DynamicResource XivToolsToggleButton}">
-
-									<TextBlock
-										Margin="6"
-										Text="{Binding Header, RelativeSource={RelativeSource AncestorType=TabItem}}" />
-								</ToggleButton>
+									Style="{DynamicResource XivToolsToggleButton}" />
 
 							</ControlTemplate>
 						</Setter.Value>
