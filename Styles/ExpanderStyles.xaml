@@ -28,15 +28,16 @@
 			<Grid
 				x:Name="ExpandArea"
 				Grid.Row="1"
-				Grid.ColumnSpan="2">
+				Grid.ColumnSpan="2"
+				Margin="0,2,0,0">
 				<Grid.LayoutTransform>
 					<ScaleTransform x:Name="ExpandScale" ScaleY="0" />
 				</Grid.LayoutTransform>
 
 				<Rectangle
 					Width="24"
-					Height="6"
-					Margin="0,-6,0,0"
+					Height="8"
+					Margin="0,-7,0,0"
 					HorizontalAlignment="Right"
 					VerticalAlignment="Top"
 					Fill="{DynamicResource ControlBackgroundBrush}" />
