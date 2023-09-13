@@ -155,7 +155,9 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 
 	private static void OnValueChanged(MultiNumberBox sender, double value)
 	{
+		int caretIndex = sender.InputBox.CaretIndex;
 		sender.PropertyChanged?.Invoke(sender, new(nameof(Display)));
+		sender.InputBox.CaretIndex = caretIndex;
 	}
 
 	private async Task TickHeldKey()
