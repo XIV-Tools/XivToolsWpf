@@ -54,6 +54,17 @@
 		<Setter Property="UseLayoutRounding" Value="True" />
 	</Style>
 
+	<Style
+		x:Key="XivToolsKeyboardFocusBorder"
+		TargetType="{x:Type Border}">
+		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="CornerRadius" Value="6" />
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="Margin" Value="0" />
+		<Setter Property="UseLayoutRounding" Value="True" />
+	</Style>
 
 
 </ResourceDictionary>

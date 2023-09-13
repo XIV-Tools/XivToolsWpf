@@ -4,7 +4,6 @@
 namespace XivToolsWpf.Controls;
 
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using XivToolsWpf.DependencyProperties;
 
@@ -19,6 +18,8 @@ public class RelativeSlider : Slider
 	{
 		this.PreviewMouseDown += this.OnPreviewMouseDown;
 		this.PreviewMouseUp += this.OnPreviewMouseUp;
+		this.PreviewKeyDown += this.OnPreviewKeyDown;
+		this.PreviewKeyUp += this.OnPreviewKeyUp;
 		this.ValueChanged += this.OnValueChanged;
 
 		this.Value = 0;
@@ -56,5 +57,32 @@ public class RelativeSlider : Slider
 	{
 		this.relativeSliderStart = this.RelativeValue;
 		this.Value = 0;
+	}
+
+	private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+	{
+		this.relativeSliderStart = this.RelativeValue;
+
+		if (e.Key == Key.Left)
+		{
+			this.OnDecreaseSmall();
+			e.Handled = true;
+		}
+		else if (e.Key == Key.Right)
+		{
+			this.OnIncreaseSmall();
+			e.Handled = true;
+		}
+	}
+
+	private void OnPreviewKeyUp(object sender, KeyEventArgs e)
+	{
+		this.relativeSliderStart = this.RelativeValue;
+
+		if (e.Key == Key.Left || e.Key == Key.Right)
+		{
+			e.Handled = true;
+			this.Value = 0;
+		}
 	}
 }

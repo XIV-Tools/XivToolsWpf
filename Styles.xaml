@@ -26,6 +26,9 @@
 		<ResourceDictionary Source="Styles/CheckBoxStyles.xaml" />
 		<ResourceDictionary Source="Styles/ListBoxStyles.xaml" />
 
+		<!--  Controls  -->
+		<ResourceDictionary Source="Controls/MultiNumberBoxStyles.xaml" />
+
 	</ResourceDictionary.MergedDictionaries>
 
 	<Style
@@ -89,8 +92,12 @@
 		TargetType="{x:Type Expander}" />
 
 	<Style
-		BasedOn="{StaticResource XivToolsTextBox}"
+		BasedOn="{StaticResource XivToolsMultiNumberBox}"
 		TargetType="{x:Type controls:MultiNumberBox}" />
+
+	<Style
+		BasedOn="{StaticResource XivToolsSlider}"
+		TargetType="{x:Type controls:Slider}" />
 
 	<Style
 		BasedOn="{StaticResource XivToolsSlider}"

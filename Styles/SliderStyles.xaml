@@ -161,9 +161,13 @@
 
 					<Grid>
 						<Border
-							Grid.RowSpan="2"
 							Background="{TemplateBinding Background}"
 							Style="{DynamicResource XivToolsControlBorder}" />
+
+						<Border
+							x:Name="KeyboardFocusBorder"
+							Opacity="0"
+							Style="{DynamicResource XivToolsKeyboardFocusBorder}" />
 
 						<Track
 							Name="PART_Track"
@@ -173,23 +177,36 @@
 								<RepeatButton
 									Margin="0,0,-6,0"
 									Command="Slider.DecreaseSmall"
+									Focusable="False"
+									KeyboardNavigation.IsTabStop="False"
 									Style="{StaticResource XivToolsSliderTrackButtonLeft}" />
 							</Track.DecreaseRepeatButton>
 							<Track.IncreaseRepeatButton>
 								<RepeatButton
 									Margin="-6,0,0,0"
 									Command="Slider.IncreaseSmall"
+									Focusable="False"
+									KeyboardNavigation.IsTabStop="False"
 									Style="{StaticResource XivToolsSliderTrackButtonRight}" />
 							</Track.IncreaseRepeatButton>
 							<Track.Thumb>
 								<Thumb
 									x:Name="Thumb"
 									VerticalAlignment="Stretch"
+									Focusable="False"
 									Foreground="{TemplateBinding Foreground}"
+									KeyboardNavigation.IsTabStop="False"
 									Style="{StaticResource XivToolsSliderThumb}" />
 							</Track.Thumb>
 						</Track>
 					</Grid>
+
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsKeyboardFocused" Value="True">
+							<Setter TargetName="KeyboardFocusBorder" Property="Opacity" Value="1" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
