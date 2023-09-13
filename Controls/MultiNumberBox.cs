@@ -24,6 +24,8 @@ public partial class MultiNumberBox : TextBox
 	public static readonly IBind<double> MaxDp = Binder.Register<double, MultiNumberBox>(nameof(Maximum), BindMode.OneWay);
 	public static readonly IBind<bool> WrapDp = Binder.Register<bool, MultiNumberBox>(nameof(Wrap), BindMode.OneWay);
 
+	public static readonly IBind<object> PrefixDp = Binder.Register<object, MultiNumberBox>(nameof(Prefix));
+
 	private Key keyHeld = Key.None;
 	private string? currentEditString = null;
 	private bool isPropagatingValueChange = false;
@@ -79,6 +81,12 @@ public partial class MultiNumberBox : TextBox
 	{
 		get => WrapDp.Get(this);
 		set => WrapDp.Set(this, value);
+	}
+
+	public object Prefix
+	{
+		get => PrefixDp.Get(this);
+		set => PrefixDp.Set(this, value);
 	}
 
 	public string Display
