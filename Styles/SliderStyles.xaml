@@ -6,71 +6,44 @@
 		x:Key="XivToolsSliderThumb"
 		TargetType="{x:Type Thumb}">
 
-		<Setter Property="Width" Value="10" />
-		<Setter Property="Height" Value="18" />
+		<Setter Property="Width" Value="12" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="OverridesDefaultStyle" Value="True" />
-		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
+		<Setter Property="Margin" Value="0" />
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="UseLayoutRounding" Value="True" />
+		<Setter Property="Cursor" Value="SizeWE" />
 
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Thumb}">
 
 					<Grid
-						HorizontalAlignment="Center"
-						VerticalAlignment="Center"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
 						UseLayoutRounding="True">
-						<Rectangle
-							Name="shadow"
-							Width="16"
-							Height="22"
-							Margin="-12"
-							Fill="{TemplateBinding Foreground}"
-							Opacity=".0"
-							RadiusX="3"
-							RadiusY="3"
-							UseLayoutRounding="True" />
-						<Rectangle
-							Name="grip"
-							Width="10"
-							Height="18"
-							Fill="{TemplateBinding Foreground}"
-							RadiusX="3"
-							RadiusY="3"
-							RenderTransformOrigin=".5,.5"
-							UseLayoutRounding="True" />
+
+						<Border
+							x:Name="Background"
+							Margin="0"
+							Background="{TemplateBinding Foreground}"
+							BorderBrush="{DynamicResource ControlBackgroundBrush}"
+							BorderThickness="2"
+							CornerRadius="3"
+							Style="{DynamicResource XivToolsControlHoverBorder}" />
 					</Grid>
 
 					<ControlTemplate.Triggers>
-						<Trigger Property="UIElement.IsMouseOver" Value="true">
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation
-											Storyboard.TargetName="shadow"
-											Storyboard.TargetProperty="Opacity"
-											To=".26"
-											Duration="0:0:0.2" />
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<DoubleAnimation
-											Storyboard.TargetName="shadow"
-											Storyboard.TargetProperty="Opacity"
-											To=".0"
-											Duration="0:0:0.2" />
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
+						<Trigger Property="IsMouseOver" Value="true">
+							<Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource ControlHighlightBrush}" />
 						</Trigger>
-						<Trigger Property="Thumb.IsDragging" Value="true" />
+						<Trigger Property="IsDragging" Value="True">
+							<Setter TargetName="Background" Property="Background" Value="{DynamicResource TrimBrush}" />
+						</Trigger>
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="grip" Property="Fill" Value="{DynamicResource MaterialDesignCheckBoxDisabled}" />
-							<Setter TargetName="grip" Property="Stroke" Value="{DynamicResource MaterialDesignCheckBoxDisabled}" />
+							<Setter Property="Opacity" Value="0.5" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 
@@ -79,126 +52,143 @@
 		</Setter>
 	</Style>
 
+
+	<ControlTemplate
+		x:Key="XivToolsSliderTrackButtonLeftTemplate"
+		TargetType="{x:Type RepeatButton}">
+
+		<Border
+			x:Name="Hover"
+			CornerRadius="4,0,0,4"
+			Style="{DynamicResource XivToolsControlHoverBorder}">
+			<Path
+				Margin="3"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Data="M 3,0 0,5 3,10"
+				Stroke="{DynamicResource ForegroundLightBrush}"
+				StrokeThickness="1" />
+		</Border>
+
+	</ControlTemplate>
+
+	<ControlTemplate
+		x:Key="XivToolsSliderTrackButtonRightTemplate"
+		TargetType="{x:Type RepeatButton}">
+		<Border
+			x:Name="Hover"
+			CornerRadius="0,4,4,0"
+			Style="{DynamicResource XivToolsControlHoverBorder}">
+			<Path
+				Margin="3"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Data="M 0,0 3,5 0,10"
+				Stroke="{DynamicResource ForegroundLightBrush}"
+				StrokeThickness="1" />
+
+		</Border>
+	</ControlTemplate>
+
+	<Style
+		x:Key="XivToolsSliderTrackButton"
+		TargetType="{x:Type RepeatButton}">
+		<Setter Property="Foreground" Value="{DynamicResource ControlHighlightBrush}" />
+		<Setter Property="Margin" Value="0" />
+		<Setter Property="Opacity" Value="0" />
+		<Setter Property="Cursor" Value="Hand" />
+
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetProperty="Opacity"
+								To="1"
+								Duration="0:00:00.150">
+								<DoubleAnimation.EasingFunction>
+									<SineEase EasingMode="EaseOut" />
+								</DoubleAnimation.EasingFunction>
+							</DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<DoubleAnimation
+								Storyboard.TargetProperty="Opacity"
+								To="0"
+								Duration="0:00:00.250">
+								<DoubleAnimation.EasingFunction>
+									<SineEase EasingMode="EaseIn" />
+								</DoubleAnimation.EasingFunction>
+							</DoubleAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style
+		x:Key="XivToolsSliderTrackButtonLeft"
+		BasedOn="{StaticResource XivToolsSliderTrackButton}"
+		TargetType="{x:Type RepeatButton}">
+		<Setter Property="Template" Value="{StaticResource XivToolsSliderTrackButtonLeftTemplate}" />
+	</Style>
+
+	<Style
+		x:Key="XivToolsSliderTrackButtonRight"
+		BasedOn="{StaticResource XivToolsSliderTrackButton}"
+		TargetType="{x:Type RepeatButton}">
+		<Setter Property="Template" Value="{StaticResource XivToolsSliderTrackButtonRightTemplate}" />
+	</Style>
+
 	<Style
 		x:Key="XivToolsSlider"
 		TargetType="{x:Type Slider}">
 
-		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
+		<Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
+		<Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+		<Setter Property="Height" Value="24" />
+		<Setter Property="Margin" Value="1" />
 
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Slider}">
 
 					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition
-								Height="Auto"
-								MinHeight="{TemplateBinding MinHeight}" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-
 						<Border
 							Grid.RowSpan="2"
+							Background="{TemplateBinding Background}"
 							Style="{DynamicResource XivToolsControlBorder}" />
 
-						<TickBar
-							Name="TopTick"
-							Grid.Row="0"
-							Height="4"
-							Margin="0,0,0,2"
-							Fill="{TemplateBinding Foreground}"
-							Placement="Top"
-							Visibility="Collapsed" />
-
-						<TickBar
-							Name="BottomTick"
-							Grid.Row="2"
-							Height="4"
-							Margin="0,2,0,0"
-							Fill="{TemplateBinding Foreground}"
-							Placement="Bottom"
-							Visibility="Collapsed" />
-
-						<Rectangle
-							Name="PART_SelectionRange"
-							Grid.Row="1"
-							Height="4.0"
-							Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-							Visibility="Hidden" />
-
 						<Track
 							Name="PART_Track"
-							Grid.Row="1">
+							Grid.Row="1"
+							Margin="0">
+							<Track.DecreaseRepeatButton>
+								<RepeatButton
+									Margin="0,0,-6,0"
+									Command="Slider.DecreaseSmall"
+									Style="{StaticResource XivToolsSliderTrackButtonLeft}" />
+							</Track.DecreaseRepeatButton>
+							<Track.IncreaseRepeatButton>
+								<RepeatButton
+									Margin="-6,0,0,0"
+									Command="Slider.IncreaseSmall"
+									Style="{StaticResource XivToolsSliderTrackButtonRight}" />
+							</Track.IncreaseRepeatButton>
 							<Track.Thumb>
 								<Thumb
 									x:Name="Thumb"
+									VerticalAlignment="Stretch"
 									Foreground="{TemplateBinding Foreground}"
 									Style="{StaticResource XivToolsSliderThumb}" />
 							</Track.Thumb>
 						</Track>
-
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style
-		x:Key="XivToolsSliderNoBorder"
-		TargetType="{x:Type Slider}">
-
-		<Setter Property="Foreground" Value="{DynamicResource TrimBrush}" />
-
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Slider}">
-
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition
-								Height="Auto"
-								MinHeight="{TemplateBinding MinHeight}" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-
-						<TickBar
-							Name="TopTick"
-							Grid.Row="0"
-							Height="4"
-							Margin="0,0,0,2"
-							Fill="{TemplateBinding Foreground}"
-							Placement="Top"
-							Visibility="Collapsed" />
-
-						<TickBar
-							Name="BottomTick"
-							Grid.Row="2"
-							Height="4"
-							Margin="0,2,0,0"
-							Fill="{TemplateBinding Foreground}"
-							Placement="Bottom"
-							Visibility="Collapsed" />
-
-						<Rectangle
-							Name="PART_SelectionRange"
-							Grid.Row="1"
-							Height="4.0"
-							Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"
-							Visibility="Hidden" />
-
-						<Track
-							Name="PART_Track"
-							Grid.Row="1">
-							<Track.Thumb>
-								<Thumb
-									x:Name="Thumb"
-									Foreground="{TemplateBinding Foreground}"
-									Style="{StaticResource XivToolsSliderThumb}" />
-							</Track.Thumb>
-						</Track>
-
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
