@@ -4,67 +4,6 @@
 	xmlns:converters="clr-namespace:XivToolsWpf.Converters">
 
 	<Style
-		x:Key="TransparentButton"
-		TargetType="Button">
-		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
-		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderBrush" Value="{DynamicResource TrimBrush}" />
-		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="HorizontalContentAlignment" Value="Center" />
-		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="Margin" Value="1" />
-		<Setter Property="Padding" Value="0" />
-		<Setter Property="MinWidth" Value="20" />
-		<Setter Property="MinHeight" Value="20" />
-		<Setter Property="SnapsToDevicePixels" Value="True" />
-
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="Button">
-
-					<Grid
-						x:Name="Content"
-						Cursor="Hand"
-						TextBlock.Foreground="{DynamicResource ForegroundLightBrush}">
-						<Border
-							x:Name="HoverBorder"
-							Opacity="0"
-							Style="{DynamicResource XivToolsControlHoverBorder}" />
-
-						<Border
-							x:Name="Border"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							CornerRadius="3" />
-
-						<ContentPresenter
-							Margin="{TemplateBinding Padding}"
-							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-							Content="{TemplateBinding Content}"
-							ContentStringFormat="{TemplateBinding ContentStringFormat}"
-							ContentTemplate="{TemplateBinding ContentTemplate}"
-							Focusable="False"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-
-					</Grid>
-
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="HoverBorder" Property="Opacity" Value="1" />
-						</Trigger>
-						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="Border" Property="Opacity" Value="0" />
-							<Setter TargetName="Content" Property="Opacity" Value="0.5" />
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
-	<Style
 		x:Key="LinkButton"
 		TargetType="Button">
 		<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}" />
@@ -262,11 +201,5 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
-
-	<Style
-		x:Key="TransparentIconButton"
-		BasedOn="{StaticResource XivToolsButton}"
-		TargetType="{x:Type Button}" />
 
 </ResourceDictionary>
