@@ -34,9 +34,10 @@
 			Style="{DynamicResource XivToolsControlBorder}">
 			<Slider
 				x:Name="InputSlider"
-				Margin="3,0,3,0"
+				Margin="0"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Center"
+				Background="Transparent"
 				Focusable="False"
 				IsSnapToTickEnabled="True"
 				Maximum="{Binding SliderMaximum}"
@@ -44,7 +45,6 @@
 				PreviewMouseDown="OnSliderPreviewMouseDown"
 				PreviewMouseMove="OnSliderMouseMove"
 				PreviewMouseUp="OnSliderPreviewMouseUp"
-				Style="{DynamicResource XivToolsSliderNoBorder}"
 				TickFrequency="{Binding TickFrequency}"
 				Value="{Binding SliderValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		</Border>
@@ -110,7 +110,7 @@
 					VerticalContentAlignment="Center"
 					Click="OnUpClick"
 					Content="+"
-					Style="{DynamicResource XivTooRepeatButton}" />
+					Style="{DynamicResource XivToolsRepeatButton}" />
 			</Grid>
 
 
