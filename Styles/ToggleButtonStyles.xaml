@@ -22,6 +22,11 @@
 				Style="{DynamicResource XivToolsControlHoverBorder}" />
 
 			<Border
+				x:Name="KeyboardFocusBorder"
+				Opacity="0"
+				Style="{DynamicResource XivToolsKeyboardFocusBorder}" />
+
+			<Border
 				x:Name="Border"
 				Height="2"
 				Margin="6,0,6,3"
@@ -56,6 +61,11 @@
 		</Grid>
 
 		<ControlTemplate.Triggers>
+
+			<Trigger Property="IsKeyboardFocused" Value="True">
+				<Setter TargetName="KeyboardFocusBorder" Property="Opacity" Value="1" />
+			</Trigger>
+
 			<Trigger Property="IsMouseOver" Value="true">
 
 				<Trigger.EnterActions>
