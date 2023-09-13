@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="clr-namespace:XivToolsWpf.Controls"
 	xmlns:converters="clr-namespace:XivToolsWpf.Converters">
 
 	<ResourceDictionary.MergedDictionaries>
@@ -86,6 +87,14 @@
 	<Style
 		BasedOn="{StaticResource XivToolsExpander}"
 		TargetType="{x:Type Expander}" />
+
+	<Style
+		BasedOn="{StaticResource XivToolsTextBox}"
+		TargetType="{x:Type controls:MultiNumberBox}" />
+
+	<Style
+		BasedOn="{StaticResource XivToolsSlider}"
+		TargetType="{x:Type controls:RelativeSlider}" />
 
 	<!--  Custom converters  -->
 	<converters:StringHasContentToVisibilityConverter x:Key="StringHasContentToVisibility" />

@@ -6,13 +6,14 @@ namespace XivToolsWpf.Controls;
 using PropertyChanged.SourceGenerator;
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using XivToolsWpf;
 using XivToolsWpf.DependencyProperties;
 
-public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
+public partial class MultiNumberBox : TextBox
 {
 	public static readonly IBind<double> XDp = Binder.Register<double, MultiNumberBox>(nameof(X), OnValueChanged);
 	public static readonly IBind<double> YDp = Binder.Register<double, MultiNumberBox>(nameof(Y), OnValueChanged);
@@ -25,19 +26,18 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 
 	private Key keyHeld = Key.None;
 	private string? currentEditString = null;
+	private bool isPropagatingValueChange = false;
 
 	public MultiNumberBox()
 	{
-		this.InitializeComponent();
-		this.InputBox.DataContext = this;
-
 		this.TickFrequency = 1;
 		this.Minimum = double.MinValue;
 		this.Maximum = double.MaxValue;
 		this.Wrap = false;
-	}
 
-	public event PropertyChangedEventHandler? PropertyChanged;
+		this.Text = this.Display;
+		this.TextChanged += this.OnTextChanged;
+	}
 
 	public double X
 	{
@@ -113,7 +113,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 
 	protected override void OnPreviewKeyDown(KeyEventArgs e)
 	{
-		if (!this.InputBox.IsKeyboardFocused)
+		if (!this.IsKeyboardFocused)
 			return;
 
 		if (e.Key == Key.Up || e.Key == Key.Down)
@@ -146,7 +146,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 
 	protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
 	{
-		if (!this.InputBox.IsFocused)
+		if (!this.IsFocused)
 			return;
 
 		e.Handled = true;
@@ -155,9 +155,21 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 
 	private static void OnValueChanged(MultiNumberBox sender, double value)
 	{
-		int caretIndex = sender.InputBox.CaretIndex;
-		sender.PropertyChanged?.Invoke(sender, new(nameof(Display)));
-		sender.InputBox.CaretIndex = caretIndex;
+		sender.isPropagatingValueChange = true;
+
+		int caretIndex = sender.CaretIndex;
+		sender.Text = sender.Display;
+		sender.CaretIndex = caretIndex;
+
+		sender.isPropagatingValueChange = false;
+	}
+
+	private void OnTextChanged(object sender, TextChangedEventArgs e)
+	{
+		if (this.isPropagatingValueChange)
+			return;
+
+		this.Display = this.Text;
 	}
 
 	private async Task TickHeldKey()
@@ -216,7 +228,7 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 			delta /= 10;
 
 		// Find which number block the caret is in
-		int caretIndex = this.InputBox.CaretIndex;
+		int caretIndex = this.CaretIndex;
 		string str = this.Display;
 		int boxNum = 0;
 		for (int i = 0; i < caretIndex; i++)
@@ -261,6 +273,6 @@ public partial class MultiNumberBox : UserControl, INotifyPropertyChanged
 		}
 
 		// restore the caret index as changing the display may reset it.
-		this.InputBox.CaretIndex = caretIndex;
+		this.CaretIndex = caretIndex;
 	}
 }
