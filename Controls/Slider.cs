@@ -10,6 +10,12 @@ public class Slider : System.Windows.Controls.Slider
 {
 	private MethodInfo? moveToNextTickMethod;
 
+	public Slider()
+	{
+		this.PreviewKeyDown += this.OnPreviewKeyDown;
+		this.PreviewKeyUp += this.OnPreviewKeyUp;
+	}
+
 	protected double GetChangeMultiplier()
 	{
 		if (Keyboard.IsKeyDown(Key.LeftShift))
@@ -56,5 +62,38 @@ public class Slider : System.Windows.Controls.Slider
 			return;
 
 		this.moveToNextTickMethod.Invoke(this, new object[] { direction });
+	}
+
+	protected virtual void OnPreviewKeyDown(object sender, KeyEventArgs e)
+	{
+		if (e.Key == Key.Left)
+		{
+			this.OnDecreaseSmall();
+			e.Handled = true;
+		}
+		else if (e.Key == Key.Right)
+		{
+			this.OnIncreaseSmall();
+			e.Handled = true;
+		}
+		else if (e.Key == Key.Down)
+		{
+			this.MoveFocus(new(FocusNavigationDirection.Next));
+			e.Handled = true;
+		}
+		else if (e.Key == Key.Up)
+		{
+			this.MoveFocus(new(FocusNavigationDirection.Previous));
+			e.Handled = true;
+		}
+	}
+
+	protected virtual void OnPreviewKeyUp(object sender, KeyEventArgs e)
+	{
+		if (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Down || e.Key == Key.Up)
+		{
+			e.Handled = true;
+			this.Value = 0;
+		}
 	}
 }

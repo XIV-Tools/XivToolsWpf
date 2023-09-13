@@ -18,8 +18,6 @@ public class RelativeSlider : Slider
 	{
 		this.PreviewMouseDown += this.OnPreviewMouseDown;
 		this.PreviewMouseUp += this.OnPreviewMouseUp;
-		this.PreviewKeyDown += this.OnPreviewKeyDown;
-		this.PreviewKeyUp += this.OnPreviewKeyUp;
 		this.ValueChanged += this.OnValueChanged;
 
 		this.Value = 0;
@@ -35,6 +33,18 @@ public class RelativeSlider : Slider
 	{
 		get => RelativeRangeDp.Get(this);
 		set => RelativeRangeDp.Set(this, value);
+	}
+
+	protected override void OnPreviewKeyDown(object sender, KeyEventArgs e)
+	{
+		this.relativeSliderStart = this.RelativeValue;
+		base.OnPreviewKeyDown(sender, e);
+	}
+
+	protected override void OnPreviewKeyUp(object sender, KeyEventArgs e)
+	{
+		this.relativeSliderStart = this.RelativeValue;
+		base.OnPreviewKeyUp(sender, e);
 	}
 
 	private static void OnRelativeRangeChanged(RelativeSlider sender, double value)
@@ -57,32 +67,5 @@ public class RelativeSlider : Slider
 	{
 		this.relativeSliderStart = this.RelativeValue;
 		this.Value = 0;
-	}
-
-	private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-	{
-		this.relativeSliderStart = this.RelativeValue;
-
-		if (e.Key == Key.Left)
-		{
-			this.OnDecreaseSmall();
-			e.Handled = true;
-		}
-		else if (e.Key == Key.Right)
-		{
-			this.OnIncreaseSmall();
-			e.Handled = true;
-		}
-	}
-
-	private void OnPreviewKeyUp(object sender, KeyEventArgs e)
-	{
-		this.relativeSliderStart = this.RelativeValue;
-
-		if (e.Key == Key.Left || e.Key == Key.Right)
-		{
-			e.Handled = true;
-			this.Value = 0;
-		}
 	}
 }
