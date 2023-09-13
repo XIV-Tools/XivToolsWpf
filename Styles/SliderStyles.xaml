@@ -164,10 +164,7 @@
 							Background="{TemplateBinding Background}"
 							Style="{DynamicResource XivToolsControlBorder}" />
 
-						<Border
-							x:Name="KeyboardFocusBorder"
-							Opacity="0"
-							Style="{DynamicResource XivToolsKeyboardFocusBorder}" />
+
 
 						<Track
 							Name="PART_Track"
@@ -199,6 +196,12 @@
 									Style="{StaticResource XivToolsSliderThumb}" />
 							</Track.Thumb>
 						</Track>
+
+						<Border
+							x:Name="KeyboardFocusBorder"
+							IsHitTestVisible="False"
+							Opacity="0"
+							Style="{DynamicResource XivToolsKeyboardFocusBorder}" />
 					</Grid>
 
 					<ControlTemplate.Triggers>
