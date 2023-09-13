@@ -7,41 +7,74 @@
 		x:Key="XivToolsExpanderTemplate"
 		TargetType="{x:Type Expander}">
 
-		<Border
-			SnapsToDevicePixels="true"
-			Style="{DynamicResource XivToolsControlBorder}">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="26" />
+			</Grid.ColumnDefinitions>
 
-				<ToggleButton
-					x:Name="HeaderSite"
-					Grid.Row="0"
-					Padding="{TemplateBinding Padding}"
-					Background="Transparent"
-					Content="{TemplateBinding Header}"
-					Foreground="{TemplateBinding Foreground}"
-					IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-					Style="{DynamicResource XivToolsComboBoxButton}" />
+			<ContentPresenter
+				Grid.Row="0"
+				Grid.Column="0"
+				Margin="{TemplateBinding Padding}"
+				Content="{TemplateBinding Header}"
+				ContentTemplate="{TemplateBinding ContentTemplate}" />
 
-				<Grid
-					x:Name="ExpandArea"
-					Grid.Row="1">
-					<Grid.LayoutTransform>
-						<ScaleTransform x:Name="ExpandScale" ScaleY="0" />
-					</Grid.LayoutTransform>
+			<Grid
+				x:Name="ExpandArea"
+				Grid.Row="1"
+				Grid.ColumnSpan="2">
+				<Grid.LayoutTransform>
+					<ScaleTransform x:Name="ExpandScale" ScaleY="0" />
+				</Grid.LayoutTransform>
+
+				<Rectangle
+					Width="24"
+					Height="6"
+					Margin="0,-6,0,0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Top"
+					Fill="{DynamicResource ControlBackgroundBrush}" />
+
+				<Border
+					BorderBrush="{DynamicResource ControlBackgroundBrush}"
+					BorderThickness="1"
+					CornerRadius="6,0,6,6"
+					SnapsToDevicePixels="true">
 
 					<ContentPresenter
 						Margin="{TemplateBinding Padding}"
 						HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 						VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 						Focusable="false" />
-				</Grid>
+
+				</Border>
 			</Grid>
-		</Border>
+
+
+			<ToggleButton
+				x:Name="HeaderSite"
+				Grid.Row="0"
+				Grid.Column="1"
+				Margin="2,0,0,0"
+				Foreground="{TemplateBinding Foreground}"
+				IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+				Style="{DynamicResource XivToolsToggleButton}">
+				<Path
+					Margin="3"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Data="M 0,0 5,3 10,0"
+					Stroke="{DynamicResource ForegroundLightBrush}"
+					StrokeThickness="1" />
+			</ToggleButton>
+		</Grid>
+
 
 		<ControlTemplate.Triggers>
 			<Trigger Property="IsExpanded" Value="true">
